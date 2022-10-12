@@ -1,0 +1,21 @@
+/* Contains all the CSS for sections on main page */
+h1 {
+  font-size: 2.5rem;
+}
+
+.features {
+  height: 500px;
+  padding: 2rem;
+}
+
+#description {
+  font-size: 1.1rem;
+}
+
+#laptop {
+  float: right;
+  height: 50%;
+  width: 50%;
+  border-top-right-radius: 25%;
+  border-bottom-left-radius: 25%;
+}
