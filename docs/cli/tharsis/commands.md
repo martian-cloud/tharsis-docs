@@ -13,6 +13,7 @@ configure  Set, update, or remove a profile.
 destroy    Destroy the workspace state.
 group      Do operations on groups.
 plan       Create a speculative plan
+provider   Do operations on a terraform provider.
 run        Do operations on runs.
 sso        Log in to the OAuth2 provider and return an authentication token
 workspace  Do operations on workspaces.
@@ -296,6 +297,51 @@ tharsis plan \
 - `--destroy`: designate this as a _speculative_ destroy run, allows the user to view the outcome of destroying the workspace state. Optional.
 
 - `--tf-var` and `--env-var`: quickly allow creating simple `key=value` Terraform and environment variable pairs respectively. Use `--tf-var-file` or `--env-var-file` for [variable files](https://www.terraform.io/language/configuration-0-11/variables#variable-files) which also support HCL Terraform variables. Optional.
+
+</details>
+
+### Provider command
+
+Performs operations on a terraform provider.
+
+**Subcommands**:
+
+```
+create            Create a new provider.
+upload-version    Upload a new provider version to the provider registry.
+```
+
+#### provider create subcommand
+```shell title="provider create command with options"
+tharsis provider create \
+  --json \
+  --private \
+  --repository-url "..." \
+  full_path
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--json`: Show final output as JSON.
+- `--private`: Set private to false to allow all groups to view and use the provider (default=true).
+- `--repository-url`: The repository URL for this provider.
+
+  full_path ("your-group/tharsis")
+
+</details>
+
+#### provider upload-version subcommand
+```shell title="provider upload-version command with options"
+tharsis provider upload-version \
+  --directory-path
+  full_path
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--directory-path`: The path of the terraform provider's directory.
+
+  full_path ("your-group/tharsis")
 
 </details>
 
