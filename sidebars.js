@@ -182,7 +182,7 @@ const sidebars = {
         keywords: ["terraform", "tharsis", "provider"],
         slug: "provider",
       },
-      items: ["provider/intro"],
+      items: ["provider/intro", "provider/upload"],
     },
   ],
 };
