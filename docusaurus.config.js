@@ -69,8 +69,7 @@ const config = {
             label: "Docs",
           },
           {
-            // TODO: Replace with OSS repo when that happens.
-            href: "https://gitlab.com",
+            href: "https://gitlab.com/groups/infor-cloud/martian-cloud/tharsis",
             label: "It's open source",
             position: "right",
           },
