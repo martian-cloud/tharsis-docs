@@ -9,7 +9,7 @@ default:
       - stuck_or_timeout_failure
       - runner_system_failure
 
-publish docs:
+pages:
   image: node:lts
   before_script:
     - npm install --legacy-peer-deps
