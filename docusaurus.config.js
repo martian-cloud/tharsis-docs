@@ -10,7 +10,7 @@ const config = {
   titleDelimiter: "🚀",
   tagline: "Terraform deployments made easy.",
   url: String(process.env.DOCS_URL),
-  baseUrl: "/",
+  baseUrl: String(process.env.DOCS_BASE_URL),
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
