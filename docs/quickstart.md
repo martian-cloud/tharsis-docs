@@ -7,19 +7,41 @@ The following guide will walk us through the basics of creating a group, workspa
 
 To begin, download the latest CLI release. Learn [more](setup/cli/install).
 
+:::tip want to try it out locally?
+
+Pre-built Docker images are available in our GitLab registry and allow running the entire Tharsis suite in minutes!
+
+Check out our Docker installation guide [here](/docs/setup/docker/install.md).
+
+:::
+
 Use the CLI to run the following commands to get setup:
 
-```tharsis title="Login to default Tharsis API endpoint"
+<details><summary>Expand if using Docker compose locally</summary>
+
+```shell title="Create a profile to use with Docker"
+tharsis configure --endpoint-url http://localhost:6560 --profile dc
+```
+
+Above command will create a profile named `dc` to use against the Docker compose.
+
+```shell title="Sample usage"
+tharsis -p dc ...
+```
+
+</details>
+
+```shell title="Login to the default Tharsis API endpoint"
 tharsis sso login
 ```
 
-```tharsis title="Create a subgroup if needed"
+```shell title="Create a subgroup if needed"
 tharsis group create quickstart/sample
 ```
 
 > Creates subgroup `sample` under top-level group `quickstart`. Group path will be different for you.
 
-```tharsis title="Create a workspace"
+```shell title="Create a workspace"
 tharsis workspace create quickstart/sample/demo
 ```
 
@@ -40,7 +62,7 @@ resource "null_resource" "next" {
 }
 ```
 
-```tharsis title="Apply the Terraform module in quickstart/sample/demo workspace"
+```shell title="Apply the Terraform module in quickstart/sample/demo workspace"
 tharsis apply --directory-path "/path/to/module.tf" quick/sample/demo
 ```
 

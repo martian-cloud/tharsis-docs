@@ -3,14 +3,15 @@
 
 const lightCodeTheme = require("prism-react-renderer/themes/github");
 const darkCodeTheme = require("prism-react-renderer/themes/dracula");
+const defaultURI = "http://localhost:3000";
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Tharsis",
   titleDelimiter: "🚀",
   tagline: "Terraform deployments made easy.",
-  url: String(process.env.DOCS_URL),
-  baseUrl: String(process.env.DOCS_BASE_URL),
+  url: String(process.env.DOCS_URL || defaultURI),
+  baseUrl: String(process.env.DOCS_BASE_URL || "/"),
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
 
@@ -127,9 +128,7 @@ const config = {
             items: [
               {
                 label: "GitLab",
-
-                // TODO: Replace with GitLab OSS repo.
-                href: "https://gitlab.com",
+                href: "https://gitlab.com/groups/infor-cloud/martian-cloud/tharsis",
               },
             ],
           },

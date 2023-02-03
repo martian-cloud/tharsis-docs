@@ -3,7 +3,7 @@ title: Usage Guide
 description: "Using Terraform CLI with Tharsis"
 ---
 
-In addition to [Tharsis CLI](../tharsis/intro.md), the [Terraform CLI](https://www.terraform.io/cli) can be used with Tharsis as well.
+In addition to the [Tharsis CLI](../tharsis/intro.md), the [Terraform CLI](https://www.terraform.io/cli) can be used with Tharsis as well.
 
 :::info
 Please refer to [Terraform CLI documentation](https://www.terraform.io/cli) for the latest information.
@@ -11,7 +11,7 @@ Please refer to [Terraform CLI documentation](https://www.terraform.io/cli) for 
 
 ### Login
 
-```shell title="Authenticate using Tharsis API's hostname"
+```shell title="Authenticate using the Tharsis API's hostname"
 terraform login api.tharsis.example.com
 ```
 

@@ -25,13 +25,31 @@ Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [T
 
 &#10004; Support for uploading and downloading Terraform modules.
 
-&#10004; Written in [The Go Programming Language](https://go.dev/).
+&#10004; Version Control System (VCS) integration with GitHub and GitLab.
+
+&#10004; Terraform module and provider registries.
+
+&#10004; Written in [The Go Programming Language](https://go.dev/) and available as a [Docker image](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/container_registry).
+
+&#10004; Develop your own tools with the [Tharsis SDK for Go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go).
 
 #### Tharsis UI
 
-&#10004; Modern and user-friendly access to group, workspace management, access control, etc.
+&#10004; Simple, modern and intuitive.
 
-&#10004; Ability to trigger runs, view live logs, all with GraphQL subscriptions and WebSockets to provide event driven UI updates.
+&#10004; User-friendly access to group, workspace management, access control, etc.
+
+&#10004; Real-time activity events to associate resource modifications with users making them.
+
+&#10004; Effortless access to the Tharsis Terraform module and provider registries.
+
+&#10004; Access to GraphiQL editor to interface directly with the GraphQL API.
+
+&#10004; Ability to gracefully and forcefully cancel runs with a click of a button.
+
+&#10004; Ability to trigger runs, view live logs, all powered GraphQL subscriptions and WebSockets to provide event driven UI updates.
+
+&#10004; Written in [TypeScript](https://www.typescriptlang.org/) and available as a [Docker image](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-ui/container_registry).
 
 #### Tharsis CLI
 
@@ -41,4 +59,6 @@ Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [T
 
 &#10004; Ready for use in CI/CD pipeline.
 
-&#10004; Written in [The Go Programming Language](https://go.dev/) and available for all major platforms.
+&#10004; Support for most Tharsis API operations.
+
+&#10004; Written in [The Go Programming Language](https://go.dev/) and available for [all major platforms](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
