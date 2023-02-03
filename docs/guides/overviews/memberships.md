@@ -82,6 +82,6 @@ A team can also be assigned a role, making the process of access control more st
   - From the group / workspace details page, select `Members` tab on the left sidebar.
     <details><summary>Click here for a visual</summary>
 
-    ![Screenshot of Tharsis UI showing members page](/img/memberships/members.png "Members")
+    ![Screenshot of the Tharsis UI showing members page](/img/memberships/members.png "Members")
 
     </details>

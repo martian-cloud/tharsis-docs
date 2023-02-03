@@ -68,6 +68,22 @@ const sidebars = {
           },
           items: ["setup/cli/install"],
         },
+        {
+          type: "category",
+          label: "Docker",
+          link: {
+            type: "generated-index",
+            keywords: [
+              "docker",
+              "docker-compose",
+              "tharsis in docker",
+              "docker image",
+              "image",
+            ],
+            slug: "setup/docker",
+          },
+          items: ["setup/docker/install"],
+        },
       ],
     },
     {
@@ -88,7 +104,15 @@ const sidebars = {
             type: "generated-index",
             description:
               "A general overview of different features within Tharsis.",
-            keywords: ["overviews", "group", "workspace", "general"],
+            keywords: [
+              "overviews",
+              "group",
+              "workspace",
+              "general",
+              "module registry",
+              "provider registry",
+              "registry",
+            ],
             slug: "guides/overviews",
           },
           items: [
@@ -98,6 +122,8 @@ const sidebars = {
             "guides/overviews/managed_identities",
             "guides/overviews/memberships",
             "guides/overviews/runners",
+            "guides/overviews/module_registry",
+            "guides/overviews/provider_registry",
           ],
         },
         {
@@ -106,13 +132,7 @@ const sidebars = {
           link: {
             type: "generated-index",
             description: "Deploying from private registries.",
-            keywords: [
-              "deployments",
-              "private",
-              "registry",
-              "gitlab",
-              "github",
-            ],
+            keywords: ["deployments", "private", "registry", "terraform"],
             slug: "deployments",
           },
           items: ["guides/deployments/private_registry"],
@@ -182,7 +202,7 @@ const sidebars = {
         keywords: ["terraform", "tharsis", "provider"],
         slug: "provider",
       },
-      items: ["provider/intro", "provider/upload"],
+      items: ["provider/intro"],
     },
   ],
 };

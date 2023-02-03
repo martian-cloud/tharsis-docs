@@ -8,7 +8,7 @@ description: "An installation and build guide for the Tharsis CLI"
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-Tharsis CLI is supported on all major platforms and binaries are released via [GitLab releases](https://changeme.example.com).
+The [Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) supports all major platforms and binaries are released via [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -24,7 +24,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 #### Directly from GitLab Releases
 
-Latest binaries are available to download from [GitLab releases](https://changeme.example.com).
+Latest binaries are available to download from [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
 
 Download the respective binary for the platform and run using `./tharsis`.
 
@@ -74,11 +74,9 @@ Download the respective binary for the platform and run using `./tharsis`.
 
 To download the desired binary, copy the following command and replace `{access-token-here}` with a personal access token from GitLab, `{version-here}` with the desired version like 0.0.3 or 0.0.4 and `{platform}` with one of the respective values above.
 
-<!-- TODO: Change to actual project URL -->
-
 ```shell title="Copy the command and replace values"
 curl --header "PRIVATE-TOKEN: {access-token-here}" \
-  https://changeme.example.com/tharsis-cli/{version-here}/tharsis_{version-here}_{platform} \
+  https://gitlab.com/api/v4/projects/39923532/packages/generic/tharsis-cli/{version-here}/tharsis_{version-here}_{platform} \
   --output tharsis
 ```
 
@@ -91,7 +89,7 @@ It is helpful to replace the values prior to pasting in terminal.
 :::
 
 :::caution
-Installing Tharsis CLI on other platforms may be possible, but it is not recommended nor supported.
+Installing the Tharsis CLI on other platforms may be possible, but it is not recommended nor supported.
 :::
 
 ### Build from source
@@ -105,10 +103,8 @@ The CLI project includes a handy `Makefile` to help the build process be a littl
 - [Go](https://go.dev/doc/install)
 - [Make](https://www.gnu.org/software/make/)
 
-<!-- TODO: Replace with actual project URL -->
-
 ```shell title="Git clone the project to the local machine"
-git clone <project-url>
+git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api.git
 ```
 
 ```shell showLineNumbers title="Use make to compile a binary"
@@ -143,3 +139,7 @@ make build
 - Does the CLI auto-update?
 
   - At the moment, it does not. A new binary will have to be manually downloaded using the above methods.
+
+- Is the CLI binary signed?
+
+  - Not yet, although, this is on our roadmap.

@@ -8,7 +8,7 @@ description: "What are service accounts and when to use them"
 Service Accounts are used for Machine to Machine (M2M) authentication and use [OIDC](https://openid.net/connect/) federation to login to Tharsis. For instance, they allow a CI/CD pipeline to authenticate and interface with Tharsis.
 
 :::tip did you know...
-Service accounts allow Tharsis CLI to be directly integrated into a [CI/CD](https://en.wikipedia.org/wiki/CI/CD) pipeline. [Tharsis demo Terraform module](https://changeme.example.com) provides an example CI/CD configuration with GitLab to help you get started.
+Service accounts allow the Tharsis CLI to be directly integrated into a [CI/CD](https://en.wikipedia.org/wiki/CI/CD) pipeline. [Tharsis demo Terraform module](https://changeme.example.com) provides an example CI/CD configuration with GitLab to help you get started.
 :::
 
 :::tip Have a question?
@@ -19,7 +19,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### Create a service account
 
-1. At the moment, a service account can only be created with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
+1. At the moment, a service account can only be created with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
    <details><summary>Create service account GraphQL mutation</summary>
 
@@ -64,14 +64,14 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
    :::
 
    :::caution
-   Service account names may only contain **digits**, **lowercase** letters with a **dash** or an **underscore** in non-leading or trailing positions.
+   Service account names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
 
    A service account's name **cannot** be changed once created. It will have to be deleted and recreated which is **dangerous**.
    :::
 
    :::caution api is not yet stable!
 
-   Mutations are subject to change with improvements to Tharsis API.
+   Mutations are subject to change with improvements to the Tharsis API.
 
    :::
 
@@ -79,7 +79,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
       <details><summary>Successful service account creation GraphQL response</summary>
 
-   ```graphql
+   ```graphql showLineNumbers
    {
       "data": {
         "createServiceAccount": {
@@ -103,13 +103,13 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    :::info important!
 
-   Note down the service account `id` somewhere safe incase you would like to modify the service account after creation. This will not be necessary after after more service account support is added to Tharsis UI and is only needed for GraphQL mutations through `GraphiQL Editor`.
+   Note down the service account `id` somewhere safe incase you would like to modify the service account after creation. This will not be necessary after after more service account support is added to the Tharsis UI and is only needed for GraphQL mutations through `GraphiQL Editor`.
 
    :::
 
    :::caution api is not yet stable!
 
-   Responses are subject to change with improvements to Tharsis API.
+   Responses are subject to change with improvements to the Tharsis API.
 
    :::
 
@@ -118,13 +118,13 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 2. Add the service account as a member to a group or workspace:
 
    - Navigate to the group or workspace where this service account will be used and head to the `Members` page on the left and click on <span style={{ color: '#4db6ac' }}>`ADD MEMBER`</span>:
-     ![Screenshot of Tharsis UI showing members page](/img/service_accounts/members-page.png "Members page")
+     ![Screenshot of the Tharsis UI showing members page](/img/service_accounts/members-page.png "Members page")
 
    - Click on `Service Account` in `Add Member` page:
-     ![Screenshot of Tharsis UI showing add member page](/img/service_accounts/add-member-page.png "Add member page")
+     ![Screenshot of the Tharsis UI showing add member page](/img/service_accounts/add-member-page.png "Add member page")
 
    - Click on the `Service Account` field and select the appropriate service account that was just created, a role and click <span style={{ color: '#4db6ac' }}>`ADD MEMBER`</span>:
-     ![Screenshot of Tharsis UI showing add member details](/img/service_accounts/add-member-details.png "Add member details")
+     ![Screenshot of the Tharsis UI showing add member details](/img/service_accounts/add-member-details.png "Add member details")
 
 3. Update your GitLab pipeline to use the service account to authenticate with Tharsis:
 
@@ -132,7 +132,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### Update a service account
 
-1. At the moment, a service account can only be updated with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
+1. At the moment, a service account can only be updated with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
    Updating a service accounts allows for setting a new `description`, `issuer` and `boundClaims` in `oidcTrustPolicies` fields.
 
@@ -173,7 +173,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    :::caution api is not yet stable!
 
-   Mutations are subject to change with improvements to Tharsis API.
+   Mutations are subject to change with improvements to the Tharsis API.
 
    :::
 
@@ -201,7 +201,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    :::caution api is not yet stable!
 
-   Responses are subject to change with improvements to Tharsis API.
+   Responses are subject to change with improvements to the Tharsis API.
 
    :::
 
@@ -209,7 +209,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### Delete a service account
 
-1. At the moment, a service account can only be deleted with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
+1. At the moment, a service account can only be deleted with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
    <details><summary>Delete service account GraphQL mutation</summary>
 
@@ -237,7 +237,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    :::caution api is not yet stable!
 
-   Mutations are subject to change with improvements to Tharsis API.
+   Mutations are subject to change with improvements to the Tharsis API.
 
    :::
 
@@ -272,7 +272,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    :::caution api is not yet stable!
 
-   Response are subject to change with improvements to Tharsis API.
+   Response are subject to change with improvements to the Tharsis API.
 
    :::
 

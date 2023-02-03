@@ -5,7 +5,7 @@ description: "Using Tharsis Terraform Provider"
 
 ### What is the Tharsis Terraform Provider?
 
-[Tharsis Terraform Provider](https://changeme.example.com) provides a way to represent some of Tharsis' functionalities using Terraform.
+[Tharsis Terraform Provider](https://github.com/martian-cloud/terraform-provider-tharsis) provides a way to represent some of Tharsis' functionalities using Terraform.
 
 ### Using the provider
 

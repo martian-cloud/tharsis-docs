@@ -1,13 +1,13 @@
 ---
 title: Getting Started
-description: "Getting started with Tharsis CLI"
+description: "Getting started with the Tharsis CLI"
 ---
 
 ### What is the Tharsis CLI?
 
-Tharsis CLI is a command-line interface to the Tharsis remote Terraform backend.
+The Tharsis CLI is a command-line interface to the Tharsis remote Terraform backend.
 
-While many features are available in Tharsis UI, creating runs from Terraform modules, module registry, running in a CI/CD pipeline, etc. are all done with the CLI.
+While many features are available in the Tharsis UI, creating runs from Terraform modules, module registry, running in a CI/CD pipeline, etc. are all done with the CLI.
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -29,7 +29,7 @@ SSO authentication is meant to be used by human users interacting with Tharsis.
   1. temporarily opens up a web browser session.
   2. gets a token from the configured sign-in provider via a callback server.
   3. stores that in the settings file.
-  4. uses the token to authenticate against Tharsis API.
+  4. uses the token to authenticate against the Tharsis API.
 
 :::caution
 The token must be periodically renewed via the SSO process.  
@@ -60,7 +60,7 @@ Environment variables for service accounts take precedence over SSO authenticati
 
 The CLI includes profile system making it possible to easily switch back-and-forth between different Tharsis instances.
 
-Each profile has its own name, Tharsis API URL and state token from the SSO process, all stored in the settings file.
+Each profile has its own name, the Tharsis API URL and state token from the SSO process, all stored in the settings file.
 
 :::info
 The profile is a global option meaning a user can simply switch to another profile with just an option!
@@ -70,4 +70,4 @@ The profile is a global option meaning a user can simply switch to another profi
 
 - Is it possible to use Terraform CLI with Tharsis?
 
-  - Yes. Terraform CLI is compatible with Tharsis, although, it will only provide a subset of the features that Tharsis CLI offers. Learn [more](../terraform/usage.md).
+  - Yes. Terraform CLI is compatible with Tharsis, although, it will only provide a subset of the features that the Tharsis CLI offers. Learn [more](../terraform/usage.md).

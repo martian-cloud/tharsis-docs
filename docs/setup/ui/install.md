@@ -3,28 +3,30 @@ title: Installation and Build Guide
 description: "An installation and build guide for the Tharsis UI"
 ---
 
-At the moment, Tharsis API does not provide any binaries. However, it is possible to run it locally with the following instructions.
+The UI does not yet have any binaries. However, it is possible to run it locally with the following instructions.
 
 ### Build and run locally (Docker)
 
+:::tip
+Even easier, use the provided Docker images. Learn [more](../docker/install.md).
+:::
+
 #### Requirements
 
-- [Tharsis API](../api/install.md)
+- The [Tharsis API](../api/install.md)
 - [Node](https://nodejs.org/en/download/)
 
 #### Build from source
 
-<!-- TODO: Replace with actual project URL -->
-
-Prior to proceeding ensure Tharsis API is up and running.
+Prior to proceeding ensure the Tharsis API is up and running.
 
 ```shell title="Git clone the project to the local machine"
-git clone <project-url>
+git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-ui.git
 ```
 
 ```shell showLineNumbers title="Build and start the server with npm"
-cd <project-directory>
-npm install
+cd tharsis-ui
+npm install --legacy-peer-deps
 npm start
 ```
 
@@ -34,15 +36,8 @@ npm start
 
 <details><summary>Expand for a complete list and explanation</summary>
 
-|                                           Name | Generic Value | Description                               |
-| ---------------------------------------------: | :-----------: | ----------------------------------------- |
-|                   `REACT_APP_THARSIS_API_HOST` |   localhost   | Hostname for the Tharsis API.             |
-|                `REACT_APP_THARSIS_API_USE_SSL` |     false     | Boolean indicating if API is using SSL.   |
-|                   `REACT_APP_THARSIS_API_PORT` |     8000      | Port where the UI connects to the API.    |
-|           `REACT_APP_OAUTH_PROVIDER_AUTHORITY` |       -       | URL to the OAuth provider endpoint.       |
-|           `REACT_APP_OAUTH_PROVIDER_CLIENT_ID` |       -       | Client ID for the OAuth provider.         |
-|               `REACT_APP_OAUTH_PROVIDER_SCOPE` |       -       | Scope for the OAuth provider.             |
-| `REACT_APP_OAUTH_PROVIDER_LOGOUT_REDIRECT_URL` |       -       | OAuth provider's redirect URL for logout. |
-|                  `REACT_APP_JWT_SUBJECT_FIELD` |       -       | Subject field for JSON Web Token (JWT).   |
+|                             Name |     Generic Value     | Description              |
+| -------------------------------: | :-------------------: | ------------------------ |
+| `REACT_APP_THARSIS_API_ENDPOINT` | http://localhost:8000 | URL for the Tharsis API. |
 
 </details>

@@ -23,16 +23,16 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### Create a workspace
 
-Workspaces can be created directly via Tharsis UI or [Tharsis-CLI](../../cli/tharsis/intro.md).
+Workspaces can be created directly via the Tharsis UI or the [Tharsis-CLI](../../cli/tharsis/intro.md).
 
 1. From the group details page, click <span style={{ color: '#4db6ac' }}>`NEW WORKSPACE`</span>:
-   ![Screenshot of Tharsis UI showing new workspace button](/img/workspaces/create-workspace.png "Creating workspace")
+   ![Screenshot of the Tharsis UI showing new workspace button](/img/workspaces/create-workspace.png "Creating workspace")
 
 2. Provide the workspace name, optionally a short memorable description and click <span style={{ color: '#4db6ac' }}>`CREATE WORKSPACE`</span>:
-   ![Screenshot of Tharsis UI showing new workspace details page](/img/workspaces/new-workspace.png "New workspace details page")
+   ![Screenshot of the Tharsis UI showing new workspace details page](/img/workspaces/new-workspace.png "New workspace details page")
 
    :::caution
-   Workspace names may only contain **digits**, **lowercase** letters with a **dash** or an **underscore** in non-leading or trailing positions.
+   Workspace names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
 
    A workspace's name **cannot** be changed once created. It will have to be deleted and recreated which is **dangerous**.
    :::
@@ -40,22 +40,22 @@ Workspaces can be created directly via Tharsis UI or [Tharsis-CLI](../../cli/tha
 ### Update a workspace
 
 1. From the workspace details page, click <span style={{ color: '#4db6ac' }}>`EDIT`</span>:
-   ![Screenshot of Tharsis UI showing workspace details page edit button](/img/workspaces/update-workspace.png "Updating a workspace")
+   ![Screenshot of the Tharsis UI showing workspace details page edit button](/img/workspaces/update-workspace.png "Updating a workspace")
 
 2. Provide a new workspace description (can be empty) and click <span style={{ color: '#4db6ac' }}>`UPDATE WORKSPACE`</span>:
-   ![Screenshot of Tharsis UI showing update workspace details page](/img/workspaces/update-workspace-description.png "Update workspace details page")
+   ![Screenshot of the Tharsis UI showing update workspace details page](/img/workspaces/update-workspace-description.png "Update workspace details page")
 
 ### Delete a workspace
 
 1. From the workspace details page, select <span style={{ color: '#4db6ac' }}>&#9660;</span> next to <span style={{ color: '#4db6ac' }}>`EDIT`</span>, then `Delete Workspace`:
-   ![Screenshot of Tharsis UI showing delete workspace dropdown](/img/workspaces/delete-workspace.png "Deleting a workspace")
+   ![Screenshot of the Tharsis UI showing delete workspace dropdown](/img/workspaces/delete-workspace.png "Deleting a workspace")
 
 2. Click <span style={{ color: 'red' }}>`DELETE`</span>:
 
-   ![Screenshot of Tharsis UI showing delete workspace confirmation](/img/workspaces/delete-workspace-confirmation.png "Confirm to delete a workspace")
+   ![Screenshot of the Tharsis UI showing delete workspace confirmation](/img/workspaces/delete-workspace-confirmation.png "Confirm to delete a workspace")
 
 :::danger deletion is dangerous
-Deleting a workspace is an <u>**irreversible**</u> operation. Although, the API will try to prevent a deletion with potential deployments, an option to forcefully delete may be introduced in Tharsis UI in the near future to override that behavior.
+Deleting a workspace is an <u>**irreversible**</u> operation. Although, the API will try to prevent a deletion with potential deployments, an option to forcefully delete may be introduced in the Tharsis UI in the near future to override that behavior.
 
 Proceed with **extreme** caution as force deletion **permanently** removes <u>**ALL**</u> deployment state files and related information from Tharsis. If unsure, **do not** proceed.
 :::
@@ -107,7 +107,7 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
 
     :::caution api is not yet stable!
 
-    Mutations are subject to change with improvements to Tharsis API.
+    Mutations are subject to change with improvements to the Tharsis API.
 
     :::
 
@@ -136,7 +136,7 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
 
     :::caution api is not yet stable!
 
-    Responses are subject to change with improvements to Tharsis API.
+    Responses are subject to change with improvements to the Tharsis API.
 
     :::
 
@@ -152,13 +152,13 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
 
 - Where can I find my an overview of my deployed resources, outputs, state file etc.?
 
-  - Once a run completes its apply stage, the run populates the workspace details page. The user can view deployed resources, input variables, outputs, dependencies and of course the state file right from Tharsis UI.
+  - Once a run completes its apply stage, the run populates the workspace details page. The user can view deployed resources, input variables, outputs, dependencies and of course the state file right from the Tharsis UI.
     <details><summary>Populated workspace details page</summary>
 
-    ![Screenshot of Tharsis UI showing workspace details page](/img/workspaces/workspace-details.png "Workspace details page")
+    ![Screenshot of the Tharsis UI showing workspace details page](/img/workspaces/workspace-details.png "Workspace details page")
 
     </details>
 
 - How do I assign a managed identity to a workspace?
 
-  - See [assign a managed identity](./managed_identities.md#assign-a-managed-identity) for Tharsis UI.
+  - See [assign a managed identity](./managed_identities.md#assign-a-managed-identity) for the Tharsis UI.

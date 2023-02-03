@@ -24,10 +24,10 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 The following environment variables are made available via Tharsis job executor:
 
 - `THARSIS_GROUP_PATH`: full resource path of the group the job is executing inside.
-- `THARSIS_ENDPOINT`: URL to Tharsis API instance.
+- `THARSIS_ENDPOINT`: URL to the Tharsis API instance.
 - `TF_TOKEN_<api_host>`: used by Tharsis Terraform Provider.
 
 ### Frequently asked questions (FAQ)
 
 - Can I bring my own runner?
-  - At the moment, this is not supported. Tharsis currently uses its own runner, although, custom runners are on our roadmap.
+  - This is not yet supported. Tharsis currently uses its own runner, although, custom runners are on our roadmap.
