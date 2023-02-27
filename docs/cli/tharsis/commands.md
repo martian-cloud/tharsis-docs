@@ -8,17 +8,17 @@ description: "An introduction to the CLI commands"
 Currently, the CLI supports the following commands:
 
 ```
-apply            Apply a single run.
-configure        Set, update, or remove a profile.
-destroy          Destroy the workspace state.
-group            Do operations on groups.
-module           Do operations on a terraform module.
-plan             Create a speculative plan
-provider         Do operations on a terraform provider.
-run              Do operations on runs.
-service-account  Create an authentication token for a service account.
-sso              Log in to the OAuth2 provider and return an authentication token
-workspace        Do operations on workspaces.
+apply               Apply a single run.
+configure           Set, update, or remove a profile.
+destroy             Destroy the workspace state.
+group               Do operations on groups.
+module              Do operations on a terraform module.
+plan                Create a speculative plan
+run                 Do operations on runs.
+service-account     Create an authentication token for a service account.
+sso                 Log in to the OAuth2 provider and return an authentication token.
+terraform-provider  Do operations on a terraform provider.
+workspace           Do operations on workspaces.
 ```
 
 :::tip
@@ -526,49 +526,6 @@ tharsis plan \
 
 </details>
 
-### Provider command
-
-Performs operations on a terraform provider.
-
-**Subcommands**:
-
-```
-create            Create a new provider.
-upload-version    Upload a new provider version to the provider registry.
-```
-
-#### provider create subcommand
-
-```shell title="Create provider top-level/mid-level/provider"
-tharsis provider create \
-  --json \
-  --private \
-  --repository-url "..." \
-  top-level/mid-level/provider
-```
-
-<details><summary>Expand for explanation</summary>
-
-- `--json`: Show final output as JSON.
-- `--private`: Set private to false to allow all groups to view and use the provider (default=true).
-- `--repository-url`: The repository URL for this provider.
-
-</details>
-
-#### provider upload-version subcommand
-
-```shell title="Upload a version for provider top-level/mid-level/provider"
-tharsis provider upload-version \
-  --directory-path
-  top-level/mid-level/provider
-```
-
-<details><summary>Expand for explanation</summary>
-
-- `--directory-path`: The path of the terraform provider's directory.
-
-</details>
-
 ### Run command
 
 Performs operations on runs.
@@ -640,6 +597,49 @@ tharsis sso login
 :::tip did you know...
 `tharsis sso login` command can bypass the need to configure a profile if only using the default Tharsis API endpoint.
 :::
+
+### Terraform-provider command
+
+Performs operations on a terraform provider.
+
+**Subcommands**:
+
+```
+create            Create a new Terraform provider.
+upload-version    Upload a new Terraform provider version to the provider registry.
+```
+
+#### terraform-provider create subcommand
+
+```shell title="Create provider top-level/mid-level/provider"
+tharsis terraform-provider create \
+  --json \
+  --private \
+  --repository-url "..." \
+  top-level/mid-level/provider
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--json`: Show final output as JSON.
+- `--private`: Set private to false to allow all groups to view and use the Terraform provider (default=true).
+- `--repository-url`: The repository URL for this Terraform provider.
+
+</details>
+
+#### terraform-provider upload-version subcommand
+
+```shell title="Upload a version for provider top-level/mid-level/provider"
+tharsis terraform-provider upload-version \
+  --directory-path
+  top-level/mid-level/provider
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--directory-path`: The path of the terraform provider's directory.
+
+</details>
 
 ### Workspace command
 
