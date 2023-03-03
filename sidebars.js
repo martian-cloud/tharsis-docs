@@ -122,6 +122,7 @@ const sidebars = {
             "guides/overviews/managed_identities",
             "guides/overviews/memberships",
             "guides/overviews/runners",
+            "guides/overviews/vcs_providers",
             "guides/overviews/module_registry",
             "guides/overviews/provider_registry",
           ],
