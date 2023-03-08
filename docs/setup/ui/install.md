@@ -26,7 +26,7 @@ git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-ui.git
 
 ```shell showLineNumbers title="Build and start the server with npm"
 cd tharsis-ui
-npm install --legacy-peer-deps
+npm install
 npm start
 ```
 
