@@ -1,3 +1,22 @@
+include:
+  - template: Jobs/Dependency-Scanning.gitlab-ci.yml
+  - template: Jobs/SAST.gitlab-ci.yml
+  - template: Jobs/Secret-Detection.gitlab-ci.yml
+
+# Only start pipelines on Merge Requests, the default branch, and tags
+workflow:
+  rules:
+    - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+      when: always
+    - if: $CI_MERGE_REQUEST_IID
+      when: always
+    - if: $CI_COMMIT_TAG
+      when: always
+    - when: never
+
+stages:
+  - test
+
 default:
   tags:
     - oss
@@ -8,6 +27,18 @@ default:
       - api_failure
       - stuck_or_timeout_failure
       - runner_system_failure
+
+#################################
+##            RULES            ##
+#################################
+
+.on_merge_request_and_merged_events:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+
+#################################
+##            BUILD            ##
+#################################
 
 pages:
   image: node:lts
@@ -22,3 +53,25 @@ pages:
       - public
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+
+#################################
+##            SAST             ##
+#################################
+
+gemnasium-dependency_scanning:
+  variables:
+    DS_INCLUDE_DEV_DEPENDENCIES: "false"
+  rules:
+    - !reference [.on_merge_request_and_merged_events, rules]
+
+nodejs-scan-sast:
+  rules:
+    - !reference [.on_merge_request_and_merged_events, rules]
+
+semgrep-sast:
+  rules:
+    - !reference [.on_merge_request_and_merged_events, rules]
+
+secret_detection:
+  rules:
+    - !reference [.on_merge_request_and_merged_events, rules]
