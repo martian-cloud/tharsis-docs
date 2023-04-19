@@ -25,7 +25,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ---
 
-### Creating and Setting Up Your VCS Provider
+### Creating and Setting up a VCS Provider
 
 VCS providers are created and managed within [Groups](../overviews/groups.md). To view the list of VCS providers in a specific group, navigate to the group's page and select `VCS Providers` from the sidebar. VCS providers that have been created in the group will be listed. A search bar is available to find providers by name.
 
@@ -53,12 +53,10 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
 - Enter a unique name for the provider. Also, you may include a description (optional).
 
-- Enter a hostname (optional). If no hostname is entered, Tharsis will use the provider type's publicly available hostname.
+- Enter an API URL (optional). If no API URL is entered, Tharsis will use the provider type's publicly available API URL.
 
-  :::important Important
-
-  Only enter the hostname for the provider. Do not include the full URL of your host or any other parts of the URL. For example, if the URL to your host is `https://gitlab.com`, you should only enter `gitlab.com`.
-
+  :::note
+  A VCS provider's API URL is sometimes different than the primary URL. For example, GitHub uses `https://api.github.com` which is different from `https://github.com`.
   :::
 
 #### Automatically create webhooks?
@@ -80,7 +78,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
   :::
 
   :::caution
-  Once a VCS provider is created, the hostname and the ability to change the automatic creation of webhooks **cannot** be changed.
+  Once a VCS provider is created, the API URL and automatic creation of webhooks setting **cannot** be changed.
   :::
 
 #### Creating an OAuth Application
@@ -462,7 +460,7 @@ Responses are subject to change with improvements to the Tharsis API.
 
 - Why is the link to authorize my OAuth application not working after I have created a VCS provider?
 
-  - Check that your hostname is valid. Trailing characters in the hostname, for example, `gitlab.com/`, will generate an invalid URL.
+  - Check that your API URL is valid.
   - Try updating your OAuth credentials by reobtaining an ID and secret value from your provider. When you have these values, you can `Edit OAuth Credentials` and then `Reset OAuth Token` (see [Update A VCS Provider](#update-a-vcs-provider)).
 
 - I have a workspace VCS provider link set up, so why are my Git commits not triggering runs?

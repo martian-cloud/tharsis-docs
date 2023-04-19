@@ -15,6 +15,7 @@ group               Do operations on groups.
 module              Do operations on a terraform module.
 plan                Create a speculative plan
 run                 Do operations on runs.
+runner-agent        Do operations on runner agents.
 service-account     Create an authentication token for a service account.
 sso                 Log in to the OAuth2 provider and return an authentication token.
 terraform-provider  Do operations on a terraform provider.
@@ -44,12 +45,12 @@ tharsis [global options] [command name]   [options]         [arguments]
 tharsis     -p profile-name       apply     --auto-approve   path/to/workspace
 ```
 
-:::note
-Options, if any, **must** come before any arguments, they cannot be interchanged.
+:::info
+Options, if any, **must** come before any arguments. They **cannot** be interchanged.
 
 Global options, command options and arguments may not be necessary in some scenarios.
 
-Commands shown on this page assume the user has exported the CLI's directory to PATH. See Getting Started [FAQ](intro.md#frequently-asked-questions-faq)
+Commands shown on this page assume the user has exported the CLI's directory to `$PATH`.
 :::
 
 ### Apply command
@@ -160,6 +161,7 @@ create                  Create a new group.
 delete                  Delete a group.
 get                     Get a single group.
 list                    List groups.
+migrate                 Migrate a group.
 set-environment-vars    Set environment variables for a group.
 set-terraform-vars      Set terraform variables for a group.
 update                  Update a group.
@@ -196,7 +198,7 @@ tharsis group delete top-level/mid-level/bottom-level
 ```
 
 :::danger deletion is dangerous
-Deleting a group is an <u>**irreversible**</u> operation. Although, Tharsis will try to prevent a deletion where nested groups / workspaces are present, an option to forcefully delete may be introduced in the near future to override that behavior.
+Deleting a group is an <u>**irreversible**</u> operation. Although, Tharsis will try to prevent a deletion where nested groups / workspaces are present, the `--force` option will override that behavior.
 
 Proceed with **extreme** caution as force deletion **permanently** removes <u>**ALL**</u> nested groups and/or workspaces with their associated deployment states. If unsure, **do not** proceed.
 :::
@@ -229,6 +231,26 @@ tharsis group list \
 - `--parent-path`: include only subgroups under top-level group. Optional.
 
 </details>
+
+#### group migrate subcommand
+
+```shell title="Migrate group mid-level to another parent group named spectre"
+tharsis group migrate \
+  --new-parent-path spectre \
+  --json \
+  top-level/mid-level
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--json`: display final output in formatted JSON. Optional.
+- `--new-parent-path`: path of the new parent this group will move to. Required if not using `--to-top-level`.
+
+</details>
+
+:::caution Migrating a group can be a destructive operation!
+Although, all the resources _within_ the group and child groups are automatically migrated to the new group path, <u>**any**</u> inherited resource assignments, such as, managed identities, service accounts, etc. that are **not** available in the new group hierarchy **<u>will automatically be removed</u>**. However, this will not apply if the group is being migrated to a sibling group or within the current group's hierarchy since those resources are already available.
+:::
 
 #### group set-environment-vars subcommand
 
@@ -546,6 +568,86 @@ tharsis run cancel [run id]
 A run must receive a graceful cancellation request prior to a forced cancellation.
 :::
 
+### Runner-agent command
+
+Performs operations on [runner agents](/docs/guides/overviews/runner_agents.md) used for launching Terraform jobs.
+
+**Subcommands**:
+
+```
+assign-service-account      Assign a service account to a runner agent.
+create                      Create a new runner agent.
+delete                      Delete a runner agent.
+get                         Get a single runner agent.
+unassign-service-account    Unassign a service account to a runner agent.
+update                      Update a runner agent.
+```
+
+#### runner-agent assign-service-account subcommand
+
+```shell title="Assign service account to runner agent gitlab"
+tharsis runner-agent assign-service-account top-level/account top-level/gitlab
+```
+
+#### runner-agent create subcommand
+
+```shell title="Create runner agent gitlab in group top-level"
+tharsis runner-agent create \
+  --json \
+  --description "A new runner agent named gitlab" \
+  --group-path "top-level" \
+  --runner-name "gitlab"
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--json`: display final output in formatted JSON. Optional.
+- `--description`: a short description for the runner agent being created. Optional.
+- `--group-path`: full path to the group where runner agent will be created. Required.
+- `--runner-name`: name of the new runner agent. Required.
+
+</details>
+
+:::caution
+Runner agent names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
+
+A runner agent's name **cannot** be changed once created. It will have to be deleted and recreated which is **dangerous**.
+:::
+
+#### runner-agent delete subcommand
+
+```shell title="Delete a runner agent"
+tharsis runner-agent delete [id]
+```
+
+:::danger deletion is dangerous
+Deleting a runner agent is an <u>**irreversible**</u> operation. Tharsis will <u>**not**</u> prevent a deletion!
+:::
+
+#### runner-agent get subcommand
+
+```shell title="Get a runner agent"
+tharsis runner-agent get --json [id]
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--json`: display final output in formatted JSON. Optional.
+
+</details>
+
+#### runner-agent unassign-service-account subcommand
+
+```shell title="Unassign service account from runner agent gitlab"
+tharsis runner-agent unassign-service-account top-level/account top-level/gitlab
+```
+
+#### runner-agent update subcommand
+
+```shell title="Update runner agent to have no description"
+tharsis runner-agent update [id]
+```
+
 ### Service-account command
 
 Performs operations on [service accounts](/docs/guides/overviews/service_accounts.md) used for Machine-to-Machine (M2M) authentication.
@@ -631,7 +733,7 @@ tharsis terraform-provider create \
 
 ```shell title="Upload a version for provider top-level/mid-level/provider"
 tharsis terraform-provider upload-version \
-  --directory-path
+  --directory-path "..." \
   top-level/mid-level/provider
 ```
 
@@ -709,7 +811,7 @@ tharsis workspace delete top-level/mid-level/hero
 ```
 
 :::danger deletion is dangerous
-Deleting a workspace is an <u>**irreversible**</u> operation. Although, the API will try to prevent a deletion with potential deployments, a `--force` option will override that behavior.
+Deleting a workspace is an <u>**irreversible**</u> operation. Although, the API will try to prevent a deletion with potential deployments, the `--force` option will override that behavior.
 
 Proceed with **extreme** caution as force deletion **permanently** removes <u>**ALL**</u> deployment state files and related information from Tharsis. If unsure, **do not** proceed.
 :::
