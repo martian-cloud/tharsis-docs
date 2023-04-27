@@ -3,19 +3,189 @@ h1 {
   font-size: 2.5rem;
 }
 
-.features {
-  height: 500px;
-  padding: 2rem;
+#quickStartContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--ifm-color-content-inverse);
+  background-color: black;
 }
 
-#description {
+[data-theme='dark'] #quickStartContainer {
+  color: var(--ifm-color-content);
+}
+
+#quickStart {
+  text-align: center;
+  padding: 2% 0;
+}
+
+#quickStartDescription {
+  margin: auto;
+  width: 55%;
+  padding-bottom: 2%;
+}
+
+#quickStartButton {
+  padding: 0.2rem 1rem;
+  font-weight: var(--ifm-font-weight-bold);
+  font-size: var(--ifm-h3-font-size);
+  color: var(--ifm-color-content-inverse);
+  background-color: transparent;
+  border-radius: 15px;
+  border: var(--ifm-color-content-inverse) 2px solid;
+  transition-duration: var(--default-transition-duration);
+}
+
+#quickStartButton:hover {
+  color: var(--ifm-color-content);
+  background-color: var(--ifm-color-content-inverse);
+  text-decoration: none;
+}
+
+#quickStartButton:active {
+  box-shadow: 0px 20px 20px 0px rgba(46, 46, 46, 1);
+}
+
+[data-theme='dark'] #quickStartButton {
+  color: var(--ifm-color-content);
+  border: var(--ifm-color-content) 2px solid;
+}
+
+[data-theme='dark'] #quickStartButton:hover {
+  color: var(--ifm-color-content-inverse);
+  background-color: var(--ifm-color-content);
+}
+
+#featureContainer {
+  padding: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#featureCardsContainer {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  max-width: 70%;
+  padding: 1%;
+  border-radius: 0.5rem;
+  background-image: linear-gradient(to bottom right, white, black, black, black, white);
+}
+
+#featureCardItem {
+  margin: 5%;
+}
+
+#featureCardTitle {
+  padding-top: 3rem;
+  font-weight: var(--ifm-font-weight-bold);
   font-size: 1.1rem;
 }
 
-#laptop {
-  float: right;
-  height: 50%;
-  width: 50%;
-  border-top-right-radius: 25%;
-  border-bottom-left-radius: 25%;
+.featureCard {
+  display: flex;
+  background-color: var(--ifm-background-surface-color);
+  color: var(--ifm-color-content);
+  border-radius: 2%;
+  height: 100%;
+  opacity: 85%;
+  transition-duration: var(--default-transition-duration);
+}
+
+.featureCard:hover {
+  transform: scale(1.02);
+  opacity: unset;
+}
+
+.featureCard:active {
+  box-shadow: 0px 20px 20px 0px rgba(51, 51, 51, 0.8);
+}
+
+.featureCardBody {
+  position: relative;
+  font-weight: normal;
+  padding: 0 8%;
+}
+
+.featureCardArrow {
+  position: absolute;
+  right: 15px;
+  bottom: 10px;
+  text-align: right;
+  font-size: 1.5rem;
+}
+
+.featureCardLink:hover {
+  text-decoration: none;
+}
+
+#featureCardDescription {
+  padding-bottom: 8%;
+}
+
+#downloadContainer {
+  padding: 2%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(to bottom, #eee, #fff);
+}
+
+[data-theme='dark'] #downloadContainer {
+  background-image: linear-gradient(to bottom, #111, #222);
+}
+
+#downloadCard {
+  margin: 2%;
+  border: none;
+  background-color: transparent;
+}
+
+#downloadList {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+#downloadCardContainer {
+  padding: 1%;
+  min-width: 40%;
+}
+
+#downloadButton {
+  color: unset;
+  font-weight: var(--ifm-font-weight-bold);
+  font-size: small;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+#downloadButton:hover {
+  color: var(--ifm-navbar-link-hover-color);
+}
+
+@media screen and (max-width: 996px) {
+  #featureCardsContainer {
+    grid-template-columns: auto;
+    max-width: fit-content;
+  }
+
+  #featuresContainer {
+    padding: 0;
+  }
+
+  #downloadList {
+    grid-template-columns: auto;
+  }
+
+  #downloadContainer {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 1600px) {
+  #featureCardsContainer {
+    max-width: fit-content;
+  }
 }

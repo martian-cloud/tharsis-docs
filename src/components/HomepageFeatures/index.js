@@ -1,24 +1,38 @@
 import React from "react";
-import laptop from "@site/static/img/laptop.png";
 import styles from "./styles.module.css";
+import FeatureCards from "./feature_cards.tsx";
+import Link from "@docusaurus/Link";
+import Heading from "@theme/Heading";
+import DownloadCards from "./download_cards.tsx";
 
 export default function HomepageFeatures() {
   return (
-    <section className={styles.features}>
-      <div className="container">
-        <h1 className="section__title">Modern</h1>
-        <img id={styles.laptop} src={laptop}></img>
-        <p id={styles.description}>
-          Written in TypeScript, the Tharsis UI provides an elegant approach to
-          managing groups, workspaces, Terraform runs and much more. With
-          GraphQL subscriptions and WebSocket driven updates, the UI seamlessly
-          displays real-time changes to your Terraform infrastructure and offers
-          deeper insights via job logs.
-          <br />
-          <br />
-          Stay tuned for more changes...
-        </p>
-      </div>
-    </section>
+    <div>
+      <section id={styles.quickStartContainer}>
+        <div id={styles.quickStart}>
+          <Heading as="h1">New to Tharsis or Terraform?</Heading>
+          <p id={styles.quickStartDescription}>
+            Follow our quickstart guide to install and use the Tharsis CLI to
+            apply a basic Terraform module. It only takes a few minutes!
+          </p>
+          <Link
+            id={styles.quickStartButton}
+            to={"quickstart"}
+          >
+            Great! Show me how!
+          </Link>
+        </div>
+      </section>
+      <section id={styles.featureContainer}>
+        <Heading as="h1">Features at a glance</Heading>
+        <FeatureCards />
+      </section>
+      <section id={styles.downloadContainer}>
+        <Heading as="h1" style={{ marginRight: 30 }}>
+          Installation
+        </Heading>
+        <DownloadCards />
+      </section>
+    </div>
   );
 }
