@@ -14,17 +14,18 @@
   --ifm-color-primary-lighter: #359962;
   --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
+  --default-transition-duration: .2s;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #4db6ac;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
+  --ifm-color-primary: #2a7948;
+  --ifm-color-primary-dark: #266d41;
+  --ifm-color-primary-darker: #23633b;
+  --ifm-color-primary-darkest: #1c4e2f;
+  --ifm-color-primary-light: #37915b;
+  --ifm-color-primary-lighter: #37915b;
   --ifm-color-primary-lightest: #4fddbf;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 }
@@ -38,45 +39,25 @@
   --ifm-footer-background-color: #00201c;
 }
 
-/* Main page */
-[data-theme='dark'] .hero--primary {
-  background-color: #00201c;
-}
-
 .hero {
-  color: white;
-  height: 500px;
+  justify-content: center;
+  color: var(--ifm-color-content-inverse);
+  animation-name: heroAnimation;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
-.hero__title {
-  font-size: 6rem;
+[data-theme='dark'] .hero {
+  color: var(--ifm-color-content);
 }
 
-.hero__subtitle {
-  font-size: 3rem;
-}
+@keyframes heroAnimation {
+  0% {
+    background-color: var(--ifm-color-primary);
+  }
 
-/* Override button styling */
-[data-theme='light'] .button {
-  padding: 0.2rem 0.6rem;
-  color: white;
-  background-color: transparent;
-  border: white 2px solid;
-}
-
-[data-theme='light'] .button:hover {
-  color: black;
-  background-color: white;
-}
-
-[data-theme='dark'] .button:hover {
-  color: white;
-  background-color: black;
-}
-
-[data-theme='dark'] .button {
-  padding: 0.2rem 0.6rem;
-  color: white;
-  background-color: transparent;
-  border: white 2px solid;
+  25% {
+    background-color: var(--ifm-color-primary-darkest);
+  }
 }

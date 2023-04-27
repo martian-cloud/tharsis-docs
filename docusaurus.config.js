@@ -46,14 +46,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      announcementBar: {
-        id: "work_in_progress",
-        content:
-          "The documentation is a work in progress. Information is subject to change.",
-        backgroundColor: "#2e854f",
-        textColor: "#fff",
-        isCloseable: false,
-      },
       navbar: {
         title: "Tharsis",
         logo: {
