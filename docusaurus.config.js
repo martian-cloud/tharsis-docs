@@ -26,6 +26,18 @@ const config = {
     locales: ["en"],
   },
 
+  plugins: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} **/
+      {
+        indexBlog: false,
+        docsRouteBasePath: "/",
+        hashed: true
+      }
+    ]
+  ],
+
   presets: [
     [
       "classic",
