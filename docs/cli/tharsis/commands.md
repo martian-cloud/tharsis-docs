@@ -8,18 +8,19 @@ description: "An introduction to the CLI commands"
 Currently, the CLI supports the following commands:
 
 ```
-apply               Apply a single run.
-configure           Set, update, or remove a profile.
-destroy             Destroy the workspace state.
-group               Do operations on groups.
-module              Do operations on a terraform module.
-plan                Create a speculative plan
-run                 Do operations on runs.
-runner-agent        Do operations on runner agents.
-service-account     Create an authentication token for a service account.
-sso                 Log in to the OAuth2 provider and return an authentication token.
-terraform-provider  Do operations on a terraform provider.
-workspace           Do operations on workspaces.
+apply                      Apply a single run.
+configure                  Set, update, or remove a profile.
+destroy                    Destroy the workspace state.
+group                      Do operations on groups.
+module                     Do operations on a terraform module.
+plan                       Create a speculative plan
+run                        Do operations on runs.
+runner-agent               Do operations on runner agents.
+service-account            Create an authentication token for a service account.
+sso                        Log in to the OAuth2 provider and return an authentication token.
+terraform-provider         Do operations on a terraform provider.
+terraform-provider-mirror  Mirror Terraform providers from any Terraform registry.
+workspace                  Do operations on workspaces.
 ```
 
 :::tip
@@ -80,6 +81,14 @@ tharsis apply \
 - `--tf-var` and `--env-var`: quickly allow creating simple `key=value` Terraform and environment variable pairs respectively. Use `--tf-var-file` or `--env-var-file` for [variable files](https://www.terraform.io/language/configuration-0-11/variables#variable-files) which also support HCL Terraform variables.
 
 - `--auto-approve`: bypass the need to confirm changes to the Terraform configuration and automatically run the apply stage after planning is complete.
+
+- `--target`: allows you to specify the address of a target resource for this operation.  The option can be repeated on one command line to specify multiple target resources.  For a run with this option, only the specified resources will be considered and acted upon.
+
+:::caution The --target option is not recommended for frequent use
+This option should be used only in rare cases where it is necessary to operate on only a small subset of the total set of resources that would otherwise be affected.  When using this option, there is no guarantee of consistency between the contents of your .tf files and the final resource arrangement.
+:::
+
+- `--refresh`: allows you to disable the refresh operation that normally takes place at the beginning of an apply operation.  It accepts a boolean argument with a default value of true.  Generally this option should be used as --refresh=false.
 
 </details>
 
@@ -546,6 +555,14 @@ tharsis plan \
 
 - `--tf-var` and `--env-var`: quickly allow creating simple `key=value` Terraform and environment variable pairs respectively. Use `--tf-var-file` or `--env-var-file` for [variable files](https://www.terraform.io/language/configuration-0-11/variables#variable-files) which also support HCL Terraform variables. Optional.
 
+- `--target`: allows you to specify the address of a target resource for this operation.  The option can be repeated on one command line to specify multiple target resources.  For a run with this option, only the specified resources will be considered and acted upon.
+
+:::caution The --target option is not recommended for frequent use
+This option should be used only in rare cases where it is necessary to operate on only a small subset of the total set of resources that would otherwise be affected.  When using this option, there is no guarantee of consistency between the contents of your .tf files and the final resource arrangement.
+:::
+
+- `--refresh`: allows you to disable the refresh operation that normally takes place at the beginning of a plan operation.  It accepts a boolean argument with a default value of true.  Generally this option should be used as --refresh=false.
+
 </details>
 
 ### Run command
@@ -743,6 +760,126 @@ tharsis terraform-provider upload-version \
 
 </details>
 
+### Terraform-provider-mirror command
+
+The terraform-provider-mirror command allows interacting with the Tharsis Terraform provider mirror, which supports Terraform's Provider Network Mirror Protocol.  The Tharsis provider mirror hosts a set of Terraform providers for use within a group's hierarchy and gives root group owners full control on which providers, platform packages and registries are available via their mirror.  Subcommands help upload provider packages from any Terraform Provider Registry to the mirror.  Uploaded packages will be verified for legitimacy against the provider's Terraform Registry API.
+
+**Subcommands**:
+
+```
+delete-platform    Delete a Terraform provider platform from mirror.
+delete-version     Delete a Terraform provider version from mirror.
+get-version        Get a mirrored Terraform provider version.
+list-platforms     List all platforms associated with a mirrored provider version.
+list-versions      List Terraform Provider versions available via Tharsis provider mirror.
+sync               Upload Terraform provider platform packages to the provider mirror.
+```
+
+#### terraform-provider-mirror delete-platform subcommand
+
+```shell title="Delete a platform"
+tharsis terraform-provider-mirror delete-platform  <id> \
+```
+
+<details><summary>Expand for explanation</summary>
+
+Specify the ID of the platform to delete.
+
+</details>
+
+#### terraform-provider-mirror delete-version subcommand
+
+```shell title="Delete a version"
+tharsis terraform-provider-mirror delete-version <id> \
+  --force
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--force`: Force the deletion of a provider version from mirror.
+
+Specify the ID of the version to delete.
+
+</details>
+
+#### terraform-provider-mirror get-version subcommand
+
+```shell title="Get a version"
+tharsis terraform-provider-mirror get-version \
+  --json \
+  <id>
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--json`: Show final output as JSON.
+
+Specify the ID of the version to get.
+
+</details>
+
+#### terraform-provider-mirror list-platforms subcommand
+
+```shell title="List platforms"
+tharsis terraform-provider-mirror list-platforms \
+  --json \
+  <version_id>
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--json`: Show final output as JSON.
+
+Specify the ID of the version for which to list the platforms.
+
+</details>
+
+#### terraform-provider-mirror list-versions subcommand
+
+```shell title="List versions"
+tharsis terraform-provider-mirror list-versions \
+  --cursor \
+  --json \
+  --limit \
+  --sort-order \
+  <root-group-path>
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--cursor`: The cursor string for manual pagination.
+- `--json`: Show final output as JSON.
+- `--limit`: Maximum number of result elements to return.
+- `--sort-order`: Sort in this direction, ASC or DESC.
+
+Specify the name (same as the path) of the root group.
+
+</details>
+
+#### terraform-provider-mirror sync subcommand
+
+```shell title="sync"
+tharsis terraform-provider-mirror sync \
+  --platform="windows_amd64" \
+  --platform="linux_386" \
+  --group-path "top-level" \
+  registry.terraform.io/hashicorp/aws
+```
+
+<details><summary>Expand for explanation</summary>
+
+- `--group-path`: Full path to the root group where this Terraform provider version will be mirrored. Required.
+- `--platform`: Specifies which platform (os_arch) the packages should be uploaded for. Defaults to all supported.
+- `--version`: The semantic version of the target Terraform provider. Defaults to latest.
+
+Specify the Fully Qualified Name (FQN), which must be formatted as:
+
+   `{registry hostname}/{registry namespace}/{provider name}`
+
+   Example: `registry.terraform.io/hashicorp/aws`
+
+</details>
+
 ### Workspace command
 
 Performs operations on Tharsis workspaces, such as, creating, updating, deleting, creating variables, etc.
@@ -911,3 +1048,7 @@ tharsis workspace set-terraform-vars \
 - I have a service account token, how do I use it?
 
   - [Tharsis-sdk-go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go) and therefore, the [Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) support environment variables. See [here](./intro.md#service-account).
+
+- Can I use Terraform variables from the CLI's environment inside a run?
+
+  - Yes, you can use Terraform variables from the CLI's environment inside a run.  The environment variables names must have the "TF_VAR_" prefix.  That prefix is trimmed from the name of the Terraform variable that will be set to the value of the environment variable.  For example, if the CLI receives an environment variable named TF_VAR_Something with a value of "else", then there will be a Terraform variable named "Something" set to a value of "else".
