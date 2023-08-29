@@ -359,8 +359,8 @@ Responses are subject to change with improvements to the Tharsis API.
 
 - Who can create / update / delete managed identities?
 
-  - Deployer role or higher can modify managed identities.
-  - Viewer **cannot** modify managed identities.
+  - Owner role can modify managed identities.
+  - Deployer or lower **cannot** modify managed identities.
 
 - Can multiple managed identities of the same type be created in a group?
 

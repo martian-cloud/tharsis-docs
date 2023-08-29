@@ -104,7 +104,7 @@ The CLI project includes a handy `Makefile` to help the build process be a littl
 - [Make](https://www.gnu.org/software/make/)
 
 ```shell title="Git clone the project to the local machine"
-git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api.git
+git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli.git
 ```
 
 ```shell showLineNumbers title="Use make to compile a binary"
