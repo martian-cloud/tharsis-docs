@@ -57,19 +57,19 @@ A team can also be assigned a role, making the process of access control more st
     - Can view all workspace data except sensitive data like the state file and variables.
   - **Deployer**
     - Has all required permissions to configure and deploy modules.
-    - Can modify (create / update / delete) groups, workspaces, managed identities, service accounts, etc.
+    - Can modify (create / update / delete) groups, workspaces, service accounts, etc.
     - Can execute plan, apply and teardown operations
     - Primarily for day-to-day DevOps roles.
   - **Owner**
     - Group admin permissions.
-    - Can manage group memberships.
+    - Can manage group memberships, managed identities.
     - Sets group / workspace policies.
 
 - Custom roles <span style={{ color: 'red' }}>`(NOT YET SUPPORTED)`</span>
 
   - Useful when default roles are not sufficient.
   - Provide a mechanism for assigning granular permissions to roles.
-  - Can only be created in top-level groups.
+  - Can only be created by system admins.
 
 ### Frequently asked questions (FAQ)
 
