@@ -21,7 +21,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 1. At the moment, a service account can only be created with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
-   <details><summary>Create service account GraphQL mutation</summary>
+   <details>
+   <summary>Create service account GraphQL mutation</summary>
 
    ```graphql showLineNumbers
    mutation {
@@ -77,7 +78,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    </details>
 
-      <details><summary>Successful service account creation GraphQL response</summary>
+  <details>
+  <summary>Successful service account creation GraphQL response</summary>
 
    ```graphql showLineNumbers
    {
@@ -136,7 +138,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    Updating a service accounts allows for setting a new `description`, `issuer` and `boundClaims` in `oidcTrustPolicies` fields.
 
-   <details><summary>Update service account GraphQL mutation</summary>
+   <details>
+   <summary>Update service account GraphQL mutation</summary>
 
    ```graphql showLineNumbers
    mutation {
@@ -179,7 +182,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    </details>
 
-   <details><summary>Successful update service account GraphQL response</summary>
+   <details>
+   <summary>Successful update service account GraphQL response</summary>
 
    ```graphql
    {
@@ -211,7 +215,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 1. At the moment, a service account can only be deleted with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
-   <details><summary>Delete service account GraphQL mutation</summary>
+   <details>
+   <summary>Delete service account GraphQL mutation</summary>
 
    ```graphql showLineNumbers
    mutation {
@@ -249,7 +254,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
    </details>
 
-   <details><summary>Successful delete service account GraphQL response</summary>
+   <details>
+   <summary>Successful delete service account GraphQL response</summary>
 
    ```graphql
    {

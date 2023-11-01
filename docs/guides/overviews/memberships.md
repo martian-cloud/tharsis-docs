@@ -80,7 +80,8 @@ A team can also be assigned a role, making the process of access control more st
 - Where can I manage the members for a group or a workspace?
 
   - From the group / workspace details page, select `Members` tab on the left sidebar.
-    <details><summary>Click here for a visual</summary>
+    <details>
+    <summary>Click here for a visual</summary>
 
     ![Screenshot of the Tharsis UI showing members page](/img/memberships/members.png "Members")
 

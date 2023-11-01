@@ -36,7 +36,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 - Create the managed identity in the appropriate Tharsis group:
 
-    <details><summary>Extra step for a group's first managed identity</summary>
+    <details>
+    <summary>Extra step for a group's first managed identity</summary>
 
   From the group details page, click `Managed Identities` on the left sidebar and then <span style={{ color: '#4db6ac' }}>`NEW MANAGED IDENTITY`</span>:
   ![Screenshot of the Tharsis UI showing managed identity page](/img/managed_identities/new-managed-identity.png "Managed identity page")
@@ -62,7 +63,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 - Create the managed identity in the appropriate Tharsis group:
 
-    <details><summary>Extra step for a group's first managed identity</summary>
+    <details>
+    <summary>Extra step for a group's first managed identity</summary>
 
   From the group details page, click `Managed Identities` on the left sidebar and then <span style={{ color: '#4db6ac' }}>`NEW MANAGED IDENTITY`</span>:
   ![Screenshot of the Tharsis UI showing managed identity page](/img/managed_identities/new-managed-identity.png "Managed identity page")
@@ -191,7 +193,8 @@ Aliases cannot be...
 
 The UI does not yet support creating aliases, so we must interface with the API directly. The `GraphiQL Editor` allows querying and mutating data on the backend. To begin, simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
-<details><summary>Create Managed Identity Alias GraphQL mutation</summary>
+<details>
+<summary>Create Managed Identity Alias GraphQL mutation</summary>
 
 ```graphql showLineNumbers
 mutation {
@@ -239,7 +242,8 @@ Mutations are subject to change with improvements to the Tharsis API.
 
 </details>
 
-<details><summary>Successful Managed Identity Alias creation GraphQL response</summary>
+<details>
+<summary>Successful Managed Identity Alias creation GraphQL response</summary>
 
 ```graphql showLineNumbers
 {
@@ -286,7 +290,8 @@ Responses are subject to change with improvements to the Tharsis API.
 
 The UI does not yet support deleting aliases, so we must interface with the API directly. The `GraphiQL Editor` allows querying and mutating data on the backend. To begin, simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
-<details><summary>Delete Managed Identity Alias GraphQL mutation</summary>
+<details>
+<summary>Delete Managed Identity Alias GraphQL mutation</summary>
 
 ```graphql showLineNumbers
 mutation {
@@ -327,7 +332,8 @@ Proceed with **extreme** caution as anything making use of the alias will no lon
 
 </details>
 
-<details><summary>Successful Managed Identity Alias deletion GraphQL response</summary>
+<details>
+<summary>Successful Managed Identity Alias deletion GraphQL response</summary>
 
 ```graphql showLineNumbers
 {

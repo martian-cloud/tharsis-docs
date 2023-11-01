@@ -21,7 +21,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### Create a group
 
-Groups can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/intro.md).  
+Groups can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/intro.md).
 :::caution top-level groups
 **Top-level** groups may only be created by system administrators.
 :::
@@ -80,8 +80,9 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
   - See and understand the warning <span style={{ color: 'red' }}>`DELETION IS DANGEROUS`</span> in [deleting a group](#delete-a-group).
   - At the moment, a group can be forcefully deleted only with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`. On the left side of the editor copy and paste this mutation.
 
-   <details><summary>Force delete group GraphQL mutation</summary>
-   
+   <details>
+   <summary>Force delete group GraphQL mutation</summary>
+
    ```graphql showLineNumbers
     mutation {
       deleteGroup(
@@ -94,23 +95,24 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
       }
     }
     ```
-    
-   :::tip 
-   
+
+   :::tip
+
    Run with **&#9655;** (play) button in GraphiQL Editor.
-   
+
    :::
-   
+
    :::caution api is not yet stable!
-   
+
    Mutations are subject to change with improvements to the Tharsis API.
-   
+
    :::
-   
+
    </details>
 
   - If the force deletion is successful, the following response is returned:
-     <details><summary>Successful delete group GraphQL response</summary>
+     <details>
+     <summary>Successful delete group GraphQL response</summary>
 
     ```graphql
     {

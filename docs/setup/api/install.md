@@ -47,7 +47,8 @@ make run-docker
 
 ### Environment variables
 
-<details><summary>Expand for a list and explanation</summary>
+<details>
+<summary>Expand for a list and explanation</summary>
 
 |                                                     Name |        Generic Value        | Description                                                      |
 | -------------------------------------------------------: | :-------------------------: | ---------------------------------------------------------------- |

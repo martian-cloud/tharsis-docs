@@ -124,7 +124,8 @@ make build
 
   - Yes. If on the Linux system, and using [Bash shell](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) run the following command in a terminal window:
 
-    <details><summary>Export CLI path</summary>
+    <details>
+    <summary>Export CLI path</summary>
 
     ```bash
     echo "PATH=\$PATH:[binary path]" >> ~/.bashrc && source ~/.bashrc

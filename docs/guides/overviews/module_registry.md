@@ -29,7 +29,8 @@ Either the [API](/docs/setup/api/install.md) or the [CLI](/docs/cli/tharsis/intr
 
 The UI does not yet support creating modules, so we must interface with the API directly. The `GraphiQL Editor` allows querying and mutating data on the backend. To begin, simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
-<details><summary>Create Terraform module GraphQL mutation</summary>
+<details>
+<summary>Create Terraform module GraphQL mutation</summary>
 
 ```graphql showLineNumbers
 mutation {
@@ -75,7 +76,8 @@ Mutations are subject to change with improvements to the Tharsis API.
 
 </details>
 
-<details><summary>Successful module creation GraphQL response</summary>
+<details>
+<summary>Successful module creation GraphQL response</summary>
 
 ```graphql showLineNumbers
 {
@@ -127,7 +129,8 @@ When a Terraform module version is uploaded to the API, it will automatically ex
 
 The UI does not yet support creating module versions, so we must interface with the API directly. The `GraphiQL Editor` allows querying and mutating data on the backend. To begin, simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
-<details><summary>Create Terraform module version GraphQL mutation</summary>
+<details>
+<summary>Create Terraform module version GraphQL mutation</summary>
 
 ```graphql showLineNumbers
 mutation {
@@ -174,7 +177,8 @@ Mutations are subject to change with improvements to the Tharsis API.
 
 </details>
 
-<details><summary>Successful module version creation GraphQL response</summary>
+<details>
+<summary>Successful module version creation GraphQL response</summary>
 
 ```graphql showLineNumbers
 {
@@ -232,7 +236,8 @@ Cosign supports various cloud KMS services for signing to avoid managing private
 cosign attest-blob --tlog-upload=false --predicate [path to predicate.json file] --key [key-file] --hash [sha256sum of the module]  [path to the module] | base64 -w 0
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 Above command will attest a Terraform module specified by the parameters and output a Base64-encoded string that can be passed in for attestation data to either the API or the CLI.
 
@@ -248,7 +253,8 @@ Depending on the version of the Cosign binary, the above command may be slightly
 
 The UI does not yet support creating module attestations, so we must interface with the API directly. The `GraphiQL Editor` allows querying and mutating data on the backend. To begin, simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
 
-<details><summary>Create Terraform module attestation GraphQL mutation</summary>
+<details>
+<summary>Create Terraform module attestation GraphQL mutation</summary>
 
 ```graphql showLineNumbers
 mutation {
@@ -294,7 +300,8 @@ Mutations are subject to change with improvements to the Tharsis API.
 
 </details>
 
-<details><summary>Successful module attestation creation GraphQL response</summary>
+<details>
+<summary>Successful module attestation creation GraphQL response</summary>
 
 ```graphql showLineNumbers
 {

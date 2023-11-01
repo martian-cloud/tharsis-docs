@@ -45,11 +45,12 @@ The latest images are always available in our [GitLab container registry](https:
 docker run --rm -d -p 8000:8000 -p 8080:8080 registry.gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-all-in-one-docker
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 Above command will run the latest all-in-one Docker image in the background and bind the API to port 8000 and Keycloak IDP to port 8080.
 
-The Tharsis API is available at `http://localhost:8000`.  
+The Tharsis API is available at `http://localhost:8000`.
 Keycloak is available at `http://localhost:8080`.
 
 When the image starts, a default admin user with credentials `martian` is created automatically. A token can be requested from Keycloak. For [example](https://github.com/martian-cloud/terraform-provider-tharsis/blob/90366750099b2c3ceaa26e5db4dcf1429337b940/.github/workflows/test.yml#L91). Once authenticated, the [Tharsis CLI](../cli/install.md) can be used to issue commands to the API.
@@ -96,7 +97,8 @@ cd tharsis-api/docker-compose  # directory might be different!
 [sudo] docker logs tharsis-api # Optionally, check for Tharsis API logs.
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 Above will begin pulling the latest images from the appropriate sources and start them up in the background. Once all the services have finished booting up, we can visit the UI at `http://localhost:3000`, which should immediately redirect us to Keycloak for authentication. Just like the all-in-one docker image, an admin user is already created with credentials `martian`.
 
