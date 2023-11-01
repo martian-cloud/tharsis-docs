@@ -17,7 +17,8 @@ To use this provider, you must add the provider definition to your configuration
 provider "tharsis" {}
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 |           Name | Type   | Definition                                                           |
 | -------------: | ------ | -------------------------------------------------------------------- |
@@ -46,7 +47,8 @@ The `provider` block values take precedence over environment variables. It is **
 
 `tharsis_workspace_outputs` data source is used to retrieve outputs from workspace under a given path.
 
-<details><summary>Terraform module for retrieving outputs from another workspace</summary>
+<details>
+<summary>Terraform module for retrieving outputs from another workspace</summary>
 
 ```hcl showLineNumbers
 terraform {
@@ -86,7 +88,8 @@ output "str" {
 }
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 |               Name | Read-Only |     Type      | Required | Description                                         |
 | -----------------: | :-------: | :-----------: | :------: | --------------------------------------------------- |
@@ -100,7 +103,8 @@ output "str" {
 
 </details>
 
-<details><summary>Terraform module for retrieving JSON outputs from another workspace</summary>
+<details>
+<summary>Terraform module for retrieving JSON outputs from another workspace</summary>
 
 ```hcl showLineNumbers
 terraform {
@@ -140,7 +144,8 @@ output "object" {
 }
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 [`jsondecode`](https://www.terraform.io/language/functions/jsondecode) maps JSON values to [Terraform language values](https://www.terraform.io/language/expressions/types).
 

@@ -30,11 +30,12 @@ npm install
 npm start
 ```
 
-- Point web browser to <http://localhost:3000/> if not done automatically.
+- Point web browser to http://localhost:3000/ if not done automatically.
 
 ### Environment variables
 
-<details><summary>Expand for a complete list and explanation</summary>
+<details>
+<summary>Expand for a complete list and explanation</summary>
 
 |                             Name |     Generic Value     | Description              |
 | -------------------------------: | :-------------------: | ------------------------ |

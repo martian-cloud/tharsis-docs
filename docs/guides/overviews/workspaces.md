@@ -81,7 +81,8 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
   - See and understand the warning <span style={{ color: 'red' }}>`DELETION IS DANGEROUS`</span> in [deleting a workspace](#delete-a-workspace).
   - At the moment, a workspace can be forcefully deleted only with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL editor in Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`. On the left side of the editor copy and paste this mutation.
 
-    <details><summary>Force delete workspace GraphQL mutation</summary>
+    <details>
+    <summary>Force delete workspace GraphQL mutation</summary>
 
     ```graphql collapsed showLineNumbers
     mutation {
@@ -114,7 +115,8 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
     </details>
 
   - If the force deletion is successful, the following response is returned:
-    <details><summary>Successful delete workspace GraphQL response</summary>
+    <details>
+    <summary>Successful delete workspace GraphQL response</summary>
 
     ```graphql
     {
@@ -153,7 +155,8 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
 - Where can I find my an overview of my deployed resources, outputs, state file etc.?
 
   - Once a run completes its apply stage, the run populates the workspace details page. The user can view deployed resources, input variables, outputs, dependencies and of course the state file right from the Tharsis UI.
-    <details><summary>Populated workspace details page</summary>
+    <details>
+    <summary>Populated workspace details page</summary>
 
     ![Screenshot of the Tharsis UI showing workspace details page](/img/workspaces/workspace-details.png "Workspace details page")
 

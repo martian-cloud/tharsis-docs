@@ -392,7 +392,8 @@ A VCS provider can be linked to multiple workspaces.
 
 At the moment, VCS runs can only be created with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner of the Tharsis UI and select `GraphiQL Editor`.
 
-  <details><summary>Create VCS run via GraphQL mutation</summary>
+  <details>
+  <summary>Create VCS run via GraphQL mutation</summary>
 
 ```graphql showLineNumbers
 mutation {
@@ -422,7 +423,8 @@ Run with **&#9655;** (play) button in GraphiQL Editor.
 
   </details>
 
-  <details><summary>Successful VCS run creation GraphQL response</summary>
+  <details>
+  <summary>Successful VCS run creation GraphQL response</summary>
 
 ```graphql showLineNumbers
 {

@@ -20,7 +20,8 @@ tharsis apply \
   top-level/mid-level/hero
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--tf-var` and `--env-var`: quickly allow creating simple `key=value` Terraform and environment variable pairs respectively. Use `--tf-var-file` or `--env-var-file` for [variable files](https://www.terraform.io/language/configuration-0-11/variables#variable-files) which also support HCL Terraform variables. Optional.
 

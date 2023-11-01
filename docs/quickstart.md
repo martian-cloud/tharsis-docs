@@ -17,7 +17,8 @@ Check out our Docker installation guide [here](/docs/setup/docker/install.md).
 
 Use the CLI to run the following commands to get setup:
 
-<details><summary>Expand if using Docker compose locally</summary>
+<details>
+<summary>Expand if using Docker compose locally</summary>
 
 ```shell title="Create a profile to use with Docker"
 tharsis configure --endpoint-url http://localhost:6560 --profile dc

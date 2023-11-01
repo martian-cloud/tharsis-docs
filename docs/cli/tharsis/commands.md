@@ -74,7 +74,8 @@ tharsis apply \
   path/to/tharsis/workspace
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - Above command does not require changing into Terraform module's directory prior to apply command since `--directory-path` accomplishes the same thing.
 
@@ -108,7 +109,8 @@ tharsis configure \
   --profile personal
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--endpoint-url`: the Tharsis API endpoint. Can be "-" to delete the profile.
 - `--profile`: name for the profile.
@@ -149,7 +151,8 @@ tharsis destroy \
   path/to/tharsis/workspace
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - Above command does not require changing into Terraform module's directory prior to destroy command since `--directory-path` accomplishes the same thing.
 
@@ -186,7 +189,8 @@ tharsis group create \
   top-level/mid-level/bottom-level
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--if-not-exists`: create the group if its not there. Idempotent. Optional.
@@ -220,7 +224,8 @@ tharsis group get \
   top-level/mid-level/bottom-level
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 
@@ -234,7 +239,8 @@ tharsis group list \
   --parent-path top-level
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--parent-path`: include only subgroups under top-level group. Optional.
@@ -250,7 +256,8 @@ tharsis group migrate \
   top-level/mid-level
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--new-parent-path`: path of the new parent this group will move to. Required if not using `--to-top-level`.
@@ -269,7 +276,8 @@ tharsis group set-environment-vars \
   top-level/mid-level
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--env-var-file`: path to an environment variables file. Required.
 
@@ -283,7 +291,8 @@ tharsis group set-terraform-vars \
   top-level/mid-level
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--tf-var-file`: path to a .tfvars Terraform variables file. Required.
 
@@ -297,7 +306,8 @@ tharsis group update \
   top-level/mid-level/bottom-level
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 
@@ -334,7 +344,8 @@ tharsis module create \
   top-level/parameter/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--private`: prevent all groups from viewing and using the module (default=true). Optional.
@@ -361,7 +372,8 @@ tharsis module create-attestation \
   top-level/parameter/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--data`: the Base64-encoded DSSE envelop which contains the in-toto attestation. Required.
@@ -407,7 +419,8 @@ tharsis module get \
   top-level/parameter/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 
@@ -422,7 +435,8 @@ tharsis module get-version \
   top-level/parameter/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--version`: a semver compliant version tag to use as a filter. Optional.
@@ -437,7 +451,8 @@ tharsis module list \
   --limit 5
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--limit`: restrict number of modules returned. Optional.
@@ -453,7 +468,8 @@ tharsis module list-attestations \
   top-level/parameter/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--limit`: restrict number of module attestations returned. Optional.
@@ -469,7 +485,8 @@ tharsis module list-versions \
   top-level/parameter/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--limit`: restrict number of module attestations returned. Optional.
@@ -485,7 +502,8 @@ tharsis module update \
   top-level/parameter/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 
@@ -504,7 +522,8 @@ tharsis module update-attestation \
   [id]
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--description`: a short description for the module attestation being updated. Optional.
@@ -520,7 +539,8 @@ tharsis module upload-version \
   top-level/parameter/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--directory-path`: full path to the Terraform module's directory. Optional.
 - `--version`: a semver compliant version tag. Required.
@@ -547,7 +567,8 @@ tharsis plan \
   path/to/tharsis/workspace
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - Above command does not require changing into Terraform module's directory prior to plan command since `--directory-path` accomplishes the same thing.
 
@@ -616,7 +637,8 @@ tharsis runner-agent create \
   --runner-name "gitlab"
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--description`: a short description for the runner agent being created. Optional.
@@ -647,7 +669,8 @@ Deleting a runner agent is an <u>**irreversible**</u> operation. Tharsis will <u
 tharsis runner-agent get --json [id]
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 
@@ -684,7 +707,8 @@ tharsis service-account create-token \
   top-level/mid-level/runner
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
 - `--token`: initial authentication token from a OIDC provider in service account's trust policy. Required.
@@ -738,7 +762,8 @@ tharsis terraform-provider create \
   top-level/mid-level/provider
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: Show final output as JSON.
 - `--private`: Set private to false to allow all groups to view and use the Terraform provider (default=true).
@@ -754,7 +779,8 @@ tharsis terraform-provider upload-version \
   top-level/mid-level/provider
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--directory-path`: The path of the terraform provider's directory.
 
@@ -781,7 +807,8 @@ sync               Upload Terraform provider platform packages to the provider m
 tharsis terraform-provider-mirror delete-platform  <id> \
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 Specify the ID of the platform to delete.
 
@@ -794,7 +821,8 @@ tharsis terraform-provider-mirror delete-version <id> \
   --force
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--force`: Force the deletion of a provider version from mirror.
 
@@ -810,7 +838,8 @@ tharsis terraform-provider-mirror get-version \
   <id>
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: Show final output as JSON.
 
@@ -826,7 +855,8 @@ tharsis terraform-provider-mirror list-platforms \
   <version_id>
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--json`: Show final output as JSON.
 
@@ -845,7 +875,8 @@ tharsis terraform-provider-mirror list-versions \
   <root-group-path>
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--cursor`: The cursor string for manual pagination.
 - `--json`: Show final output as JSON.
@@ -866,7 +897,8 @@ tharsis terraform-provider-mirror sync \
   registry.terraform.io/hashicorp/aws
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--group-path`: Full path to the root group where this Terraform provider version will be mirrored. Required.
 - `--platform`: Specifies which platform (os_arch) the packages should be uploaded for. Defaults to all supported.
@@ -908,7 +940,8 @@ tharsis -p profile-name workspace assign-managed-identity \
   top-level/aws-deployment
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `-p`: profile name. Optional.
 - `--json`: display final output in formatted JSON. Optional.
@@ -926,7 +959,8 @@ tharsis workspace create \
   top-level/mid-level/bottom-level/hero
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--if-not-exists`: create the workspace if its not there. Idempotent. Optional.
 - `--description`: a short description for the workspace being created. Optional.
@@ -967,7 +1001,8 @@ tharsis -p profile-name workspace list \
   --limit 5
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `-p`: profile name. Optional.
 - `--json`: display final output in formatted JSON. Optional.
@@ -984,7 +1019,8 @@ tharsis workspace outputs \
   top-level/mid-level/hero
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--output-name`: filter to only include this output variable. Required for `--raw`, optional otherwise.
 - `--json`: display final output in formatted JSON. Optional.
@@ -999,7 +1035,8 @@ tharsis workspace set-environment-vars \
   top-level/mid-level/hero
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--env-var-file`: path to an environment variables file. Required.
 
@@ -1013,7 +1050,8 @@ tharsis workspace set-terraform-vars \
   top-level/mid-level/hero
 ```
 
-<details><summary>Expand for explanation</summary>
+<details>
+<summary>Expand for explanation</summary>
 
 - `--tf-var-file`: path to a .tfvars Terraform variables file. Required.
 
