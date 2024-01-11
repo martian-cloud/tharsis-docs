@@ -87,7 +87,7 @@ To configure the network mirror feature via the Tharsis CLI, do something simila
 
 ```tharsis terraform-provider-mirror sync --group-path example-group registry.terraform.io/hashicorp/aws```
 
-See [CLI terraform-provider-mirror command](../../cli/tharsis/commands/#terraform-provider-mirror-command) for more information about that CLI command.
+See [CLI terraform-provider-mirror command](/cli/tharsis/commands#terraform-provider-mirror-command) for more information about that CLI command.
 
 Additional detail about using a network mirror can be found here: https://servian.dev/terraform-local-providers-and-registry-mirror-configuration-b963117dfffa
 
