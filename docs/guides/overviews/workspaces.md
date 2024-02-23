@@ -62,106 +62,35 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
 
 ### Frequently asked questions (FAQ)
 
-- Who can create / update / delete workspaces?
+#### Who can create / update / delete workspaces?
 
-  - A deployer or higher (owner, administrator) can create a workspace.
-  - Viewer **cannot** modify a workspace.
-  - System administrator can create / delete **any** workspace.
+- A deployer or higher (owner, administrator) can create a workspace.
+- Viewer **cannot** modify a workspace.
+- System administrator can create / delete **any** workspace.
 
-- Is there a limit to how many workspaces can be created?
+#### Why can't I delete a workspace?
 
-  - At the moment, there is no limit.
+Either you don't have appropriate privileges, or the workspace has resources deployed and Tharsis prevented an accidental deletion.
 
-- Why can't I delete a workspace?
+#### I'm confident my Terraform configuration is correct but my runs keep failing. What could be a potential issue?
 
-  - Either you don't have appropriate privileges, or the workspace has resources deployed and Tharsis prevented an accidental deletion.
+If your configuration is correct and no other errors are suspected, it could be that you simply forgot to [assign a managed-identity](./managed_identities#assign-a-managed-identity) to your workspace. A deployment to AWS or Azure will fail if no IAM role can be assumed.
 
-- I don't see an option to **forcefully** delete my workspace in the UI, is there another way?
+#### How many jobs can simultaneously run on a workspace?
 
-  - See and understand the warning <span style={{ color: 'red' }}>`DELETION IS DANGEROUS`</span> in [deleting a workspace](#delete-a-workspace).
-  - At the moment, a workspace can be forcefully deleted only with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL editor in Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`. On the left side of the editor copy and paste this mutation.
+All jobs process in a first in, first out order. A workspace can only have one active job at any given moment.
 
-    <details>
-    <summary>Force delete workspace GraphQL mutation</summary>
+#### Where can I find my an overview of my deployed resources, outputs, state file etc.?
 
-    ```graphql collapsed showLineNumbers
-    mutation {
-      deleteWorkspace(
-        input: {
-          workspacePath: "the/full-path/to/the/workspace/goes/here"
-          force: true
-        }
-      ) {
-        problems {
-          type
-          message
-        }
-      }
-    }
-    ```
+Once a run completes its apply stage, the run populates the workspace details page. The user can view deployed resources, input variables, outputs, dependencies and of course the state file right from the Tharsis UI.
 
-    :::tip
+<details>
+<summary>Populated workspace details page</summary>
 
-    Run with **&#9655;** (play) button in GraphiQL Editor.
+![Screenshot of the Tharsis UI showing workspace details page](/img/workspaces/workspace-details.png "Workspace details page")
 
-    :::
+</details>
 
-    :::caution api is not yet stable!
+#### How do I assign a managed identity to a workspace?
 
-    Mutations are subject to change with improvements to the Tharsis API.
-
-    :::
-
-    </details>
-
-  - If the force deletion is successful, the following response is returned:
-    <details>
-    <summary>Successful delete workspace GraphQL response</summary>
-
-    ```graphql
-    {
-      "data": {
-        "deleteWorkspace": {
-          "problems": []  # This must be empty.
-        }
-      },
-      "extensions": {
-        "cost": {
-          "throttled": false,
-          "requestedQueryCost": 10,
-          "maxQueryCost": 0,
-          "remaining": 0
-        }
-      }
-    }
-    ```
-
-    :::caution api is not yet stable!
-
-    Responses are subject to change with improvements to the Tharsis API.
-
-    :::
-
-    </details>
-
-- I'm confident my Terraform configuration is correct but my runs keep failing. What could be a potential issue?
-
-  - If your configuration is correct and no other errors are suspected, it could be that you simply forgot to [assign a managed-identity](./managed_identities#assign-a-managed-identity) to your workspace. A deployment to AWS or Azure will fail if no IAM role can be assumed.
-
-- How many jobs can simultaneously run on a workspace?
-
-  - All jobs process in a first in, first out order. A workspace can only have one active job at any given moment.
-
-- Where can I find my an overview of my deployed resources, outputs, state file etc.?
-
-  - Once a run completes its apply stage, the run populates the workspace details page. The user can view deployed resources, input variables, outputs, dependencies and of course the state file right from the Tharsis UI.
-    <details>
-    <summary>Populated workspace details page</summary>
-
-    ![Screenshot of the Tharsis UI showing workspace details page](/img/workspaces/workspace-details.png "Workspace details page")
-
-    </details>
-
-- How do I assign a managed identity to a workspace?
-
-  - See [assign a managed identity](./managed_identities.md#assign-a-managed-identity) for the Tharsis UI.
+See [assign a managed identity](./managed_identities.md#assign-a-managed-identity) for the Tharsis UI.

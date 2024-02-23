@@ -11,6 +11,54 @@ Whether you're a Terraform veteran or a newcomer, the module registry is the per
 
 [Terraform modules](https://developer.hashicorp.com/terraform/language/modules) are collections of Terraform configuration `(*.tf)` files (that often perform the same task) packaged together to allow importing shared code into other Terraform resources. Rather than writing the same code multiple times, Terraform provides a way for importing existing modules and extending their capabilities as needed. The Tharsis Terraform Module Registry takes this notion a step further and allows sharing, versioning and attesting Terraform modules all within the Tharsis ecosystem and makes it much easier to collaborate and distribute modules at a greater scale.
 
+### Module Addresses
+
+Tharsis conforms to the [Terraform Module Registry](https://developer.hashicorp.com/terraform/internals/module-registry-protocol)'s address format. A module source is a string that specifies the location of a module.
+
+The format is:
+
+```
+<hostname>/<namespace>/<name>/<system>
+```
+
+| Component   | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `hostname`  | The hostname of the registry serving the module. For example, `registry.terraform.io`.                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `namespace` | The location of the module within the registry. For Tharsis, this is the path to an existing group like `networking/operations`.                                                                                                                                                                                                                                                                                                                                                                                       |
+| `name`      | The name of the module. It may only contain digits, lowercase letters with a hyphen or an underscore in non-leading or trailing positions.                                                                                                                                                                                                                                                                                                                                                                             |
+| `system`    | The remote system the module is _primarily_ targeted at. Generally, this will match the provider's official name (`aws`, `azurerm`, `google`, `oci`, `kubernetes`, etc.), but it's not a strict requirement and can be any keyword that makes sense for your use-case. For modules that target multiple systems, there can be multiple modules with the same name and namespace, but different system. For example, `networking/infra/aws` and `networking/infra/azurerm` would be two provider-specific abstractions. |
+
+For example:
+
+```
+tharsis.example.io/networking/ssm-params/aws
+```
+
+This is the hypothetical source address for a module named `ssm-params` in the `networking` namespace, targeting the `aws` system within the `tharsis.example.io` registry.
+
+:::note
+After creation the module source will only show the top-level group path, instead of the full source. For example, `networking/operations/ssm-params/aws` will be displayed as `networking/ssm-params/aws`. This is to match the Terraform Module Registry's address format. The `name` and `system` combination must be unique within the `namespace`.
+:::
+
+### Module Versions
+
+A module version is a specific release of a module. Each version is identified by a version string, which is a sequence of numbers separated by periods, such as `1.0.0`. We support the [Semantic Versioning 2.0](https://semver.org/spec/v2.0.0.html) specification.
+
+### Module Usage
+
+To use a module in a Terraform configuration, you must specify the module's source in the `module` block. The `source` argument is the module address and the `version` argument is the semver version string.
+
+```hcl showLineNumbers title="Using a module in a Terraform configuration"
+module "ssm-params" {
+  source  = "tharsis.example.io/networking/ssm-params/aws"
+  version = "0.1.0"
+}
+```
+
+:::tip
+You can always locate the usage example for any for any module version in the Tharsis UI by clicking on the `How to Use` tab in the module version details page.
+:::
+
 ### What attestation specification does Tharsis support?
 
 Tharsis currently supports the [in-toto](https://in-toto.io/) specification, a system that attests to the integrity and verifiability of a software supply chain. A compromised supply chain immensely decreases the overall security of a software product and threat actors can impact several users at once. in-toto helps a user verify if a step in the supply chain process was intended and performed by the right individual, thus, decreasing the likelihood of a compromised end product. Learn [more](https://github.com/in-toto/docs/blob/d416c1f334ac6b581f75c0fa65125fb434d7a610/in-toto-spec.md).
@@ -36,8 +84,8 @@ The UI does not yet support creating modules, so we must interface with the API 
 mutation {
   createTerraformModule(
     input: {
-      groupPath: "top-level"
-      name: "module-name"
+      groupPath: "networking/operations"
+      name: "ssm-params"
       system: "aws"
       private: true
     }
@@ -85,9 +133,9 @@ Mutations are subject to change with improvements to the Tharsis API.
     "createTerraformModule": {
       "module": {
         "id": "VE1PXzYwM2UxNGMyLTVmZjAtNDFkZi1iYTlhLTRjMzM3ZTJhMWE2MQ",
-        "name": "module-name",
+        "name": "ssm-params",
         "system": "aws",
-        "resourcePath": "top-level/module-name/aws"
+        "resourcePath": "networking/operations/ssm-params/aws"
       },
       "problems": []
     }
@@ -136,8 +184,8 @@ The UI does not yet support creating module versions, so we must interface with 
 mutation {
   createTerraformModuleVersion(
     input: {
-      modulePath: "top-level/module-name/aws"
-      version: "v0.1.0"
+      modulePath: "networking/operations/ssm-params/aws"
+      version: "0.1.0"
       shaSum: "47de3df1623f03038b484445b9e0efb139634dd48c5c13dcf4e06eeadf39a4d1"
     }
   ) {
@@ -260,7 +308,7 @@ The UI does not yet support creating module attestations, so we must interface w
 mutation {
   createTerraformModuleAttestation(
     input: {
-      modulePath: "top-level/module-name/aws"
+      modulePath: "networking/operations/ssm-params/aws"
       description: "This is an attestation for module-name"
       attestationData: "..."
     }

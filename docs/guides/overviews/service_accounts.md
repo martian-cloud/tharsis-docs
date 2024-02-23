@@ -8,7 +8,7 @@ description: "What are service accounts and when to use them"
 Service Accounts are used for Machine to Machine (M2M) authentication and use [OIDC](https://openid.net/connect/) federation to login to Tharsis. For instance, they allow a CI/CD pipeline to authenticate and interface with Tharsis.
 
 :::tip did you know...
-Service accounts allow the Tharsis CLI to be directly integrated into a [CI/CD](https://en.wikipedia.org/wiki/CI/CD) pipeline. [Tharsis demo Terraform module](https://changeme.example.com) provides an example CI/CD configuration with GitLab to help you get started.
+Service accounts allow the Tharsis CLI to be directly integrated into a [CI/CD](https://en.wikipedia.org/wiki/CI/CD) pipeline.
 :::
 
 :::tip Have a question?
@@ -19,103 +19,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### Create a service account
 
-1. At the moment, a service account can only be created with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
-
-   <details>
-   <summary>Create service account GraphQL mutation</summary>
-
-   ```graphql showLineNumbers
-   mutation {
-     createServiceAccount(
-       input: {
-         name: "enter-service-account-name-here"
-         description: "Enter a description of your service account here."
-         groupPath: "topGroup/nextGroup/.../lowestGroup"
-         oidcTrustPolicies: [
-           {
-             issuer: "https://git.example.com"
-             boundClaims: [
-               {
-                 name: "namespace_path"
-                 value: "path to git group that will be granted access"
-               }
-             ]
-           }
-         ]
-       }
-     ) {
-       serviceAccount {
-         id
-         resourcePath
-       }
-       problems {
-         type
-         message
-       }
-     }
-   }
-   ```
-
-   > Add the `name` you want to use for your service account, an optional `description`, the `groupPath` starting with your top-level group down to the group where this service account will be used. Also, add the value of the `boundClaims` from the service account trust policy.
-
-   :::tip
-
-   Run with **&#9655;** (play) button in GraphiQL Editor.
-
-   :::
-
-   :::caution
-   Service account names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
-
-   A service account's name **cannot** be changed once created. It will have to be deleted and recreated which is **dangerous**.
-   :::
-
-   :::caution api is not yet stable!
-
-   Mutations are subject to change with improvements to the Tharsis API.
-
-   :::
-
-   </details>
-
-  <details>
-  <summary>Successful service account creation GraphQL response</summary>
-
-   ```graphql showLineNumbers
-   {
-      "data": {
-        "createServiceAccount": {
-          "serviceAccount": {
-            "id": "U0FfNGIyYWNkMmYtYTAxNy00MzljLTliYzItYzc4NWU5MzM5NWE5",
-            "resourcePath": "test/a-sample-service-account"
-          },
-          "problems": [] # This must be empty.
-        }
-      },
-      "extensions": {
-        "cost": {
-          "throttled": false,
-          "requestedQueryCost": 10,
-          "maxQueryCost": 0,
-          "remaining": 0
-        }
-      }
-   }
-   ```
-
-   :::info important!
-
-   Note down the service account `id` somewhere safe incase you would like to modify the service account after creation. This will not be necessary after after more service account support is added to the Tharsis UI and is only needed for GraphQL mutations through `GraphiQL Editor`.
-
-   :::
-
-   :::caution api is not yet stable!
-
-   Responses are subject to change with improvements to the Tharsis API.
-
-   :::
-
-   </details>
+1. Navigate to the target's group's page and click on the `Service Accounts` tab to get to the service accounts page. Click on `NEW SERVICE ACCOUNT` button. Give it a name, an optional description, and add in information about Trusted Identity Providers with their issuer url and bound claims.
 
 2. Add the service account as a member to a group or workspace:
 
@@ -130,162 +34,64 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 3. Update your GitLab pipeline to use the service account to authenticate with Tharsis:
 
-   - Use the [Tharsis demo Terraform module](https://changeme.example.com) project to get started.
-
 ### Update a service account
 
-1. At the moment, a service account can only be updated with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
+To update a service account, navigate to the "Service Accounts" page, select the service account you want to update, and click on the "Edit" button.
 
-   Updating a service accounts allows for setting a new `description`, `issuer` and `boundClaims` in `oidcTrustPolicies` fields.
-
-   <details>
-   <summary>Update service account GraphQL mutation</summary>
-
-   ```graphql showLineNumbers
-   mutation {
-     updateServiceAccount(
-       input: {
-         id: "U0FfMWI0MDljOWMtMDgxMy00ZmJjLTliM2EtM2YzNmRkNDIwYmI5" # Replace me!
-         description: "This is the new description and its optional"
-         oidcTrustPolicies: {
-           issuer: "https://git.example.com"
-           boundClaims: [
-             {
-               name: "namespace_path"
-               value: "path to git group that will be granted access"
-             }
-           ]
-         }
-       }
-     ) {
-       problems {
-         type
-         message
-       }
-     }
-   }
-   ```
-
-   > Replace the `id` field value with the one you copied when creating the service account.
-
-   :::tip
-
-   Run with **&#9655;** (play) button in GraphiQL Editor.
-
-   :::
-
-   :::caution api is not yet stable!
-
-   Mutations are subject to change with improvements to the Tharsis API.
-
-   :::
-
-   </details>
-
-   <details>
-   <summary>Successful update service account GraphQL response</summary>
-
-   ```graphql
-   {
-      "data": {
-        "updateServiceAccount": {
-          "problems": [] # This must be empty.
-        }
-      },
-      "extensions": {
-        "cost": {
-          "throttled": false,
-          "requestedQueryCost": 10,
-          "maxQueryCost": 0,
-          "remaining": 0
-        }
-      }
-   }
-   ```
-
-   :::caution api is not yet stable!
-
-   Responses are subject to change with improvements to the Tharsis API.
-
-   :::
-
-   </details>
+You can update description, and Identity Provider information with bound claims. Click `Update Service Account` to save the changes.
 
 ### Delete a service account
 
-1. At the moment, a service account can only be deleted with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
+To delete a service account, navigate to the "Service Accounts" page, select the service account you want to delete, and click on the upside down caret next to the "Edit" button. Then click on the "Delete Service Account" button.
 
-   <details>
-   <summary>Delete service account GraphQL mutation</summary>
+:::danger
+Deleting a service account will break any integrations that rely on it such as CI/CD pipelines.
+:::
 
-   ```graphql showLineNumbers
-   mutation {
-     deleteServiceAccount(
-       input: { id: "U0FfNGIyYWNkMmYtYTAxNy00MzljLTliYzItYzc4NWU5MzM5NWE5" } # Replace me!
-     ) {
-       problems {
-         type
-         message
-       }
-       clientMutationId
-     }
-   }
-   ```
+### Assigning Roles to a Service Account
 
-   > Replace the `id` field value with the one you copied when creating the service account.
+After creating a service account, you can assign roles to it. Navigate to the target group or workspace page and click on the "Members" tab. Then click on the "Add Member" button.
 
-   :::tip
+Select "Service Account" from the options and search for the service account you want to assign a role to. Then select the role you want to assign to the service account and click `Add Member`. Generally, a `deployer` role is sufficient for most use cases.
 
-   Run with **&#9655;** (play) button in GraphiQL Editor.
-
-   :::
-
-   :::caution api is not yet stable!
-
-   Mutations are subject to change with improvements to the Tharsis API.
-
-   :::
-
-   :::danger deletion is dangerous
-
-   Deleting a service account is an <u>**irreversible**</u> operation. Anything making use of this service account will **not** be able to authenticate with Tharsis such as a CI/CD pipeline. Proceed with **extreme** caution.
-
-   :::
-
-   </details>
-
-   <details>
-   <summary>Successful delete service account GraphQL response</summary>
-
-   ```graphql
-   {
-      "data": {
-        "deleteServiceAccount": {
-          "problems": [], # This must be empty.
-          "clientMutationId": null
-        }
-      },
-      "extensions": {
-        "cost": {
-          "throttled": false,
-          "requestedQueryCost": 10,
-          "maxQueryCost": 0,
-          "remaining": 0
-        }
-      }
-   }
-   ```
-
-   :::caution api is not yet stable!
-
-   Response are subject to change with improvements to the Tharsis API.
-
-   :::
-
-   </details>
+:::warning
+Without a role, the service account will not be able to access any resources in the group or workspace.
+:::
 
 ### Frequently asked questions (FAQ)
 
-- Who can create / update / delete service accounts?
-  - Deployer role or higher can modify service accounts.
-  - Viewer **cannot** modify service accounts.
+#### Who can create / update / delete service accounts?
+
+Deployer or higher roles can create a service account.
+
+#### How do I use a service account with the Phobos CLI?
+
+See the [CLI documentation](/docs/cli/tharsis/intro.md#service-account) for more information.
+
+#### Why is my service account not working?
+
+Please make sure that the service account is a member of the group or workspace and has the necessary role assigned to it. Also, ensure that the service account has the correct Identity Provider information with bound claims.
+
+#### What are bound claims?
+
+Bound claims are used to verify the JSON Web Token (JWT) that is issued by the Identity Provider against the service account upon login. Some common claims are `aud`, `sub`, `namespace_path`, `job_id`, etc. depending on the Identity Provider.
+
+#### What is the difference between a service account and a user account?
+
+A service account is used for Machine to Machine (M2M) authentication and use [OIDC](https://openid.net/connect/) federation to login to Tharsis. For instance, they allow a CI/CD pipeline to authenticate and interface with Tharsis.
+
+#### How do I use a service account with the Tharsis CLI?
+
+The Tharsis CLI can be directly integrated into a [CI/CD](https://en.wikipedia.org/wiki/CI/CD) pipeline using a service account.
+
+#### Should I just give my service account an owner role?
+
+No, it is not recommended to give a service account an owner role. Generally, a `deployer` role is sufficient for most use cases. An owner role will allow the service account to manage the group, its members, and arbitrarily perform any action within the namespace. This goes against the principle of least privilege.
+
+#### Can a service account from one group access resources in another group?
+
+No, a service account can only access resources within the group it is a member of.
+
+#### Will the CLI periodically renew the token for the service account?
+
+Yes, the CLI will periodically renew the token for the service account. The token should be renewed a short period of time before it expires.

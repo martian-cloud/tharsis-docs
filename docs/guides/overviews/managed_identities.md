@@ -191,191 +191,27 @@ Aliases cannot be...
 
 #### Creating an alias
 
-The UI does not yet support creating aliases, so we must interface with the API directly. The `GraphiQL Editor` allows querying and mutating data on the backend. To begin, simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
-
-<details>
-<summary>Create Managed Identity Alias GraphQL mutation</summary>
-
-```graphql showLineNumbers
-mutation {
-  createManagedIdentityAlias(
-    input: {
-      name: "a-managed-identity-alias"
-      aliasSourcePath: "top-level/mid-level/source-identity"
-      groupPath: "top-level/mid-level-sibling"
-    }
-  ) {
-    managedIdentity {
-      id
-      resourcePath
-      isAlias
-      aliasSource {
-        id
-        resourcePath
-      }
-    }
-    problems {
-      message
-      field
-    }
-  }
-}
-```
+To create an alias, navigate to the target group's details page and click on `Managed Identities` on the left sidebar. Then click on the `Aliases` tab and select `CREATE ALIAS`. Give it a name and search for the group where the alias should be available and hit `CREATE ALIAS`. The alias is now available in the target group and can be assigned to a workspace.
 
 :::note
-
-Above mutation creates an alias in group `top-level/mid-level-sibling` of the source managed identity in `top-level/mid-level/source-identity`.
-
+An alias' data is inherited from the source managed identity and cannot be updated. Any changes to the source managed identity will be reflected in the alias.
 :::
-
-:::tip
-
-Run with **&#9655;** (play) button in GraphiQL Editor.
-
-:::
-
-:::caution api is not yet stable!
-
-Mutations are subject to change with improvements to the Tharsis API.
-
-:::
-
-</details>
-
-<details>
-<summary>Successful Managed Identity Alias creation GraphQL response</summary>
-
-```graphql showLineNumbers
-{
-  "data": {
-    "createManagedIdentityAlias": {
-      "managedIdentity": {
-        "id": "TV85YzhhMTIwYS05NDZlLTQyM2UtOTkzOC1jMDQwZGU3NGZhNjE",
-        "resourcePath": "top-level/mid-level-sibling/a-managed-identity-alias",
-        "isAlias": true,
-        "aliasSource": {
-          "id": "TV9jZmY1OGJiMS0wMmViLTQ4NTMtOGJkNy00NjNlMmYwNDc0MGE",
-          "resourcePath": "top-level/mid-level/source-identity"
-        }
-      },
-      "problems": []
-    }
-  },
-  "extensions": {
-    "cost": {
-      "throttled": false,
-      "requestedQueryCost": 11,
-      "maxQueryCost": 4000,
-      "remaining": 3989
-    }
-  }
-}
-```
-
-:::note
-
-The alias has its own unique resource path `top-level/mid-level-sibling/a-managed-identity-alias` with the `aliasSource` field indicating the source managed identity. This alias is now ready to be [assigned to any workspace](#assign-a-managed-identity) within that namespace.
-
-:::
-
-:::caution api is not yet stable!
-
-Responses are subject to change with improvements to the Tharsis API.
-
-:::
-
-</details>
 
 #### Deleting an alias
 
-The UI does not yet support deleting aliases, so we must interface with the API directly. The `GraphiQL Editor` allows querying and mutating data on the backend. To begin, simply click on your profile icon in top-right corner and select `GraphiQL Editor`.
-
-<details>
-<summary>Delete Managed Identity Alias GraphQL mutation</summary>
-
-```graphql showLineNumbers
-mutation {
-  deleteManagedIdentityAlias(
-    input: {
-      id: "TV85YzhhMTIwYS05NDZlLTQyM2UtOTkzOC1jMDQwZGU3NGZhNjE" # Replace me!
-      force: true
-    }
-  ) {
-    problems {
-      message
-      field
-    }
-  }
-}
-```
-
-> Replace the `id` field value with the one you copied when creating the alias.
-
-:::tip
-
-Run with **&#9655;** (play) button in GraphiQL Editor.
-
-:::
-
-:::caution api is not yet stable!
-
-Mutations are subject to change with improvements to the Tharsis API.
-
-:::
-
-:::danger deletion is dangerous
-
-Deleting a managed identity alias is an <u>**irreversible**</u> operation. Although, the API will try to prevent a deletion when the alias is assigned to a workspace, setting `force: true` will override that behavior.
-
-Proceed with **extreme** caution as anything making use of the alias will no longer be able to assume it. If unsure, **do not** proceed.
-:::
-
-</details>
-
-<details>
-<summary>Successful Managed Identity Alias deletion GraphQL response</summary>
-
-```graphql showLineNumbers
-{
-  "data": {
-    "deleteManagedIdentityAlias": {
-      "problems": []
-    }
-  },
-  "extensions": {
-    "cost": {
-      "throttled": false,
-      "requestedQueryCost": 10,
-      "maxQueryCost": 4000,
-      "remaining": 3990
-    }
-  }
-}
-```
-
-:::caution api is not yet stable!
-
-Responses are subject to change with improvements to the Tharsis API.
-
-:::
-
-</details>
+To delete an alias, navigate to the target group's details page and click on `Managed Identities` on the left sidebar. Then click on the `Aliases` tab and select the alias to be deleted. Select the alias and once on the alias details page, click on the `DELETE ALIAS` button. The alias is now deleted.
 
 ### Frequently asked questions (FAQ)
 
-- Who can create / update / delete managed identities?
+#### Who can create / update / delete managed identities?
 
-  - Owner role can modify managed identities.
-  - Deployer or lower **cannot** modify managed identities.
+- Owner role can modify managed identities.
+- Deployer or lower **cannot** modify managed identities.
 
-- Can multiple managed identities of the same type be created in a group?
+#### Can multiple managed identities of the same type be created in a group?
 
-  - Yes. However, multiple identities of the same type cannot be assigned to a workspace.
+Yes. However, multiple identities of the same type cannot be assigned to a workspace.
 
-- Is there a way to "mask" managed identities to prevent inheritance?
+#### Is there a way to "mask" managed identities to prevent inheritance?
 
-  - Not at the moment.
-
-- Is managed identity support available through the Tharsis CLI?
-
-  - Not yet, although, it is on our roadmap.
+Managed identity [access rules](#access-rules) can be used to limit who may assume the identity which achieves a similar effect.

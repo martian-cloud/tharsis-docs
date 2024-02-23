@@ -68,6 +68,6 @@ The profile is a global option meaning a user can simply switch to another profi
 
 ### Frequently asked questions (FAQ)
 
-- Is it possible to use Terraform CLI with Tharsis?
+#### Is it possible to use Terraform CLI with Tharsis?
 
-  - Yes. Terraform CLI is compatible with Tharsis, although, it will only provide a subset of the features that the Tharsis CLI offers. Learn [more](../terraform/usage.md).
+Yes. Terraform CLI is compatible with Tharsis, although, it will only provide a subset of the features that the Tharsis CLI offers. Learn [more](../terraform/usage.md).

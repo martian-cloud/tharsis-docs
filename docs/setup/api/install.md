@@ -86,11 +86,11 @@ make run-docker
 |         `THARSIS_JOB_DISPATCHER_PLUGIN_DATA_LOCAL_IMAGE` |            true             | Boolean specifying if job executor image is using a local image. |
 |                                        `THARSIS_API_URL` |    http://localhost:8000    | Endpoint where the Tharsis API will be accessible.               |
 |                     `THARSIS_SERVICE_ACCOUNT_ISSUER_URL` |    http://localhost:8000    | Issuer URL for Tharsis service account authentication.           |
-|                             `THARSIS_OTEL_TRACE_ENABLED` |            true             | Boolean specifying whether tracing is enabled.               |
-|                                `THARSIS_OTEL_TRACE_TYPE` |        otlp or xray         | Type of tracing data to send.                             |
-|                                `THARSIS_OTEL_TRACE_HOST` |              -              | Host name or IP address to send trace data to.                    |
-|                                `THARSIS_OTEL_TRACE_PORT` |            4317             | Port to send trace data to.                               |
-|                                        `HTTP_RATE_LIMIT` |             60              | HTTP requests per second allowed by the rate limiter               |
+|                             `THARSIS_OTEL_TRACE_ENABLED` |            true             | Boolean specifying whether tracing is enabled.                   |
+|                                `THARSIS_OTEL_TRACE_TYPE` |        otlp or xray         | Type of tracing data to send.                                    |
+|                                `THARSIS_OTEL_TRACE_HOST` |              -              | Host name or IP address to send trace data to.                   |
+|                                `THARSIS_OTEL_TRACE_PORT` |            4317             | Port to send trace data to.                                      |
+|                                        `HTTP_RATE_LIMIT` |             60              | HTTP requests per second allowed by the rate limiter             |
 
 </details>
 
@@ -104,7 +104,8 @@ The Tharsis API requires a database to store persistent information such as, gro
 
 ### Open Telemetry (OTel) tracing
 
-The Tharsis API supports Open Telemetry (OTel) tracing.  To enable it, set the following environment variables.  The list above has more information about the variables.
+The Tharsis API supports Open Telemetry (OTel) tracing. To enable it, set the following environment variables. The list above has more information about the variables.
+
 - THARSIS_OTEL_TRACE_ENABLED
 - THARSIS_OTEL_TRACE_TYPE
 - THARSIS_OTEL_TRACE_HOST
@@ -112,14 +113,14 @@ The Tharsis API supports Open Telemetry (OTel) tracing.  To enable it, set the f
 
 ### Rate limit
 
-The Tharsis API rate limits inbound HTTP requests for GraphQL queries and mutations.  Environment variable HTTP_RATE_LIMIT specifies the number of requests per second allowed by the rate limiter.  The default is 60.
+The Tharsis API rate limits inbound HTTP requests for GraphQL queries and mutations. Environment variable HTTP_RATE_LIMIT specifies the number of requests per second allowed by the rate limiter. The default is 60.
 
 ### Resource limits
 
-The Tharsis API limits the numbers of certain resources in order to avoid performance breakdown or other problems.  The default values are intended to not be overly restrictive.  The current active limit values can be seen via this GraphQL query:
+The Tharsis API limits the numbers of certain resources in order to avoid performance breakdown or other problems. The default values are intended to not be overly restrictive. The current active limit values can be seen via this GraphQL query:
 
-```
-{
+```graphql showLineNumbers
+query AllResourceLimits {
   resourceLimits {
     id
     name
@@ -130,16 +131,16 @@ The Tharsis API limits the numbers of certain resources in order to avoid perfor
 
 A specific limit's value can be modified via a GraphQL mutation similar to this:
 
-```
-mutation {
+```graphql showLineNumbers
+mutation UpdateResourceLimit {
   updateResourceLimit(
     input: {
-			name: "ResourceLimitAssignedManagedIdentitiesPerWorkspace"
+      name: "ResourceLimitAssignedManagedIdentitiesPerWorkspace"
       value: 45
     }
   ) {
     clientMutationId
-		resourceLimit{
+    resourceLimit {
       id
       name
       value

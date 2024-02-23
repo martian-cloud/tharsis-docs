@@ -114,6 +114,6 @@ The Tharsis API may take some time starting up as it waits for other services to
 
 ### Frequently asked questions (FAQ)
 
-- Can I create Terraform runs with a local Docker Compose instance?
+#### Can I create Terraform runs with a local Docker Compose instance?
 
-  - Yes! The Docker Compose includes all the service dependencies for applying Terraform modules and managing states with Tharsis. The database will store all the resource information and Minio will store the objects (Terraform modules).
+Yes! The Docker Compose includes all the service dependencies for applying Terraform modules and managing states with Tharsis. The database will store all the resource information and Minio will store the objects (Terraform modules).
