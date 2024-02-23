@@ -17,6 +17,61 @@ See our [Getting Started](/docs/provider/intro.md) guide!
 
 :::
 
+### Provider Addresses
+
+Tharsis adheres to the [Terraform Provider Registry](https://developer.hashicorp.com/terraform/internals/provider-registry-protocol)'s format for provider addresses. A provider address is a string that uniquely identifies a provider within a registry's namespace.
+
+The format is:
+
+```
+<hostname>/<namespace>/<type>
+```
+
+| Component   | Description                                                                                                                                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `hostname`  | The hostname of the registry. For example, `registry.terraform.io`.                                                                                                                                                            |
+| `namespace` | The namespace of the provider. For Tharsis, this is the path to an existing group like `networking/operations`.                                                                                                                |
+| `type`      | The type of the provider like `aws`, `random`, `azurerm`, etc. It's unique within a hostname and namespace and may only contain digits, lowercase letters with a hyphen or an underscore in non-leading or trailing positions. |
+
+For example:
+
+```
+tharsis.example.io/networking/bitbucket
+```
+
+This is the hypothetical address for the Bitbucket provider in the `networking` group on the `tharsis.example.io` registry.
+
+:::note
+After creation the provider source will only show the top-level group path, instead of the full source. For example, `networking/operations/bitbucket` will be displayed as `networking/bitbucket`. This is to match the Terraform Provider Registry's address format. The `type` must be unique within a namespace.
+:::
+
+### Provider Versions
+
+A provider version is a specific release of a provider. Each version is identified by a version string, which is a sequence of numbers separated by periods, such as `1.0.0`. We support the [Semantic Versioning 2.0](https://semver.org/spec/v2.0.0.html) specification.
+
+### Provider Usage
+
+To use a provider in a Terraform configuration, you must specify the provider's source in the `required_providers` block. The `source` argument is the provider address and the `version` argument is the semver version string.
+
+```hcl showLineNumbers title="Using a provider in a Terraform configuration"
+terraform {
+  required_providers {
+    bitbucket = {
+      source  = "tharsis.example.io/networking/bitbucket"
+      version = "1.0.0"
+    }
+  }
+}
+
+provider "bitbucket" {
+  # Configuration options
+}
+```
+
+:::tip
+You can always locate the usage example for any for any provider version in the Tharsis UI by clicking on the `How to Use` tab in the provider version details page.
+:::
+
 ### Upload a Terraform provider
 
 1. If you don't already have a GPG key, create one by executing something similar to these commands:
@@ -79,13 +134,14 @@ See our [Getting Started](/docs/provider/intro.md) guide!
 The Tharsis API implements the Provider Network Mirror Protocol and can function as a network mirror: https://developer.hashicorp.com/terraform/internals/provider-network-mirror-protocol
 
 Using the Tharsis API as a network mirror can have the following advantages:
+
 - Reduced network latency
 - Increased network throughput
 - Reduced likelihood of being rate limited by an upstream repository
 
 To configure the network mirror feature via the Tharsis CLI, do something similar to
 
-```tharsis terraform-provider-mirror sync --group-path example-group registry.terraform.io/hashicorp/aws```
+`tharsis terraform-provider-mirror sync --group-path example-group registry.terraform.io/hashicorp/aws`
 
 See [CLI terraform-provider-mirror command](/cli/tharsis/commands#terraform-provider-mirror-command) for more information about that CLI command.
 

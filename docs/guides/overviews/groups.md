@@ -65,77 +65,8 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
 
 ### Frequently asked questions (FAQ)
 
-- Who can create / update / delete groups?
+#### Who can create / update / delete groups?
 
-  - Owner can delete top-level group; deployer can delete lower-level groups.
-  - Viewer **cannot** modify a group.
-  - System administrator can create / delete **any** group.
-
-- Is there a limit to how many groups can be created?
-
-  - At the moment, there is no limit.
-
-- I don't see an option to **forcefully** delete my group in the UI, is there another way?
-
-  - See and understand the warning <span style={{ color: 'red' }}>`DELETION IS DANGEROUS`</span> in [deleting a group](#delete-a-group).
-  - At the moment, a group can be forcefully deleted only with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner and select `GraphiQL Editor`. On the left side of the editor copy and paste this mutation.
-
-   <details>
-   <summary>Force delete group GraphQL mutation</summary>
-
-   ```graphql showLineNumbers
-    mutation {
-      deleteGroup(
-        input: { groupPath: "full/path/to/group/here", force: true }
-      ) {
-        problems {
-          type
-          message
-        }
-      }
-    }
-    ```
-
-   :::tip
-
-   Run with **&#9655;** (play) button in GraphiQL Editor.
-
-   :::
-
-   :::caution api is not yet stable!
-
-   Mutations are subject to change with improvements to the Tharsis API.
-
-   :::
-
-   </details>
-
-  - If the force deletion is successful, the following response is returned:
-     <details>
-     <summary>Successful delete group GraphQL response</summary>
-
-    ```graphql
-    {
-      "data": {
-         "deleteGroup": {
-            "problems": [] # This must be empty.
-         }
-      },
-      "extensions": {
-         "cost": {
-            "throttled": false,
-            "requestedQueryCost": 10,
-            "maxQueryCost": 0,
-            "remaining": 0
-         }
-      }
-    }
-    ```
-
-    :::caution api is not yet stable!
-
-    Responses are subject to change with improvements to the Tharsis API.
-
-    :::
-
-    </details>
+- Owner can delete top-level group; deployer can delete lower-level groups.
+- Viewer **cannot** modify a group.
+- System administrator can create / delete **any** group.

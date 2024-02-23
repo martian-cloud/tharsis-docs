@@ -73,16 +73,17 @@ A team can also be assigned a role, making the process of access control more st
 
 ### Frequently asked questions (FAQ)
 
-- If multiple memberships are specified for the same subject in a namespace hierarchy, which one takes precedence?
+#### If multiple memberships are specified for the same subject in a namespace hierarchy, which one takes precedence?
 
-  - The first membership found while traversing up the hierarchy will take precedence.
+The first membership found while traversing up the hierarchy will take precedence.
 
-- Where can I manage the members for a group or a workspace?
+#### Where can I manage the members for a group or a workspace?
 
-  - From the group / workspace details page, select `Members` tab on the left sidebar.
-    <details>
-    <summary>Click here for a visual</summary>
+From the group / workspace details page, select `Members` tab on the left sidebar.
 
-    ![Screenshot of the Tharsis UI showing members page](/img/memberships/members.png "Members")
+<details>
+<summary>Click here for a visual</summary>
 
-    </details>
+![Screenshot of the Tharsis UI showing members page](/img/memberships/members.png "Members")
+
+</details>

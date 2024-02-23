@@ -42,8 +42,8 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 The CLI expects commands in the following format:
 
 ```
-tharsis [global options] [command name]   [options]         [arguments]
-tharsis     -p profile-name       apply     --auto-approve   path/to/workspace
+tharsis     [global options]  [command name]      [options]      [arguments]
+tharsis     -p profile-name       apply        -auto-approve   path/to/workspace
 ```
 
 :::info
@@ -83,13 +83,13 @@ tharsis apply \
 
 - `--auto-approve`: bypass the need to confirm changes to the Terraform configuration and automatically run the apply stage after planning is complete.
 
-- `--target`: allows you to specify the address of a target resource for this operation.  The option can be repeated on one command line to specify multiple target resources.  For a run with this option, only the specified resources will be considered and acted upon.
+- `--target`: allows you to specify the address of a target resource for this operation. The option can be repeated on one command line to specify multiple target resources. For a run with this option, only the specified resources will be considered and acted upon.
 
 :::caution The --target option is not recommended for frequent use
-This option should be used only in rare cases where it is necessary to operate on only a small subset of the total set of resources that would otherwise be affected.  When using this option, there is no guarantee of consistency between the contents of your .tf files and the final resource arrangement.
+This option should be used only in rare cases where it is necessary to operate on only a small subset of the total set of resources that would otherwise be affected. When using this option, there is no guarantee of consistency between the contents of your .tf files and the final resource arrangement.
 :::
 
-- `--refresh`: allows you to disable the refresh operation that normally takes place at the beginning of an apply operation.  It accepts a boolean argument with a default value of true.  Generally this option should be used as --refresh=false.
+- `--refresh`: allows you to disable the refresh operation that normally takes place at the beginning of an apply operation. It accepts a boolean argument with a default value of true. Generally this option should be used as --refresh=false.
 
 </details>
 
@@ -317,6 +317,10 @@ tharsis group update \
 
 Performs operations on Terraform modules hosted on Tharsis Terraform Registry.
 
+:::info
+See our [Terraform Module Registry overview](/docs/guides/overviews/module_registry.md) for more information on how to use the Tharsis Terraform Registry.
+:::
+
 **Subcommands**:
 
 ```
@@ -337,18 +341,18 @@ upload-version               Upload a new module version to the module registry.
 
 #### module create subcommand
 
-```shell title="Create module top-level/parameter/aws"
+```shell title="Create module networking/operations/ssm-params/aws"
 tharsis module create \
   --json \
   --private false \
-  top-level/parameter/aws
+  networking/operations/ssm-params/aws
 ```
 
 <details>
 <summary>Expand for explanation</summary>
 
 - `--json`: display final output in formatted JSON. Optional.
-- `--private`: prevent all groups from viewing and using the module (default=true). Optional.
+- `--private`: prevent other groups from viewing and using the module (default=true). Optional.
 
 </details>
 
@@ -357,19 +361,24 @@ Module names may only contain **digits**, **lowercase** letters with a **hyphen*
 :::
 
 :::info
-Module paths consist of at least three components, group path `top-level`, module name `parameter`, and module system `aws`.
+Every module source consists of four parts: `<hostname>/<namespace>/<name>/<system>` where:
 
-System is the remote system the module is intended to target.
+- `hostname`: the hostname of the registry serving the module. For example, `registry.terraform.io`.
+- `namespace`: the location of the module within the registry. For Tharsis, this is the top-level group's name.
+- `name`: the name of the module. Must be unique within the namespace (top-level group).
+- `system`: the remote system the module is primarily targeted at. Generally, this should match the provider's official name. For example, `aws`, `azurerm`, `google`, `oci`, etc.
+
+After creation, the module source will only show the top-level group after creation. So, our module source will show up as `networking/ssm-params/aws` even though it actually lives in `networking/operations/ssm-params/aws`. This is to conform to the [Terraform Module Registry](https://developer.hashicorp.com/terraform/internals/module-registry-protocol)'s naming convention. However, we can still interact with the module using the full path in the CLI.
 :::
 
 #### module create-attestation subcommand
 
-```shell title="Create an attestation for module top-level/parameter/aws"
+```shell title="Create an attestation for module networking/ssm-params/aws"
 tharsis module create-attestation \
   --json \
   --data [Base64-encoded attestation data] \
   --description "This will create a module attestation" \
-  top-level/parameter/aws
+  networking/ssm-params/aws
 ```
 
 <details>
@@ -383,8 +392,8 @@ tharsis module create-attestation \
 
 #### module delete subcommand
 
-```shell title="Delete module top-level/parameter/aws"
-tharsis module delete top-level/parameter/aws
+```shell title="Delete module networking/ssm-params/aws"
+tharsis module delete networking/ssm-params/aws
 ```
 
 :::danger deletion is dangerous
@@ -413,10 +422,10 @@ Deleting a Terraform module version is an <u>**irreversible**</u> operation. Tha
 
 #### module get subcommand
 
-```shell title="Get module top-level/parameter/aws"
+```shell title="Get module networking/ssm-params/aws"
 tharsis module get \
   --json \
-  top-level/parameter/aws
+  networking/ssm-params/aws
 ```
 
 <details>
@@ -428,11 +437,11 @@ tharsis module get \
 
 #### module get-version subcommand
 
-```shell title="Get a version for module top-level/parameter/aws"
+```shell title="Get a version for module networking/ssm-params/aws"
 tharsis module get-version \
   --json \
   --version "0.2.0" \
-  top-level/parameter/aws
+  networking/ssm-params/aws
 ```
 
 <details>
@@ -461,11 +470,11 @@ tharsis module list \
 
 #### module list-attestations subcommand
 
-```shell title="List attestations for module top-level/parameter/aws"
+```shell title="List attestations for module networking/ssm-params/aws"
 tharsis module list-attestations \
   --json \
   --limit 5 \
-  top-level/parameter/aws
+  networking/ssm-params/aws
 ```
 
 <details>
@@ -478,11 +487,11 @@ tharsis module list-attestations \
 
 #### module list-versions subcommand
 
-```shell title="List versions for module top-level/parameter/aws"
+```shell title="List versions for module networking/ssm-params/aws"
 tharsis module list-versions \
   --json \
   --limit 5 \
-  top-level/parameter/aws
+  networking/ssm-params/aws
 ```
 
 <details>
@@ -495,11 +504,11 @@ tharsis module list-versions \
 
 #### module update subcommand
 
-```shell title="Update module top-level/parameter/aws' name"
+```shell title="Update module networking/ssm-params/aws to be public"
 tharsis module update \
   --json \
-  --name "a-new-name" \
-  top-level/parameter/aws
+  --private=false \
+  networking/ssm-params/aws
 ```
 
 <details>
@@ -515,7 +524,7 @@ Module names may only contain **digits**, **lowercase** letters with a **hyphen*
 
 #### module update-attestation subcommand
 
-```shell title="Update module top-level/parameter/aws attestation description"
+```shell title="Update module networking/ssm-params/aws attestation description"
 tharsis module update-attestation \
   --json \
   --description "This is a new description for this module attestation" \
@@ -532,18 +541,18 @@ tharsis module update-attestation \
 
 #### module upload-version subcommand
 
-```shell title="Upload a version for module top-level/parameter/aws"
+```shell title="Upload a version for module networking/ssm-params/aws"
 tharsis module upload-version \
   --directory-path "path/to/module/directory" \
-  --version "v0.2.0" \
-  top-level/parameter/aws
+  --version "0.2.0" \
+  networking/ssm-params/aws
 ```
 
 <details>
 <summary>Expand for explanation</summary>
 
 - `--directory-path`: full path to the Terraform module's directory. Optional.
-- `--version`: a semver compliant version tag. Required.
+- `--version`: a [Semantic Version 2.0](https://semver.org/spec/v2.0.0.html) compliant version tag. Required.
 
 </details>
 
@@ -576,13 +585,13 @@ tharsis plan \
 
 - `--tf-var` and `--env-var`: quickly allow creating simple `key=value` Terraform and environment variable pairs respectively. Use `--tf-var-file` or `--env-var-file` for [variable files](https://www.terraform.io/language/configuration-0-11/variables#variable-files) which also support HCL Terraform variables. Optional.
 
-- `--target`: allows you to specify the address of a target resource for this operation.  The option can be repeated on one command line to specify multiple target resources.  For a run with this option, only the specified resources will be considered and acted upon.
+- `--target`: allows you to specify the address of a target resource for this operation. The option can be repeated on one command line to specify multiple target resources. For a run with this option, only the specified resources will be considered and acted upon.
 
 :::caution The --target option is not recommended for frequent use
-This option should be used only in rare cases where it is necessary to operate on only a small subset of the total set of resources that would otherwise be affected.  When using this option, there is no guarantee of consistency between the contents of your .tf files and the final resource arrangement.
+This option should be used only in rare cases where it is necessary to operate on only a small subset of the total set of resources that would otherwise be affected. When using this option, there is no guarantee of consistency between the contents of your .tf files and the final resource arrangement.
 :::
 
-- `--refresh`: allows you to disable the refresh operation that normally takes place at the beginning of a plan operation.  It accepts a boolean argument with a default value of true.  Generally this option should be used as --refresh=false.
+- `--refresh`: allows you to disable the refresh operation that normally takes place at the beginning of a plan operation. It accepts a boolean argument with a default value of true. Generally this option should be used as --refresh=false.
 
 </details>
 
@@ -623,18 +632,18 @@ update                      Update a runner agent.
 
 #### runner-agent assign-service-account subcommand
 
-```shell title="Assign service account to runner agent gitlab"
-tharsis runner-agent assign-service-account top-level/account top-level/gitlab
+```shell title="Assign service account bot to runner agent backup"
+tharsis runner-agent assign-service-account networking/bot networking/backup
 ```
 
 #### runner-agent create subcommand
 
-```shell title="Create runner agent gitlab in group top-level"
+```shell title="Create runner agent backup in group networking"
 tharsis runner-agent create \
   --json \
-  --description "A new runner agent named gitlab" \
-  --group-path "top-level" \
-  --runner-name "gitlab"
+  --description "A backup runner agent for all our networking tasks." \
+  --group-path "networking" \
+  --runner-name "backup"
 ```
 
 <details>
@@ -678,8 +687,8 @@ tharsis runner-agent get --json [id]
 
 #### runner-agent unassign-service-account subcommand
 
-```shell title="Unassign service account from runner agent gitlab"
-tharsis runner-agent unassign-service-account top-level/account top-level/gitlab
+```shell title="Unassign service account from runner agent backup"
+tharsis runner-agent unassign-service-account networking/bot networking/backup
 ```
 
 #### runner-agent update subcommand
@@ -700,11 +709,11 @@ create-token    Create a token for a service account.
 
 #### service-account create-token subcommand
 
-```shell title="Create a token for service account runner"
+```shell title="Create a token for service account bot"
 tharsis service-account create-token \
   --json \
   --token [authentication token] \
-  top-level/mid-level/runner
+  networking/bot
 ```
 
 <details>
@@ -745,6 +754,10 @@ tharsis sso login
 
 Performs operations on a terraform provider.
 
+:::info
+See our [Terraform Provider Registry overview](/docs/guides/overviews/provider_registry.md) for more information on how to use the Tharsis Terraform Registry.
+:::
+
 **Subcommands**:
 
 ```
@@ -754,12 +767,12 @@ upload-version    Upload a new Terraform provider version to the provider regist
 
 #### terraform-provider create subcommand
 
-```shell title="Create provider top-level/mid-level/provider"
+```shell title="Create provider networking/destination/toolchain"
 tharsis terraform-provider create \
   --json \
   --private \
-  --repository-url "..." \
-  top-level/mid-level/provider
+  --repository-url "https://gitlab.com/tools/toolchain" \
+  networking/destination/toolchain
 ```
 
 <details>
@@ -771,12 +784,26 @@ tharsis terraform-provider create \
 
 </details>
 
+:::caution
+Module names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
+:::
+
+:::info
+Every Terraform provider consists of three parts: `<registry-hostname>/<namespace>/<type>` where:
+
+- `registry-hostname`: the hostname of the registry serving the provider. For example, `registry.terraform.io`.
+- `namespace`: the location of the provider within the registry. For Tharsis, this is the top-level group's name.
+- `type`: the type of the provider. For example, `azurerm`, `aws`, `google`, `oci`, etc. It's unique within the namespace (top-level group).
+
+In the UI, the provider will only show the top-level group after creation. So, our provider will show up as `networking/toolchain` even though it actually lives in `networking/destination/toolchain`. This is to conform to the [Terraform Provider Registry](https://developer.hashicorp.com/terraform/internals/provider-registry-protocol)'s naming convention. However, we can still interact with the provider using the full path in the CLI.
+:::
+
 #### terraform-provider upload-version subcommand
 
-```shell title="Upload a version for provider top-level/mid-level/provider"
+```shell title="Upload a version for provider networking/destination/toolchain"
 tharsis terraform-provider upload-version \
-  --directory-path "..." \
-  top-level/mid-level/provider
+  --directory-path "my-providers/toolchain" \
+  networking/destination/toolchain
 ```
 
 <details>
@@ -788,7 +815,7 @@ tharsis terraform-provider upload-version \
 
 ### Terraform-provider-mirror command
 
-The terraform-provider-mirror command allows interacting with the Tharsis Terraform provider mirror, which supports Terraform's Provider Network Mirror Protocol.  The Tharsis provider mirror hosts a set of Terraform providers for use within a group's hierarchy and gives root group owners full control on which providers, platform packages and registries are available via their mirror.  Subcommands help upload provider packages from any Terraform Provider Registry to the mirror.  Uploaded packages will be verified for legitimacy against the provider's Terraform Registry API.
+The terraform-provider-mirror command allows interacting with the Tharsis Terraform provider mirror, which supports Terraform's Provider Network Mirror Protocol. The Tharsis provider mirror hosts a set of Terraform providers for use within a group's hierarchy and gives root group owners full control on which providers, platform packages and registries are available via their mirror. Subcommands help upload provider packages from any Terraform Provider Registry to the mirror. Uploaded packages will be verified for legitimacy against the provider's Terraform Registry API.
 
 **Subcommands**:
 
@@ -906,9 +933,9 @@ tharsis terraform-provider-mirror sync \
 
 Specify the Fully Qualified Name (FQN), which must be formatted as:
 
-   `{registry hostname}/{registry namespace}/{provider name}`
+`{registry hostname}/{registry namespace}/{provider name}`
 
-   Example: `registry.terraform.io/hashicorp/aws`
+Example: `registry.terraform.io/hashicorp/aws`
 
 </details>
 
@@ -1059,34 +1086,34 @@ tharsis workspace set-terraform-vars \
 
 ### Frequently asked questions (FAQ)
 
-- Is configuring a profile necessary?
+#### Is configuring a profile necessary?
 
-  - By default, the CLI will use the default Tharsis endpoint passed in at build-time. Unless a different endpoint is needed, no profile configuration is necessary. Simply run `tharsis sso login` and the `default` profile will be created and stored in the settings file.
+By default, the CLI will use the default Tharsis endpoint passed in at build-time. Unless a different endpoint is needed, no profile configuration is necessary. Simply run `tharsis sso login` and the `default` profile will be created and stored in the settings file.
 
-- Can service accounts use profile?
+#### Can service accounts use profile?
 
-  - Yes, service accounts can use profiles in the same manner as a human user.
+Yes, service accounts can use profiles in the same manner as a human user.
 
-- Does the documentation show all options for every command?
+#### Does the documentation show all options for every command?
 
-  - It does not. Only the "most common" options are shown, although, different variations are present throughout the examples.
+It does not. Only the "most common" options are shown, although, different variations are present throughout the examples.
 
-- Where is the settings file located?
+#### Where is the settings file located?
 
-  - By default, the settings file is located in the user's home directory under `.tharsis` hidden directory or `~/.tharsis/settings.json`.
+By default, the settings file is located in the user's home directory under `.tharsis` hidden directory or `~/.tharsis/settings.json`.
 
-    :::caution
-    **Never** share the settings file as it contains sensitive data like the authentication token from SSO!
-    :::
+:::caution
+**Never** share the settings file as it contains sensitive data like the authentication token from SSO!
+:::
 
-- How do I use profiles?
+#### How do I use profiles?
 
-  - The profile can be specified using a global flag `-p`. It **must** come before a command name. For example, the command `tharsis -p local group list` will list all the groups using the Tharsis endpoint in the `local` profile.
+The profile can be specified using a global flag `-p`. It **must** come before a command name. For example, the command `tharsis -p local group list` will list all the groups using the Tharsis endpoint in the `local` profile.
 
-- I have a service account token, how do I use it?
+#### I have a service account token, how do I use it?
 
-  - [Tharsis-sdk-go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go) and therefore, the [Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) support environment variables. See [here](./intro.md#service-account).
+[Tharsis-sdk-go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go) and the Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) support service account authentication with environment variables. See [here](./intro.md#service-account).
 
-- Can I use Terraform variables from the CLI's environment inside a run?
+#### Can I use Terraform variables from the CLI's environment inside a run?
 
-  - Yes, you can use Terraform variables from the CLI's environment inside a run.  The environment variables names must have the "TF_VAR_" prefix.  That prefix is trimmed from the name of the Terraform variable that will be set to the value of the environment variable.  For example, if the CLI receives an environment variable named TF_VAR_Something with a value of "else", then there will be a Terraform variable named "Something" set to a value of "else".
+Yes, you can use Terraform variables from the CLI's environment inside a run. The environment variables names must have the "TF*VAR*" prefix. That prefix is trimmed from the name of the Terraform variable that will be set to the value of the environment variable. For example, if the CLI receives an environment variable named TF_VAR_Something with a value of "else", then there will be a Terraform variable named "Something" set to a value of "else".

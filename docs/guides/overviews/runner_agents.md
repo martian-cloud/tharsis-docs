@@ -105,25 +105,26 @@ The following environment variables are made available via Tharsis' job executor
 
 ### Frequently asked questions (FAQ)
 
-- How can I create or modify a group runner agent?
+#### How can I create or modify a group runner agent?
 
-  - Currently, there are two ways. The Tharsis CLI's [runner-agent command](/docs/cli/tharsis/commands.md#runner-agent-command) or GraphQL mutations via the GraphiQL Editor in the Tharsis UI.
+Currently, there are two ways. The Tharsis CLI's [runner-agent command](/docs/cli/tharsis/commands.md#runner-agent-command) or the Tharsis UI's runner agents page at the group level.
 
-- Why can't I assign a service account to a shared runner agent?
+#### Why can't I assign a service account to a shared runner agent?
 
-  - Shared runner agents are available on an <u>**as-is**</u> basis and **cannot** be modified by anyone except a system administrator. This includes not being able to assign / unassign service accounts to / from the shared runner agent respectively.
+Shared runner agents are available on an **as-is** basis and **cannot** be modified by anyone except a system administrator. This includes not being able to assign / unassign service accounts to / from the shared runner agent respectively.
 
-- Can I create or modify a shared runner agent?
+#### Can I create or modify a shared runner agent?
 
-  - No. Shared runner agents can only be created via the API's configuration file and cannot be altered except by a system administrator.
+No. Shared runner agents can only be created via the API's configuration file and cannot be altered except by a system administrator.
 
-- What does a service account help a runner agent do? Do I have to assign a service account?
+#### What does a service account help a runner agent do? Do I have to assign a service account?
 
-  - Service accounts are essential for a runner agent to communicate with the Tharsis API for claiming jobs, among other things. The need for managing static secrets, such as tokens, or registration keys is eliminated as service accounts replace it with OIDC federation.
+Service accounts are essential for a runner agent to authenticate with the Tharsis API for claiming jobs, among other things. The need for managing static secrets, such as tokens, or registration keys is eliminated as service accounts replace it with OIDC federation.
 
-- What is a service account and how do I create one?
+#### What is a service account and how do I create one?
 
-  - We're glad you asked! See [here](/docs/guides/overviews/service_accounts.md).
+We're glad you asked! See [here](/docs/guides/overviews/service_accounts.md).
 
-- What job dispatcher types does the jobs executor plugin support?
-  - As of yet, AWS ECS, Kubernetes and Docker are supported.
+#### What job dispatcher types does the jobs executor plugin support?
+
+As of yet, AWS ECS, Kubernetes and Docker are supported.

@@ -115,32 +115,28 @@ make build
 
 ### Frequently asked questions (FAQ)
 
-- How can I make the binary an executable?
+#### How can I make the binary an executable?
 
-  - On a Linux system, `cd` into the CLI's directory and run `chmod +x tharsis`. Run with `./tharsis`
-  - For Windows users, it _may_ be necessary to append `.exe` to the binary name to make it an executable. For example `--output tharsis.exe` in the `cURL` command.
+On a Linux system, `cd` into the CLI's directory and run `chmod +x tharsis`. Run with `./tharsis`
 
-- Is there a way to run the CLI from any directory?
+For Windows users, it _may_ be necessary to append `.exe` to the binary name to make it an executable. For example `--output tharsis.exe` in the `cURL` command.
 
-  - Yes. If on the Linux system, and using [Bash shell](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) run the following command in a terminal window:
+#### Is there a way to run the CLI from any directory?
 
-    <details>
-    <summary>Export CLI path</summary>
+Yes. If on the Linux system, and using [Bash shell](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) run the following command in a terminal window:
 
-    ```bash
-    echo "PATH=\$PATH:[binary path]" >> ~/.bashrc && source ~/.bashrc
-    ```
+```bash
+echo "PATH=\$PATH:[binary path]" >> ~/.bashrc && source ~/.bashrc
+```
 
-    > Replace `[binary path]` with the full path to the CLI binary.
+> Replace `[binary path]` with the full path to the CLI binary.
 
-    </details>
+Please consult the internet for exporting to `PATH` on different platforms.
 
-  - Please consult the internet for exporting to `PATH` on different platforms.
+#### Does the CLI auto-update?
 
-- Does the CLI auto-update?
+At the moment, it does not. A new binary will have to be manually downloaded using the above methods.
 
-  - At the moment, it does not. A new binary will have to be manually downloaded using the above methods.
+#### Is the CLI binary signed?
 
-- Is the CLI binary signed?
-
-  - Not yet, although, this is on our roadmap.
+Not yet, although, this is on our roadmap.

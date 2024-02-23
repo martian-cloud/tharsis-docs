@@ -390,84 +390,25 @@ A VCS provider can be linked to multiple workspaces.
 
 ### Manual VCS Runs
 
-At the moment, VCS runs can only be created with a GraphQL [mutation](https://graphql.org/learn/queries/#mutations) using GraphiQL Editor in the Tharsis UI. Simply click on your profile icon in top-right corner of the Tharsis UI and select `GraphiQL Editor`.
-
-  <details>
-  <summary>Create VCS run via GraphQL mutation</summary>
-
-```graphql showLineNumbers
-mutation {
-  createVCSRun(
-    input: {
-      workspacePath: "top-level/demo"
-      isDestroy: false # optional
-      referenceName: "feature/test" # optional
-    }
-  ) {
-    problems {
-      message
-      field
-      type
-    }
-  }
-}
-```
-
-> The mutation creates a VCS run in the workspace `demo` using the latest changes from the `feature/test` branch. `isDestroy` can be set to `true` to destroy the workspace's state.
-
-:::tip
-
-Run with **&#9655;** (play) button in GraphiQL Editor.
-
-:::
-
-  </details>
-
-  <details>
-  <summary>Successful VCS run creation GraphQL response</summary>
-
-```graphql showLineNumbers
-{
-   "data": {
-     "createVCSRun": {
-       "problems": [] # This must be empty.
-    }
-  },
-  "extensions": {
-    "cost": {
-      "throttled": false,
-      "requestedQueryCost": 10,
-      "maxQueryCost": 4000,
-      "remaining": 3990
-    }
-  }
-}
-```
-
-> You can check the status of the run by going to the sidebar and clicking on `Runs`.
-
-![Screenshot of Tharsis UI page - Workspace VCS Provider Link - Runs](/img/vcs_providers/vcs-link-runs.png "Workspace VCS Provider Link - Runs")
-
-:::caution api is not yet stable!
-
-Responses are subject to change with improvements to the Tharsis API.
-
-:::
-
-  </details>
+Manual VCS runs are possible by navigating to the target workspace and selecting `Runs` tab on the left sidebar. Then click on <span style={{ color: '#4db6ac' }}>`CREATE RUN`</span> and select `VCS Workspace Link`. Follow the UI's prompts to specify the details of the run to be created.
 
 ---
 
 ### Frequently asked questions (FAQ)
 
-- Why is the link to authorize my OAuth application not working after I have created a VCS provider?
+#### Why is the link to authorize my OAuth application not working after I have created a VCS provider?
 
-  - Check that your API URL is valid.
-  - Try updating your OAuth credentials by reobtaining an ID and secret value from your provider. When you have these values, you can `Edit OAuth Credentials` and then `Reset OAuth Token` (see [Update A VCS Provider](#update-a-vcs-provider)).
+Check that your API URL is valid.
+Try updating your OAuth credentials by reobtaining an ID and secret value from your provider. When you have these values, you can `Edit OAuth Credentials` and then `Reset OAuth Token` (see [Update A VCS Provider](#update-a-vcs-provider)).
 
-- I have a workspace VCS provider link set up, so why are my Git commits not triggering runs?
-  - Check webhooks
-    - Check if you are linked to a VCS provider that has auto create webhooks set to `Off`. If set to `Off`, can you manually set up webhooks within the settings of your repository. Another option is to switch to a VCS provider that has auto create webhooks set to `On`.
-    - Check if your workspace VCS provider link has disable webhooks set to `On`. If so, try switching to `Off`.
-  - Check settings of your workspace VCS provider link
-    - Confirm that the branch and module directory listed in your link corresponds with the branch and module directory of your repository. Additionally, check your tag regular expression and glob patterns (if any), as they affect how runs are triggered.
+#### I have a workspace VCS provider link set up, so why are my Git commits not triggering runs?
+
+Check webhooks
+
+- Check if you are linked to a VCS provider that has auto create webhooks set to `Off`. If set to `Off`, you can manually set up webhooks within the settings of your repository. Another option is to switch to a VCS provider that has auto create webhooks set to `On`.
+
+- Check if your workspace VCS provider link has disable webhooks set to `On`. If so, try switching to `Off`.
+
+Check settings of your workspace VCS provider link
+
+- Confirm that the branch and module directory listed in your link corresponds with the branch and module directory of your repository. Additionally, check your tag regular expression and glob patterns (if any), as they affect how runs are triggered.
