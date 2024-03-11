@@ -29,7 +29,72 @@ Service accounts are vital for the communication between a runner agent and the 
 Be sure to [assign a service account](/docs/cli/tharsis/commands.md#runner-agent-assign-service-account-subcommand) to your runner agent to ensure proper operation or job(s) may stay queued forever!
 :::
 
-### Configure a runner agent
+### How to run a group runner in a container using AWS IAM authentication
+
+#### In the Tharsis UI, create a service account:
+
+1. Create the service account.  The service account must be in a group that is a parent, grandparent, or other direct ancestor of the workspace(s) in which you intend to use the runner.  Also, the service account needs to be in the same group or a parent group of the group runner.
+
+2. When creating the trust policy via the "Trusted Identity Providers" box, make a note of the issuer URL.  If you are using an IAM role and the iam-oidc-provider for authentication, when you later launch the runner container, in order to facilitate identity-based authentication, the same identity provider/issuer URL will need to be set in the -endpoint option in the THARSIS_CREDENTIAL_HELPER_CMD_ARGS environment variable.
+
+3. Create a bound claim in the trust policy for the service account.  For example, if using the "aud" field and the "tharsis" value, assign these values to the fields:
+   - name:  "aud"
+   - value: "tharsis"
+   When you later launch the runner container, use the -aud option with the same value in the THARSIS_CREDENTIAL_HELPER_CMD_ARGS environment variable.
+
+#### In the Tharsis UI, create a runner:
+
+1. Create the runner in an ancestor group of the intended workspace.
+
+2. Assign the service account created above to this runner.
+
+#### Outside Tharsis, launch a runner container:
+
+The runner container runs outside the Tharsis installation.
+
+The recommended container image is named "runner" if building from source.  The full registry namespace is "infor-cloud/martian-cloud/tharsis/tharsis-api/runner".
+
+The following environment variable settings are required or recommended:
+
+- `THARSIS_API_URL`: This should be the URL to your Tharsis API.
+
+- `THARSIS_RUNNER_PATH`: This should be the resource path of the runner you created inside Tharsis.
+
+- `THARSIS_SERVICE_ACCOUNT_PATH`: This should be the resource path of the service account you created inside Tharsis.
+
+- `THARSIS_CREDENTIAL_HELPER_CMD_PATH`: If using the iam-oidc-provider, this is the filesystem path to the credential helper binary inside the runner container.  If using the recommended "tharsis-api/runner" image, it should be "/opt/credhelpers/iamoidccredhelper"
+
+- `THARSIS_CREDENTIAL_HELPER_CMD_ARGS`: If using the iam-oidc-provider, these are example options if using the iam-oidc-provider and "aud" and "tharsis" in the service account's bound claim's trust policy:
+  -region: the AWS region of your identity provider
+  -endpoint: The URL to your identity provider
+  -aud: This must match the "aud" value in the trust policy in the service account you created inside Tharsis.  It can be "tharsis"
+
+- `THARSIS_SERVICE_DISCOVERY_HOST`: This should be the host name for your service discover host.  If using a Tharsis installation accessible via HTTPS, it can be the host name of your Tharsis API.  More information about the discover process can be found here: https://developer.hashicorp.com/terraform/internals/remote-service-discovery#discovery-process
+
+- See below for the 'THARSIS_JOB_DISPATCHER_*' variables that will also be needed.
+
+For your runner to access your AWS credentials for authentication with the Tharsis API, you can mount your "~/.aws" directory into the container as a volume.
+
+##### Example 'docker run' command:
+
+```
+docker run --volume=${HOME}/.aws:/home/nonroot/.aws --env-file=group-runner.env infor-cloud/martian-cloud/tharsis/tharsis-api/runner
+```
+
+###### Example group runner environment variables file:
+
+```shell showLineNumbers
+THARSIS_API_URL=http://tharsis-api-host:8000
+THARSIS_RUNNER_PATH=my-group/my-runner-name
+THARSIS_SERVICE_ACCOUNT_PATH=my-group/my-service-account-name
+THARSIS_CREDENTIAL_HELPER_CMD_PATH=/opt/credhelpers/iamoidccredhelper
+THARSIS_CREDENTIAL_HELPER_CMD_ARGS=-region=us-east-2 -endpoint=https://my-oidc-provider-host -aud=tharsis
+THARSIS_SERVICE_DISCOVERY_HOST=my-service-discovery-host
+THARSIS_JOB_DISPATCHER_TYPE=local
+THARSIS_JOB_DISPATCHER_DATA_API_URL=http://tharsis-api-host:8000
+```
+
+### Environment variables to configure a runner agent
 
 The following environment variables are required for configuring a runner agent:
 
