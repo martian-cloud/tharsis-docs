@@ -64,7 +64,7 @@ resource "null_resource" "next" {
 ```
 
 ```shell title="Apply the Terraform module in quickstart/sample/demo workspace"
-tharsis apply --directory-path "/path/to/module.tf" quick/sample/demo
+tharsis apply --directory-path "/path/to/directory/containing/module/file" quickstart/sample/demo
 ```
 
 <span style={{ fontSize: '1.5em', color: 'orange' }}>🔥🔥 Congratulations! You've just learned the basics of Tharsis 🔥🔥</span>
