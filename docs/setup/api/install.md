@@ -41,8 +41,8 @@ make build-api
 ```
 
 ```shell showLineNumbers title="Build the API Docker image and run it"
-make build-docker
-make run-docker
+make build-api-docker
+make run-api-docker
 ```
 
 ### Environment variables
