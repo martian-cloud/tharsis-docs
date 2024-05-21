@@ -53,7 +53,7 @@ Above command will run the latest all-in-one Docker image in the background and 
 The Tharsis API is available at `http://localhost:8000`.
 Keycloak is available at `http://localhost:8080`.
 
-When the image starts, a default admin user with credentials `martian` is created automatically. A token can be requested from Keycloak. For [example](https://github.com/martian-cloud/terraform-provider-tharsis/blob/90366750099b2c3ceaa26e5db4dcf1429337b940/.github/workflows/test.yml#L91). Once authenticated, the [Tharsis CLI](../cli/install.md) can be used to issue commands to the API.
+When the image starts, a default admin user with username `martian` and password `martian` is created automatically. A token can be requested from Keycloak. For [example](https://github.com/martian-cloud/terraform-provider-tharsis/blob/90366750099b2c3ceaa26e5db4dcf1429337b940/.github/workflows/test.yml#L91). Once authenticated, the [Tharsis CLI](../cli/install.md) can be used to issue commands to the API.
 
 </details>
 
