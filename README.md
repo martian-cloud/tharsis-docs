@@ -10,10 +10,32 @@ Use the [Prettier](https://prettier.io/) extension for proper markdown formattin
 
 ## Local development
 
-```
-npm install npx
-npx docusaurus start
-```
+1. **Clone the repository**:
+
+   - Using HTTPS:
+
+     ```bash
+     git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-docs.git
+     cd tharsis-docs
+     ```
+
+   - Using SSH:
+     ```bash
+     git clone git@gitlab.com:infor-cloud/martian-cloud/tharsis/tharsis-docs.git
+     cd tharsis-docs
+     ```
+
+2. **Install the dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Start the development server**:
+
+   ```bash
+    npm start
+   ```
 
 ## License
 
