@@ -40,24 +40,6 @@
 }
 
 .hero {
-  justify-content: center;
-  color: var(--ifm-color-content-inverse);
-  animation-name: heroAnimation;
-  animation-duration: 6s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-[data-theme='dark'] .hero {
-  color: var(--ifm-color-content);
-}
-
-@keyframes heroAnimation {
-  0% {
-    background-color: var(--ifm-color-primary);
-  }
-
-  25% {
-    background-color: var(--ifm-color-primary-darkest);
-  }
+    color: var(--ifm-color-content);
+    background-color: var(--ifm-color-primary-darker);
 }
