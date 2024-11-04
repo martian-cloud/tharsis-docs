@@ -16,6 +16,7 @@ workflow:
 
 stages:
   - test
+  - deploy
 
 default:
   tags:
@@ -42,6 +43,14 @@ default:
 
 pages:
   image: node:lts
+  stage: deploy
+  variables:
+    PAGES_PREFIX: ""
+  pages:
+    path_prefix: "$PAGES_PREFIX"
+  environment:
+    name: "Docs ${PAGES_PREFIX}"
+    url: "${CI_PAGES_URL}/${PAGES_PREFIX}"
   before_script:
     - npm install --legacy-peer-deps
   script:
@@ -53,6 +62,10 @@ pages:
       - public
   rules:
     - if: $CI_COMMIT_REF_NAME == $CI_DEFAULT_BRANCH
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      variables:
+        PAGES_PREFIX: "mr-$CI_MERGE_REQUEST_IID"
+        DOCS_BASE_URL: /martian-cloud/tharsis/$CI_PROJECT_NAME/mr-$CI_MERGE_REQUEST_IID/
 
 #################################
 ##            SAST             ##
@@ -61,10 +74,6 @@ pages:
 gemnasium-dependency_scanning:
   variables:
     DS_INCLUDE_DEV_DEPENDENCIES: "false"
-  rules:
-    - !reference [.on_merge_request_and_merged_events, rules]
-
-nodejs-scan-sast:
   rules:
     - !reference [.on_merge_request_and_merged_events, rules]
 

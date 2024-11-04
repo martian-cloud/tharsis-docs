@@ -4,102 +4,48 @@
  */
 
 .heroTitle {
-  font-size: 6rem;
+    font-size: 3.5rem;
+    line-height: 1;
 }
 
 .heroSubtitle {
-  font-size: 3rem;
+    font-size: 1.25rem;
+    line-height: 2rem;
+    font-weight: 600;
 }
 
-.hero {
-  justify-content: center;
-  animation-name: heroAnimation;
-  animation-duration: 6s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
+.heroContent {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+    padding: 1rem;
 }
 
-#parent {
-  display: flex;
-  max-width: 70%;
-  align-items: center;
-  justify-content: center;
-}
-
-#headerCardContainer {
-  display: inherit;
-  align-self: center;
-  max-width: 40%;
-}
-
-.headerCard {
-  border-radius: 2%;
-  opacity: 85%;
-  height: 100%;
-  color: var(--ifm-color-content);
-  background-color: var(--ifm-background-surface-color);
-  transition-duration: var(--default-transition-duration);
-}
-
-[data-theme='light'] .headerCard:hover {
-  transform: scale(1.02);
-  opacity: unset;
-}
-
-[data-theme='dark'] .headerCard:hover {
-  transform: scale(1.02);
-  opacity: unset;
-}
-
-.headerCard:active {
-  box-shadow: 0px 20px 20px 0px rgba(51, 51, 51, 0.8);
-}
-
-.headerCardBody {
-  padding: 5%;
-}
-
-.headerCardArrow {
-  padding-left: 1%;
-  font-size: 1.5rem;
-}
-
-.headerCardLink {
-  color: unset;
-  font-weight: var(--ifm-font-weight-bold);
-  padding-right: 5%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.headerCardLink:hover {
-  color: var(--ifm-navbar-link-hover-color);
-  text-decoration: none;
-}
-
-.headerCardLink:hover .headerCardArrow {
-  transform: translateX(4px);
-}
-
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
-
-  #parent {
-    max-width: unset;
+.heroBanner {
+    max-width: 600px;
+    padding: 1.5rem;
+    display: flex;
     flex-direction: column;
-  }
-
-  #headerCardContainer {
-    max-width: unset;
-    flex-direction: column;
-  }
+    justify-content: center;
+    margin-right: 1.5rem;
 }
 
-@media screen and (max-width: 1600px) {
-  #parent {
-    max-width: unset;
-  }
+@media screen and (max-width: 1204px) {
+    .heroBanner {
+        max-width: none;
+    }
+
+    .heroContent {
+        flex-direction: column;
+    }
+}
+
+.demoVideo {
+    border-color: var(--ifm-color-primary-lightest);
+    background-color: var(--ifm-color-primary-lightest);
+    border-style: solid;
+    border-width: 1rem;
+    border-radius: 1rem;
+    width: 100%;
+    max-width: 1000px;
 }
