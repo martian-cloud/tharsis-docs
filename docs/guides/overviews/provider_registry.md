@@ -7,9 +7,9 @@ Tharsis Terraform Provider Registry offers a central place to publish, version, 
 
 ### What are Terraform Providers?
 
-[Terraform Providers](https://developer.hashicorp.com/terraform/language/providers) are plugins that interact with other services and they can be imported into [Terraform Modules](module_registry.md#what-are-terraform-modules).
+[Terraform Providers](https://developer.hashicorp.com/terraform/language/providers) are plugins that interact with other services and can be imported into [Terraform Modules](module_registry.md#what-are-terraform-modules).
 
-:::tip did you know?
+:::tip Did you know?
 
 The Tharsis Terraform Provider is readily available at the [Terraform Registry](https://registry.terraform.io/providers/martian-cloud/tharsis/latest) and allows interacting with the Tharsis API.
 
@@ -42,7 +42,7 @@ tharsis.example.io/networking/bitbucket
 This is the hypothetical address for the Bitbucket provider in the `networking` group on the `tharsis.example.io` registry.
 
 :::note
-After creation the provider source will only show the top-level group path, instead of the full source. For example, `networking/operations/bitbucket` will be displayed as `networking/bitbucket`. This is to match the Terraform Provider Registry's address format. The `type` must be unique within a namespace.
+After creation, the provider source will only show the top-level group path, instead of the full source. For example, `networking/operations/bitbucket` will be displayed as `networking/bitbucket`. This is to match the Terraform Provider Registry's address format. The `type` must be unique within a namespace.
 :::
 
 ### Provider Versions
@@ -69,10 +69,10 @@ provider "bitbucket" {
 ```
 
 :::tip
-You can always locate the usage example for any for any provider version in the Tharsis UI by clicking on the `How to Use` tab in the provider version details page.
+You can always locate the usage example for any provider version in the Tharsis UI by clicking on the `How to Use` tab in the provider version details page.
 :::
 
-### Upload a Terraform provider
+### Upload a Terraform Provider
 
 1. If you don't already have a GPG key, create one by executing something similar to these commands:
 
@@ -97,7 +97,7 @@ You can always locate the usage example for any for any provider version in the 
 
 4. Set environment variables `GPG_PASSPHRASE` and `GPG_FINGERPRINT` appropriately.
 
-   a. `GPG_PASSPHRASE` can be empty string if your GPG key has no passphrase.
+   a. `GPG_PASSPHRASE` can be an empty string if your GPG key has no passphrase.
 
    b. For `GPG_FINGERPRINT`, do `gpg --list-keys --fingerprint` and copy the string of HEX digits (and spaces) after the `pub` line.
 
@@ -115,7 +115,7 @@ You can always locate the usage example for any for any provider version in the 
 
    e. Click on <span style={{ color: '#4db6ac' }}>`CREATE KEY`</span>.
 
-7. The first time you upload a provider with a given name, one time, run a command similar to the following:
+7. The first time you upload a provider with a given name, run a command similar to the following:
 
    ```shell
    tharsis provider create your-parent-group/provider-name
@@ -137,7 +137,7 @@ Using the Tharsis API as a network mirror can have the following advantages:
 
 - Reduced network latency
 - Increased network throughput
-- Reduced likelihood of being rate limited by an upstream repository
+- Reduced likelihood of being rate-limited by an upstream repository
 
 To configure the network mirror feature via the Tharsis CLI, do something similar to
 
@@ -145,9 +145,9 @@ To configure the network mirror feature via the Tharsis CLI, do something simila
 
 See [CLI terraform-provider-mirror command](/cli/tharsis/commands#terraform-provider-mirror-command) for more information about that CLI command.
 
-Additional detail about using a network mirror can be found here: https://servian.dev/terraform-local-providers-and-registry-mirror-configuration-b963117dfffa
+Additional details about using a network mirror can be found here: https://servian.dev/terraform-local-providers-and-registry-mirror-configuration-b963117dfffa
 
-For example from the above page, to configure the actual network mirror, put something similar to this in the Terraform CLI configuration file
+For example, from the above page, to configure the actual network mirror, put something similar to this in the Terraform CLI configuration file:
 
 ```
 provider_installation {
@@ -163,7 +163,7 @@ credentials "tharsis.example.io" {
 
 (The credentials block should only be necessary when using a service account.)
 
-and something similar to this in a relevant HCL file:
+And something similar to this in a relevant HCL file:
 
 ```
 terraform {

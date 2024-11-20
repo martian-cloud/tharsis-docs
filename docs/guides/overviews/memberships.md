@@ -1,15 +1,15 @@
 ---
-title: Memberships, Roles and Namespaces
-description: "How memberships, roles and namespaces interconnect"
+title: Memberships, Roles, and Namespaces
+description: "How memberships, roles, and namespaces interconnect"
 ---
 
-### What are memberships, roles and namespaces?
+### What are memberships, roles, and namespaces?
 
-Memberships are the link between group hierarchy, workspaces and user, teams and other workloads.
+Memberships are the link between group hierarchy, workspaces, users, teams, and other workloads.
 
 Groups and workspaces represent namespace types, which memberships are associated with. Within a group hierarchy, memberships are inherited by nested groups and workspaces.
 
-Each membership is associated with a role (viewer, deployer, owner) that determines the access level and therefore the capabilities of the membership. A viewer, for example, is a read-only role and therefore cannot modify any of data within namespaces. A deployer or higher, however, can modify (create, update, delete) groups, workspaces, service accounts, etc.
+Each membership is associated with a role (viewer, deployer, owner) that determines the access level and therefore the capabilities of the membership. A viewer, for example, is a read-only role and therefore cannot modify any data within namespaces. A deployer or higher, however, can modify (create, update, delete) groups, workspaces, service accounts, etc.
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -22,20 +22,20 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 - Tharsis offers three types of memberships:
 
   - User (a human user)
-  - Team (collection of human users)
+  - Team (a collection of human users)
   - Service Account (M2M)
 
 :::note
-While user and team interconnect to represent human users, a [service account](./service_accounts.md#what-are-service-accounts) on the other hand, is used for Machine to Machine (M2M) authentication like a CI/CD pipeline interfacing with Tharsis.
+While user and team interconnect to represent human users, a [service account](./service_accounts.md#what-are-service-accounts), on the other hand, is used for Machine to Machine (M2M) authentication like a CI/CD pipeline interfacing with Tharsis.
 :::
 
 ### Membership breakdown
 
 #### Non-visual representation
 
-- Each group, workspace has a membership list.
-- A membership list can include users, teams and service accounts.
-- Only a human user (not a service account, etc.) can be member of a team.
+- Each group and workspace has a membership list.
+- A membership list can include users, teams, and service accounts.
+- Only a human user (not a service account, etc.) can be a member of a team.
 - Making a team a member of a group (or workspace) gives all users who are members of that team access.
 
 #### Visual representation
@@ -57,13 +57,13 @@ A team can also be assigned a role, making the process of access control more st
     - Can view all workspace data except sensitive data like the state file and variables.
   - **Deployer**
     - Has all required permissions to configure and deploy modules.
-    - Can modify (create / update / delete) groups, workspaces, service accounts, etc.
-    - Can execute plan, apply and teardown operations
+    - Can modify (create/update/delete) groups, workspaces, service accounts, etc.
+    - Can execute plan, apply, and teardown operations.
     - Primarily for day-to-day DevOps roles.
   - **Owner**
     - Group admin permissions.
-    - Can manage group memberships, managed identities.
-    - Sets group / workspace policies.
+    - Can manage group memberships and managed identities.
+    - Sets group/workspace policies.
 
 - Custom roles <span style={{ color: 'red' }}>`(NOT YET SUPPORTED)`</span>
 
@@ -79,7 +79,7 @@ The first membership found while traversing up the hierarchy will take precedenc
 
 #### Where can I manage the members for a group or a workspace?
 
-From the group / workspace details page, select `Members` tab on the left sidebar.
+From the group/workspace details page, select the `Members` tab on the left sidebar.
 
 <details>
 <summary>Click here for a visual</summary>

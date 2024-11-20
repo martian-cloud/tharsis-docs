@@ -12,19 +12,16 @@ export default function HomepageFeatures() {
         <div id={styles.quickStart}>
           <Heading as="h1">New to Tharsis or Terraform?</Heading>
           <p id={styles.quickStartDescription}>
-            Follow our quickstart guide to install and use the Tharsis CLI to
+            Follow our quick start guide to install and use the Tharsis CLI to
             apply a basic Terraform module. It only takes a few minutes!
           </p>
-          <Link
-            id={styles.quickStartButton}
-            to={"quickstart"}
-          >
+          <Link id={styles.quickStartButton} to={"quickstart"}>
             Great! Show me how!
           </Link>
         </div>
       </section>
       <section id={styles.featureContainer}>
-        <Heading as="h1">Features at a glance</Heading>
+        <Heading as="h1">Features at a Glance</Heading>
         <FeatureCards />
       </section>
       <section id={styles.downloadContainer}>

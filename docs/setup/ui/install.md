@@ -18,7 +18,7 @@ Even easier, use the provided Docker images. Learn [more](../docker/install.md).
 
 #### Build from source
 
-Prior to proceeding ensure the Tharsis API is up and running.
+Prior to proceeding, ensure the Tharsis API is up and running.
 
 ```shell title="Git clone the project to the local machine"
 git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-ui.git

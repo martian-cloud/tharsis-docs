@@ -6,7 +6,7 @@ description: "Using Terraform CLI with Tharsis"
 In addition to the [Tharsis CLI](../tharsis/intro.md), the [Terraform CLI](https://www.terraform.io/cli) can be used with Tharsis as well.
 
 :::info
-Please refer to [Terraform CLI documentation](https://www.terraform.io/cli) for the latest information.
+Please refer to the [Terraform CLI documentation](https://www.terraform.io/cli) for the latest information.
 :::
 
 ### Login
@@ -31,7 +31,7 @@ terraform {
 }
 ```
 
-> Replace `hostname`, `organization` and `workspace.name` with appropriate values. Please refer to code comments.
+> Replace `hostname`, `organization`, and `workspace.name` with appropriate values. Please refer to the code comments.
 
 ### Initialize the backend
 
@@ -40,7 +40,7 @@ Once the Terraform module has been completed, initialize the module and then _op
 ```shell showLineNumbers
 cd <directory containing module>
 terraform init     # Creates the workspace at the specified group.
-terraform validate # Optional, although, recommended.
+terraform validate # Optional, although recommended.
 ```
 
 :::info
@@ -58,3 +58,4 @@ terraform plan
 :::info important
 Before deploying to AWS or Azure, a managed identity must be created. Learn [more](../../guides/overviews/managed_identities.md#create-a-managed-identity).
 :::
+

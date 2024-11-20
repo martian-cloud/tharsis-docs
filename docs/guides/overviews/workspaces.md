@@ -5,9 +5,9 @@ description: "What workspaces help us accomplish"
 
 ### What are workspaces?
 
-Workspaces contain the actual Terraform deployments and allow the planning, applying or destroying of infrastructure defined by a Terraform module. In addition, workspaces provide access to a list of runs and their details (logs) among other things like Terraform and environment variables.
+Workspaces contain the actual Terraform deployments and allow the planning, applying, or destroying of infrastructure defined by a Terraform module. In addition, workspaces provide access to a list of runs and their details (logs) among other things like Terraform and environment variables.
 
-Tharsis UI's workspace details page provides access to the deployed resources, input variables, outputs, dependencies and state file for a given deployment.
+Tharsis UI's workspace details page provides access to the deployed resources, input variables, outputs, dependencies, and state file for a given deployment.
 
 > Learn [more](https://www.terraform.io/language/state/workspaces).
 
@@ -28,7 +28,7 @@ Workspaces can be created directly via the Tharsis UI or the [Tharsis-CLI](../..
 1. From the group details page, click <span style={{ color: '#4db6ac' }}>`NEW WORKSPACE`</span>:
    ![Screenshot of the Tharsis UI showing new workspace button](/img/workspaces/create-workspace.png "Creating workspace")
 
-2. Provide the workspace name, optionally a short memorable description and click <span style={{ color: '#4db6ac' }}>`CREATE WORKSPACE`</span>:
+2. Provide the workspace name, optionally a short memorable description, and click <span style={{ color: '#4db6ac' }}>`CREATE WORKSPACE`</span>:
    ![Screenshot of the Tharsis UI showing new workspace details page](/img/workspaces/new-workspace.png "New workspace details page")
 
    :::caution
@@ -55,7 +55,7 @@ Workspaces can be created directly via the Tharsis UI or the [Tharsis-CLI](../..
    ![Screenshot of the Tharsis UI showing delete workspace confirmation](/img/workspaces/delete-workspace-confirmation.png "Confirm to delete a workspace")
 
 :::danger deletion is dangerous
-Deleting a workspace is an <u>**irreversible**</u> operation. Although, the API will try to prevent a deletion with potential deployments, an option to forcefully delete may be introduced in the Tharsis UI in the near future to override that behavior.
+Deleting a workspace is an <u>**irreversible**</u> operation. Although the API will try to prevent a deletion with potential deployments, an option to forcefully delete may be introduced in the Tharsis UI in the near future to override that behavior.
 
 Proceed with **extreme** caution as force deletion **permanently** removes <u>**ALL**</u> deployment state files and related information from Tharsis. If unsure, **do not** proceed.
 :::
@@ -74,15 +74,15 @@ Either you don't have appropriate privileges, or the workspace has resources dep
 
 #### I'm confident my Terraform configuration is correct but my runs keep failing. What could be a potential issue?
 
-If your configuration is correct and no other errors are suspected, it could be that you simply forgot to [assign a managed-identity](./managed_identities#assign-a-managed-identity) to your workspace. A deployment to AWS or Azure will fail if no IAM role can be assumed.
+If your configuration is correct and no other errors are suspected, it could be that you simply forgot to [assign a managed identity](./managed_identities#assign-a-managed-identity) to your workspace. A deployment to AWS or Azure will fail if no IAM role can be assumed.
 
 #### How many jobs can simultaneously run on a workspace?
 
 All jobs process in a first in, first out order. A workspace can only have one active job at any given moment.
 
-#### Where can I find my an overview of my deployed resources, outputs, state file etc.?
+#### Where can I find an overview of my deployed resources, outputs, state file, etc.?
 
-Once a run completes its apply stage, the run populates the workspace details page. The user can view deployed resources, input variables, outputs, dependencies and of course the state file right from the Tharsis UI.
+Once a run completes its apply stage, the run populates the workspace details page. The user can view deployed resources, input variables, outputs, dependencies, and of course the state file right from the Tharsis UI.
 
 <details>
 <summary>Populated workspace details page</summary>

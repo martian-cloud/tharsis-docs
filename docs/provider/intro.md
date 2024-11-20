@@ -1,5 +1,5 @@
 ---
-title: Getting started
+title: Getting Started
 description: "Using Tharsis Terraform Provider"
 ---
 
