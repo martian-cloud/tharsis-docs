@@ -3,7 +3,7 @@ title: Runs
 description: "What are runs and why they are important"
 ---
 
-### What are runs?
+## What are runs?
 
 A run is a unit of execution, either a plan or apply, to create, update, or destroy resources.
 
@@ -19,11 +19,11 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ---
 
-### Create or launch a run
+## Create or launch a run
 
 Runs can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/intro.md).
 
-#### Creating a run via the UI
+### Creating a run via the UI
 
 1. From the workspace page, click the left-hand `Runs` tab to get to the runs page.
 
@@ -41,7 +41,7 @@ Runs can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/i
 
 ![Screenshot of the Tharsis UI page - Create Run final page](/img/runs/create-run-final.png "Create Run final page")
 
-### Cancel a run in progress
+## Cancel a run in progress
 
 1. From the run details page of an active run, click the <span style={{ color: '#f44336' }}>CANCEL</span> button in the upper right-hand corner. That will initiate the process to gracefully cancel the run.
 
@@ -55,7 +55,7 @@ Runs can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/i
 Deleting a workspace is an <u>**irreversible**</u> operation and will remove everything that you have set up in the workspace, including variables, run history, state versions, managed identities, members, and other settings.
 :::
 
-### Destroy a workspace's current resources with one click
+## Destroy a workspace's current resources with one click
 
 1. From the workspace page, select the <span style={{ color: '#f44336' }}>`DESTROY WORKSPACE`</span> button.
 
@@ -65,26 +65,26 @@ Please note that this button will launch a destroy run that will destroy the dep
 
 ![Screenshot of the Tharsis UI page - Destroy Workspace button](/img/runs/destroy-workspace-button.png "Destroy Workspace button")
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### Who can create or launch runs?
+### Who can create or launch runs?
 
 - Owner and deployer can launch a run.
 - Viewer **cannot** launch a run.
 - System administrator can launch a run in any workspace.
 
-#### What is the difference between a speculative plan and a non-speculative plan?
+### What is the difference between a speculative plan and a non-speculative plan?
 
 A speculative plan is used to preview the changes that will be made to the resources if the plan is applied without actually making the changes. A non-speculative plan is used to create, update, or destroy resources.
 
-#### Where can I find the run variables?
+### Where can I find the run variables?
 
 From the run details page, select the `VARIABLES` tab to see the run variables.
 
-#### Why can't I see the values for the run variables?
+### Why can't I see the values for the run variables?
 
 You may not have the necessary permissions to view the run variables. Please contact the workspace owner or a system administrator for assistance.
 
-#### Why is my run stuck in the `QUEUED` state when using a group runner agent?
+### Why is my run stuck in the `QUEUED` state when using a group runner agent?
 
 The runner agent may not be able to connect to the Tharsis server. Please make sure the runner has a service account assigned to it. This can be done via the UI or the [Tharsis-CLI](/docs/cli/tharsis/commands.md#runner-agent-assign-service-account-subcommand).

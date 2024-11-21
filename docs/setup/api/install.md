@@ -5,13 +5,13 @@ description: "An installation and build guide for the Tharsis API"
 
 At the moment, the Tharsis API does not provide any binaries. However, it is possible to run it locally with the following instructions.
 
-### Build and run locally (Docker)
+## Build and run locally (Docker)
 
 :::tip
 Even easier, use the provided Docker images. Learn [more](../docker/install.md).
 :::
 
-#### Requirements
+### Requirements
 
 - [Go](https://go.dev/doc/install)
 - [Make](https://www.gnu.org/software/make/)
@@ -21,7 +21,7 @@ Even easier, use the provided Docker images. Learn [more](../docker/install.md).
   go install github.com/vektra/mockery/v2@latest
   ```
 
-#### Build from source (Docker)
+### Build from source (Docker)
 
 ```shell title="Git clone the project to the local machine"
 git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api.git
@@ -45,7 +45,7 @@ make build-api-docker
 make run-api-docker
 ```
 
-### Environment variables
+## Environment variables
 
 <details>
 <summary>Expand for a list and explanation</summary>
@@ -98,11 +98,11 @@ make run-api-docker
 If running within WSL using Docker Desktop it might be necessary to change: `THARSIS_DB_HOST=kubernetes.docker.internal`.
 :::
 
-### Supported databases
+## Supported databases
 
 The Tharsis API requires a database to store persistent information such as, groups, workspaces, users, etc. It currently supports PostgreSQL.
 
-### Open Telemetry (OTel) tracing
+## Open Telemetry (OTel) tracing
 
 The Tharsis API supports Open Telemetry (OTel) tracing. To enable it, set the following environment variables. The list above has more information about the variables.
 
@@ -111,11 +111,11 @@ The Tharsis API supports Open Telemetry (OTel) tracing. To enable it, set the fo
 - THARSIS_OTEL_TRACE_HOST
 - THARSIS_OTEL_TRACE_PORT
 
-### Rate limit
+## Rate limit
 
 The Tharsis API rate limits inbound HTTP requests for GraphQL queries and mutations. Environment variable HTTP_RATE_LIMIT specifies the number of requests per second allowed by the rate limiter. The default is 60.
 
-### Resource limits
+## Resource limits
 
 The Tharsis API limits the numbers of certain resources in order to avoid performance breakdown or other problems. The default values are intended to not be overly restrictive. The current active limit values can be seen via this GraphQL query:
 

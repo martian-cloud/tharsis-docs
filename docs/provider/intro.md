@@ -3,15 +3,15 @@ title: Getting Started
 description: "Using Tharsis Terraform Provider"
 ---
 
-### What is the Tharsis Terraform Provider?
+## What is the Tharsis Terraform Provider?
 
 [Tharsis Terraform Provider](https://github.com/martian-cloud/terraform-provider-tharsis) provides a way to represent some of Tharsis' functionalities using Terraform.
 
-### Using the provider
+## Using the provider
 
 To use this provider, you must add the provider definition to your configuration. You can use either a static token or service account for authentication.
 
-#### Static token
+### Static token
 
 ```hcl showLineNumbers
 provider "tharsis" {}
@@ -43,7 +43,7 @@ The `provider` block values take precedence over environment variables. It is **
 
 </details>
 
-### Retrieving workspace outputs
+## Retrieving workspace outputs
 
 `tharsis_workspace_outputs` data source is used to retrieve outputs from workspace under a given path.
 

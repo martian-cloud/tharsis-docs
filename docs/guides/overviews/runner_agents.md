@@ -3,7 +3,7 @@ title: Runner Agents
 description: "All about runner agents"
 ---
 
-### What are runner agents?
+## What are runner agents?
 
 Runner agents are responsible for launching Terraform jobs that deploy your infrastructure to the cloud. Tharsis currently offers two different types: [Shared runners](#shared-runner-agents) (which are automatically available to everyone) and [group runners](#group-runner-agents) (bring your own runner).
 
@@ -11,11 +11,11 @@ Runner agents are responsible for launching Terraform jobs that deploy your infr
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
 :::
 
-### Shared runner agents
+## Shared runner agents
 
 Shared runner agents are created via the Tharsis API configuration and are available as part of the API's process. By default, if no runner agents are configured at the group level, the shared runner agents will be used instead.
 
-### Group runner agents
+## Group runner agents
 
 A runner agent launches Terraform jobs using the configured job executor and authenticates with the Tharsis API using a [service account](/docs/guides/overviews/service_accounts.md#what-are-service-accounts).
 
@@ -29,9 +29,9 @@ Service accounts are vital for the communication between a runner agent and the 
 Be sure to [assign a service account](/docs/cli/tharsis/commands.md#runner-agent-assign-service-account-subcommand) to your runner agent to ensure proper operation or job(s) may stay queued forever!
 :::
 
-### How to run a group runner in a container using AWS IAM authentication
+## How to run a group runner in a container using AWS IAM authentication
 
-#### In the Tharsis UI, create a service account:
+### In the Tharsis UI, create a service account:
 
 1. Create the service account. The service account must be in a group that is a parent, grandparent, or other direct ancestor of the workspace(s) in which you intend to use the runner. Also, the service account needs to be in the same group or a parent group of the group runner.
 
@@ -42,13 +42,13 @@ Be sure to [assign a service account](/docs/cli/tharsis/commands.md#runner-agent
    - value: "tharsis"
      When you later launch the runner container, use the -aud option with the same value in the THARSIS_CREDENTIAL_HELPER_CMD_ARGS environment variable.
 
-#### In the Tharsis UI, create a runner:
+### In the Tharsis UI, create a runner:
 
 1. Create the runner in an ancestor group of the intended workspace.
 
 2. Assign the service account created above to this runner.
 
-#### Outside Tharsis, launch a runner container:
+### Outside Tharsis, launch a runner container:
 
 The runner container runs outside the Tharsis installation.
 
@@ -75,13 +75,13 @@ The following environment variable settings are required or recommended:
 
 For your runner to access your AWS credentials for authentication with the Tharsis API, you can mount your "~/.aws" directory into the container as a volume.
 
-##### Example 'docker run' command:
+#### Example 'docker run' command:
 
 ```
 docker run --volume=${HOME}/.aws:/home/nonroot/.aws --env-file=group-runner.env infor-cloud/martian-cloud/tharsis/tharsis-api/runner
 ```
 
-###### Example group runner environment variables file:
+#### Example group runner environment variables file:
 
 ```shell showLineNumbers
 THARSIS_API_URL=http://tharsis-api-host:8000
@@ -94,7 +94,7 @@ THARSIS_JOB_DISPATCHER_TYPE=local
 THARSIS_JOB_DISPATCHER_DATA_API_URL=http://tharsis-api-host:8000
 ```
 
-### Environment variables to configure a runner agent
+## Environment variables to configure a runner agent
 
 The following environment variables are required for configuring a runner agent:
 
@@ -109,7 +109,7 @@ The following environment variables are required for configuring a runner agent:
 |     `THARSIS_JOB_DISPATCHER_TYPE`     | Job dispatcher type. Choose from `ecs`, `kubernetes`, `docker` or `local` (for local instances).                                                                                                                                                |
 | `THARSIS_JOB_DISPATCHER_DATA_API_URL` | Tharsis API URL.                                                                                                                                                                                                                                |
 
-#### Elastic Container Service (ECS)-specific environment variables
+### Elastic Container Service (ECS)-specific environment variables
 
 |                     Name                      | Meaning                                                        |
 | :-------------------------------------------: | -------------------------------------------------------------- |
@@ -119,7 +119,7 @@ The following environment variables are required for configuring a runner agent:
 |     `THARSIS_JOB_DISPATCHER_DATA_SUBNETS`     | Job dispatcher subnets passed in as comma separated values.    |
 |   `THARSIS_JOB_DISPATCHER_DATA_LAUNCH_TYPE`   | For `ecs` job dispatcher type, choose from `ec2` or `fargate`. |
 
-#### Elastic Kubernetes Service (EKS)-specific environment variables
+### Elastic Kubernetes Service (EKS)-specific environment variables
 
 |                     Name                     | Meaning                                             |
 | :------------------------------------------: | --------------------------------------------------- |
@@ -131,7 +131,7 @@ The following environment variables are required for configuring a runner agent:
 |     `THARSIS_JOB_DISPATCHER_DATA_REGION`     | EKS region to use for IAM Auth.                     |
 |  `THARSIS_JOB_DISPATCHER_DATA_EKS_CLUSTER`   | Name of the EKS cluster.                            |
 
-#### Docker-specific environment variables
+### Docker-specific environment variables
 
 |                      Name                       | Meaning                                                                                                 |
 | :---------------------------------------------: | ------------------------------------------------------------------------------------------------------- |
@@ -148,7 +148,7 @@ The following environment variables are required for configuring a runner agent:
 Not all of these environment variables are always required. Depending upon the configuration and dispatcher type, only a few values may be needed.
 :::
 
-### Runner agent precedence
+## Runner agent precedence
 
 Tharsis defines a precedence for the way runner agents may claim jobs. In particular, runner agents are given priority in the following order:
 
@@ -160,7 +160,7 @@ Tharsis defines a precedence for the way runner agents may claim jobs. In partic
 Group runner agents within the job's workspace hierarchy are given precedence; otherwise, a shared runner is used.
 :::
 
-### Built-in environment variables
+## Built-in environment variables
 
 The following environment variables are made available via Tharsis' job executor:
 
@@ -168,28 +168,28 @@ The following environment variables are made available via Tharsis' job executor
 - `THARSIS_ENDPOINT`: URL to the Tharsis API instance.
 - `TF_TOKEN_<api_host>`: used by Tharsis Terraform Provider.
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### How can I create or modify a group runner agent?
+### How can I create or modify a group runner agent?
 
 Currently, there are two ways: The Tharsis CLI's [runner-agent command](/docs/cli/tharsis/commands.md#runner-agent-command) or the Tharsis UI's runner agents page at the group level.
 
-#### Why can't I assign a service account to a shared runner agent?
+### Why can't I assign a service account to a shared runner agent?
 
 Shared runner agents are available on an **as-is** basis and **cannot** be modified by anyone except a system administrator. This includes not being able to assign/unassign service accounts to/from the shared runner agent respectively.
 
-#### Can I create or modify a shared runner agent?
+### Can I create or modify a shared runner agent?
 
 No. Shared runner agents can only be created via the API's configuration file and cannot be altered except by a system administrator.
 
-#### What does a service account help a runner agent do? Do I have to assign a service account?
+### What does a service account help a runner agent do? Do I have to assign a service account?
 
 Service accounts are essential for a runner agent to authenticate with the Tharsis API for claiming jobs, among other things. The need for managing static secrets, such as tokens or registration keys, is eliminated as service accounts replace it with OIDC federation.
 
-#### What is a service account and how do I create one?
+### What is a service account and how do I create one?
 
 We're glad you asked! See [here](/docs/guides/overviews/service_accounts.md).
 
-#### What job dispatcher types does the jobs executor plugin support?
+### What job dispatcher types does the jobs executor plugin support?
 
 As of yet, AWS ECS, Kubernetes, and Docker are supported.

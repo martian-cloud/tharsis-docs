@@ -5,18 +5,18 @@ description: "An installation and build guide for the Tharsis UI"
 
 The UI does not yet have any binaries. However, it is possible to run it locally with the following instructions.
 
-### Build and run locally (Docker)
+## Build and run locally (Docker)
 
 :::tip
 Even easier, use the provided Docker images. Learn [more](../docker/install.md).
 :::
 
-#### Requirements
+### Requirements
 
 - The [Tharsis API](../api/install.md)
 - [Node](https://nodejs.org/en/download/)
 
-#### Build from source
+### Build from source
 
 Prior to proceeding, ensure the Tharsis API is up and running.
 
@@ -32,7 +32,7 @@ npm start
 
 - Point web browser to http://localhost:3000/ if not done automatically.
 
-### Environment variables
+## Environment variables
 
 <details>
 <summary>Expand for a complete list and explanation</summary>
