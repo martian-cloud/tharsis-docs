@@ -14,7 +14,7 @@ The [Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-c
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
 :::
 
-### Download binary
+## Download binary
 
 - Two options are available for downloading:
 
@@ -22,13 +22,13 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
   2. Using the cURL command for CI/CD or headless setup.
 
-#### Directly from GitLab Releases
+### Directly from GitLab Releases
 
 The latest binaries are available to download from [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
 
 Download the respective binary for the platform and run it using `./tharsis`.
 
-#### Using [cURL](https://en.wikipedia.org/wiki/CURL) command
+### Using [cURL](https://en.wikipedia.org/wiki/CURL) command
 
 <h4>Available Platforms</h4>
 <Tabs groupId="operating-systems">
@@ -92,13 +92,13 @@ It is helpful to replace the values prior to pasting in terminal.
 Installing the Tharsis CLI on other platforms may be possible, but it is not recommended nor supported.
 :::
 
-### Build from source
+## Build from source
 
 While downloading a pre-built binary meets most use-cases, it may be desired to build a binary from source. Doing so will allow changing the default Tharsis endpoint (`DEFAULT_ENDPOINT_URL`) the CLI uses, which offers some convenience when configuring the CLI.
 
 The CLI project includes a handy `Makefile` to help the build process be a little easier.
 
-#### Requirements
+### Requirements
 
 - [Go](https://go.dev/doc/install)
 - [Make](https://www.gnu.org/software/make/)
@@ -113,15 +113,15 @@ export DEFAULT_ENDPOINT_URL='https://api.tharsis.example.com' # Optional.
 make build
 ```
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### How can I make the binary an executable?
+### How can I make the binary an executable?
 
 On a Linux system, `cd` into the CLI's directory and run `chmod +x tharsis`. Run with `./tharsis`
 
 For Windows users, it _may_ be necessary to append `.exe` to the binary name to make it an executable. For example `--output tharsis.exe` in the `cURL` command.
 
-#### Is there a way to run the CLI from any directory?
+### Is there a way to run the CLI from any directory?
 
 Yes. If on the Linux system, and using [Bash shell](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) run the following command in a terminal window:
 
@@ -133,10 +133,10 @@ echo "PATH=\$PATH:[binary path]" >> ~/.bashrc && source ~/.bashrc
 
 Please consult the internet for exporting to `PATH` on different platforms.
 
-#### Does the CLI auto-update?
+### Does the CLI auto-update?
 
 At the moment, it does not. A new binary will have to be manually downloaded using the above methods.
 
-#### Is the CLI binary signed?
+### Is the CLI binary signed?
 
 Not yet, although, this is on our roadmap.

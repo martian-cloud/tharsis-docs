@@ -3,7 +3,7 @@ title: Memberships, Roles, and Namespaces
 description: "How memberships, roles, and namespaces interconnect"
 ---
 
-### What are memberships, roles, and namespaces?
+## What are memberships, roles, and namespaces?
 
 Memberships are the link between group hierarchy, workspaces, users, teams, and other workloads.
 
@@ -17,7 +17,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ---
 
-### Membership types and differences
+## Membership types and differences
 
 - Tharsis offers three types of memberships:
 
@@ -29,16 +29,16 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 While user and team interconnect to represent human users, a [service account](./service_accounts.md#what-are-service-accounts), on the other hand, is used for Machine to Machine (M2M) authentication like a CI/CD pipeline interfacing with Tharsis.
 :::
 
-### Membership breakdown
+## Membership breakdown
 
-#### Non-visual representation
+### Non-visual representation
 
 - Each group and workspace has a membership list.
 - A membership list can include users, teams, and service accounts.
 - Only a human user (not a service account, etc.) can be a member of a team.
 - Making a team a member of a group (or workspace) gives all users who are members of that team access.
 
-#### Visual representation
+### Visual representation
 
 ![Membership and namespace flowchart](/img/memberships/flowchart.png "Memberships and namespaces")
 
@@ -48,7 +48,7 @@ A group can have one or more subgroups and/or workspaces.
 A team can also be assigned a role, making the process of access control more streamlined.
 :::
 
-### Roles and permissions
+## Roles and permissions
 
 - Tharsis offers three types of roles out-of-the-box:
 
@@ -71,13 +71,13 @@ A team can also be assigned a role, making the process of access control more st
   - Provide a mechanism for assigning granular permissions to roles.
   - Can only be created by system admins.
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### If multiple memberships are specified for the same subject in a namespace hierarchy, which one takes precedence?
+### If multiple memberships are specified for the same subject in a namespace hierarchy, which one takes precedence?
 
 The first membership found while traversing up the hierarchy will take precedence.
 
-#### Where can I manage the members for a group or a workspace?
+### Where can I manage the members for a group or a workspace?
 
 From the group/workspace details page, select the `Members` tab on the left sidebar.
 

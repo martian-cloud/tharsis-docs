@@ -5,7 +5,7 @@ description: "All about the Tharsis Terraform Provider Registry"
 
 Tharsis Terraform Provider Registry offers a central place to publish, version, and share Terraform providers with your community.
 
-### What are Terraform Providers?
+## What are Terraform Providers?
 
 [Terraform Providers](https://developer.hashicorp.com/terraform/language/providers) are plugins that interact with other services and can be imported into [Terraform Modules](module_registry.md#what-are-terraform-modules).
 
@@ -17,7 +17,7 @@ See our [Getting Started](/docs/provider/intro.md) guide!
 
 :::
 
-### Provider Addresses
+## Provider Addresses
 
 Tharsis adheres to the [Terraform Provider Registry](https://developer.hashicorp.com/terraform/internals/provider-registry-protocol)'s format for provider addresses. A provider address is a string that uniquely identifies a provider within a registry's namespace.
 
@@ -45,11 +45,11 @@ This is the hypothetical address for the Bitbucket provider in the `networking` 
 After creation, the provider source will only show the top-level group path, instead of the full source. For example, `networking/operations/bitbucket` will be displayed as `networking/bitbucket`. This is to match the Terraform Provider Registry's address format. The `type` must be unique within a namespace.
 :::
 
-### Provider Versions
+## Provider Versions
 
 A provider version is a specific release of a provider. Each version is identified by a version string, which is a sequence of numbers separated by periods, such as `1.0.0`. We support the [Semantic Versioning 2.0](https://semver.org/spec/v2.0.0.html) specification.
 
-### Provider Usage
+## Provider Usage
 
 To use a provider in a Terraform configuration, you must specify the provider's source in the `required_providers` block. The `source` argument is the provider address and the `version` argument is the semver version string.
 
@@ -72,7 +72,7 @@ provider "bitbucket" {
 You can always locate the usage example for any provider version in the Tharsis UI by clicking on the `How to Use` tab in the provider version details page.
 :::
 
-### Upload a Terraform Provider
+## Upload a Terraform Provider
 
 1. If you don't already have a GPG key, create one by executing something similar to these commands:
 
@@ -129,7 +129,7 @@ You can always locate the usage example for any provider version in the Tharsis 
     your-parent-group/provider-name
    ```
 
-### Using a Terraform Provider Network Mirror
+## Using a Terraform Provider Network Mirror
 
 The Tharsis API implements the Provider Network Mirror Protocol and can function as a network mirror: https://developer.hashicorp.com/terraform/internals/provider-network-mirror-protocol
 

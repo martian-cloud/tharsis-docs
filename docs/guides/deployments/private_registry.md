@@ -5,11 +5,11 @@ description: "Guide to deploying from module sources"
 
 In addition to using local modules, Tharsis also supports deploying them from a third-party Terraform registry. It supports any registry that adheres to the [Terraform Module Registry Protocol](https://www.terraform.io/internals/module-registry-protocol).
 
-### Using the [Tharsis CLI](../../cli/tharsis/intro.md#what-is-the-tharsis-cli)
+## Using the [Tharsis CLI](../../cli/tharsis/intro.md#what-is-the-tharsis-cli)
 
 The CLI includes some built-in flags which make deploying remote Terraform modules possible. The same is possible with the [destroy command](../../cli/tharsis/commands.md#destroy-command).
 
-#### [Apply](../../cli/tharsis/commands.md#apply-command) command
+### [Apply](../../cli/tharsis/commands.md#apply-command) command
 
 ```shell title="Apply a remote Terraform module in workspace hero"
 tharsis apply \

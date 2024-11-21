@@ -3,7 +3,7 @@ title: Groups
 description: "What are groups and why they are important"
 ---
 
-### What are groups?
+## What are groups?
 
 Groups are containers that hold configuration information to help organize workspaces in a hierarchical manner.
 
@@ -19,14 +19,14 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ---
 
-### Create a group
+## Create a group
 
 Groups can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/intro.md).
 :::caution top-level groups
 **Top-level** groups may only be created by system administrators.
 :::
 
-#### Creating a subgroup via the UI
+### Creating a subgroup via the UI
 
 1. From the group details page, click the `New Subgroup` button in the upper right-hand corner:
    ![Screenshot of the Tharsis UI showing new subgroup button](/img/groups/create-subgroup.png "Creating subgroup")
@@ -40,7 +40,7 @@ Groups can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis
    A group's name **cannot** be changed once created. It will have to be deleted and recreated, which is **dangerous**.
    :::
 
-### Update a group
+## Update a group
 
 1. Click `Settings` on the left-hand side navigation menu to navigate to the group settings page:
    ![Screenshot of the Tharsis UI showing group details with Settings highlighted](/img/groups/update-group.png "Navigating to settings")
@@ -50,13 +50,17 @@ Groups can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis
 
 ## Advanced Settings
 
-### Migrate Group
+### Migrate a group
 
 1. From the group settings page, click the <span style={{ color: '#ffa726' }}>`MIGRATE GROUP`</span> button:
    ![Screenshot of the Tharsis UI showing group settings page](/img/groups/group-settings.png "Settings page")
 
 2. Select the new parent group and then click <span style={{ color: '#4db6ac' }}>`MIGRATE`</span>:
    ![Screenshot of the Tharsis UI showing migrate group confirmation](/img/groups/migrate-group-confirmation.png "Confirm to migrate a group")
+
+:::info
+To migrate a group, the user must have permissions to create a group in the new hierarchy and delete the group from the current hierarchy. Without these permissions, the migration will not succeed. To migrate a group to root level, the user must have system administrator permissions.
+:::
 
 :::danger migration is dangerous
 Migrating a group will remove <u>**any inherited resource assignments**</u>, such as managed identities, service accounts, etc., that are not available in the new group hierarchy.

@@ -3,13 +3,13 @@ title: VCS Providers
 description: "Using Version Control System (VCS) Providers"
 ---
 
-### What are VCS Providers?
+## What are VCS Providers?
 
 Version Control System (VCS) providers are a feature in Tharsis that can establish links between a VCS repository, like GitLab, and your Tharsis workspace. Creating a VCS provider within Tharsis and linking it to your workspace can enhance workflows. For example, runs can be set to automatically trigger in response to commits to a specified branch in a repository.
 
 Additionally, one VCS provider can be linked to multiple workspaces, which is useful in tailoring workflows. For example, a workspace can be set up to respond to Git commits from one directory of a repository while another workspace can be set up to respond to Git commits from another directory only when specified conditions are met (e.g., defined glob patterns), all while using one VCS provider.
 
-### VCS Integration
+## VCS Integration
 
 VCS Integration comprises the following two parts:
 
@@ -25,7 +25,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ---
 
-### Creating and Setting up a VCS Provider
+## Creating and Setting up a VCS Provider
 
 VCS providers are created and managed within [Groups](../overviews/groups.md). To view the list of VCS providers in a specific group, navigate to the group's page and select `VCS Providers` from the sidebar. VCS providers that have been created in the group will be listed. A search bar is available to find providers by name.
 
@@ -39,7 +39,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
   ![Screenshot of the Tharsis UI page - VCS Provider Detail page](/img/vcs_providers/vcs-provider-detail.png "VCS Provider Detail page")
 
-### Create a VCS Provider
+## Create a VCS Provider
 
 - Navigate to the group page where the VCS provider will be created and select `VCS Providers` from the sidebar. Then click on <span style={{ color: '#4db6ac' }}>`NEW VCS PROVIDER`</span> (center of the page if the group has no providers and at the top right if the group has providers).
 
@@ -47,7 +47,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
   ![Screenshot of the Tharsis UI page VCS Providers page with providers](/img/vcs_providers/new-vcs-provider-with-providers.png "VCS Providers page with providers")
 
-#### New VCS Provider Form
+### New VCS Provider Form
 
 - Select a VCS provider type. Currently, Tharsis supports GitHub and GitLab.
 
@@ -59,7 +59,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
   A VCS provider's API URL is sometimes different from the primary URL. For example, GitHub uses `https://api.github.com` which is different from `https://github.com`.
   :::
 
-#### Automatically create webhooks?
+### Automatically create webhooks?
 
 - By default, Tharsis will automatically create webhooks. You may change this to `No`. If you select `No`, you can manually configure webhooks within the settings of your specified repository later when you are creating your workspace VCS provider link (discussed later in [Manually Configuring Webhooks](#manually-configuring-webhooks)).
 
@@ -81,7 +81,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
   Once a VCS provider is created, the API URL and automatic creation of webhooks setting **cannot** be changed.
   :::
 
-#### Creating an OAuth Application
+### Creating an OAuth Application
 
 - In a separate window, go to your host provider and start the process to create an OAuth application.
 
@@ -127,7 +127,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
   ![Screenshot of Tharsis confirmation that OAuth flow completed](/img/vcs_providers/new-vcs-provider-confirmation.png "Tharsis confirms VCS provider authentication")
 
-### Update a VCS Provider
+## Update a VCS Provider
 
 - Navigate to the group page with the VCS provider to update and select `VCS Providers` from the sidebar. Click on a VCS provider to be navigated to the provider's detail page. On the detail page, there are several updating options.
 
@@ -153,7 +153,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
     ![Screenshot of Tharsis UI page - VCS Provider - reset oauth credentials](/img/vcs_providers/vcs-provider-resetoauth.png "VCS Provider - Reset OAuth Credentials")
 
-### Delete a VCS Provider
+## Delete a VCS Provider
 
 - From the VCS provider details page, select <span style={{ color: '#4db6ac' }}>&#9660;</span> next to <span style={{ color: '#4db6ac' }}>`EDIT`</span>, then `Delete VCS Provider`.
 
@@ -171,7 +171,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
 ---
 
-### Linking a VCS Provider to a Workspace
+## Linking a VCS Provider to a Workspace
 
 When you have a VCS provider that has been successfully authenticated to your OAuth application, you can then connect your provider to a [Workspace](../overviews/workspaces.md) by creating a Workspace VCS Provider Link.
 
@@ -183,7 +183,7 @@ A VCS provider can be linked to multiple workspaces.
 
 :::
 
-### Create a Workspace VCS Provider Link
+## Create a Workspace VCS Provider Link
 
 - Navigate to the workspace page where the link will be created and select `Settings` from the sidebar. Then scroll to `VCS Provider Link Settings`.
 
@@ -214,7 +214,7 @@ A VCS provider can be linked to multiple workspaces.
   The VCS provider and the repository path are the only values required to create a workspace VCS provider link. Once the link is created, the repository path **cannot** be updated. The remaining fields can be set when creating or updating the link.
   :::
 
-#### Branch and Module Directory
+### Branch and Module Directory
 
 - Enter the name of the branch in the specified repository to where the workspace will connect (e.g., `main`). If no branch is entered, the workspace will default to the main branch of the repository.
 
@@ -222,7 +222,7 @@ A VCS provider can be linked to multiple workspaces.
 
   ![Screenshot of Tharsis UI page - Workspace VCS Provider Link - branch and module directory fields](/img/vcs_providers/vcs-link-branch-module-directory.png "Workspace VCS Provider Link - Branch and Module Directory fields")
 
-#### Tag Regular Expression
+### Tag Regular Expression
 
 - A tag regular expression defines the commit tag format that may create a Tharsis run. For example, the regular expression `\d+.\d+.\d+$` only allows tags like `v0.0.1` to create runs. If no tag regular expression is defined, then all tagged commits are ignored.
 
@@ -242,7 +242,7 @@ A VCS provider can be linked to multiple workspaces.
 
   :::
 
-#### Glob Patterns
+### Glob Patterns
 
 - Glob patterns are triggers for automatic Tharsis runs. When defined, the workspace only creates runs when certain files or directories that have changed in a commit match the glob pattern(s). If any pattern matches, a run will be triggered.
 
@@ -276,7 +276,7 @@ A VCS provider can be linked to multiple workspaces.
 
   :::
 
-#### Allow speculative run for pull and merge requests
+### Allow speculative run for pull and merge requests
 
 - When `On`, this allows Tharsis to automatically create speculative plans for any pull or merge requests that are created or updated for the link's configured branch. For example, if the workspace VCS provider link is configured to use the branch `main`, any merge or pull requests that are made to `main` will trigger speculative plans within Tharsis.
 
@@ -288,7 +288,7 @@ A VCS provider can be linked to multiple workspaces.
 
   ![Screenshot of Tharsis UI page - Workspace VCS Provider Link - speculative runs](/img/vcs_providers/vcs-link-speculative-runs.png "Workspace VCS Provider Link - Speculative Runs input")
 
-#### Disable webhooks?
+### Disable webhooks?
 
 - When `On`, all webhook events are ignored. VCS runs can still be created manually (discussed in [Manual VCS Runs](#manual-vcs-runs)). By default, this will be set to `Off`.
 
@@ -302,7 +302,7 @@ A VCS provider can be linked to multiple workspaces.
 
   ![Screenshot of Tharsis UI page - Workspace VCS Provider Link - new link](/img/vcs_providers/vcs-link-new.png "Workspace VCS Provider Link - new link")
 
-#### Manually Configuring Webhooks
+### Manually Configuring Webhooks
 
 - If you create a workspace VCS provider link to a VCS provider that has auto create webhooks set to `Off`, then after creating a link, a dialog box will open with values you can use to manually configure webhooks directly within the repository of your provider. Use the provided copy icon to copy the values.
 
@@ -344,7 +344,7 @@ A VCS provider can be linked to multiple workspaces.
 
     ![Screenshot of GitHub page - pushes and pull requests](/img/vcs_providers/github-push-pull-events.png "GitHub - Pushes and Pull requests")
 
-### Update a Workspace VCS Provider Link
+## Update a Workspace VCS Provider Link
 
 - Navigate to the workspace page that contains the link and select `Settings` from the sidebar. Then scroll to `VCS Provider Link Settings`.
 
@@ -354,7 +354,7 @@ A VCS provider can be linked to multiple workspaces.
 
   ![Screenshot of Tharsis UI page - Workspace VCS Provider Link - save changes button](/img/vcs_providers/vcs-link-save-changes.png "Workspace VCS Provider Link - Save Changes button")
 
-### Linking to Different Provider
+## Linking to Different Provider
 
 - When you link to a different provider, you delete your current workspace VCS provider link and create a new link. Additionally, any workspace VCS provider link settings you had will be lost and new settings must be configured when setting up your new link.
 
@@ -376,7 +376,7 @@ A VCS provider can be linked to multiple workspaces.
 
 - Then when you click on <span style={{ color: '#4db6ac' }}>`SAVE CHANGES`</span>, the link to the former VCS provider will be **deleted**, and the new link will be created. The name of the VCS provider will be displayed in the autocomplete and the fields will be populated with the configuration details of your new link.
 
-### Deleting a Workspace VCS Provider Link
+## Deleting a Workspace VCS Provider Link
 
 - To delete your workspace VCS provider link, clear the autocomplete by pressing the `x`. This will empty the autocomplete textbox and you should only see the `VCS Provider` placeholder. This will also empty and reset all the fields on the form.
 
@@ -388,20 +388,20 @@ A VCS provider can be linked to multiple workspaces.
 
 ---
 
-### Manual VCS Runs
+## Manual VCS Runs
 
 Manual VCS runs are possible by navigating to the target workspace and selecting `Runs` tab on the left sidebar. Then click on <span style={{ color: '#4db6ac' }}>`CREATE RUN`</span> and select `VCS Workspace Link`. Follow the UI's prompts to specify the details of the run to be created.
 
 ---
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### Why is the link to authorize my OAuth application not working after I have created a VCS provider?
+### Why is the link to authorize my OAuth application not working after I have created a VCS provider?
 
 Check that your API URL is valid.
 Try updating your OAuth credentials by reobtaining an ID and secret value from your provider. When you have these values, you can `Edit OAuth Credentials` and then `Reset OAuth Token` (see [Update A VCS Provider](#update-a-vcs-provider)).
 
-#### I have a workspace VCS provider link set up, so why are my Git commits not triggering runs?
+### I have a workspace VCS provider link set up, so why are my Git commits not triggering runs?
 
 Check webhooks
 

@@ -7,9 +7,9 @@ A tool to deploy automated infrastructure in a consistent manner, and provide fo
 
 Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [Terraform modules](https://www.terraform.io/language/modules/develop) to deploy resources using environment-specific configuration. It stores the state data and outputs that can be used for other deployments.
 
-### Some key features
+## Some key features
 
-#### Tharsis API
+### Tharsis API
 
 &#10004; Configurable job executor plugin.
 
@@ -33,7 +33,7 @@ Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [T
 
 &#10004; Develop your own tools with the [Tharsis SDK for Go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go).
 
-#### Tharsis UI
+### Tharsis UI
 
 &#10004; Simple, modern, and intuitive.
 
@@ -51,7 +51,7 @@ Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [T
 
 &#10004; Written in [TypeScript](https://www.typescriptlang.org/) and available as a [Docker image](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-ui/container_registry).
 
-#### Tharsis CLI
+### Tharsis CLI
 
 &#10004; A command language that interfaces with Tharsis remote Terraform backend.
 

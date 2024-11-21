@@ -12,11 +12,11 @@ If you wish to try out the Tharsis suite in Docker, there are currently two opti
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
 :::
 
-### All-in-one Docker image
+## All-in-one Docker image
 
 The all-in-one Docker image is mainly targeted towards headless or CI/CD applications where a single Docker image becomes more practical.
 
-#### Requirements
+### Requirements
 
 - [Docker](https://docs.docker.com/get-docker/)
 
@@ -35,11 +35,11 @@ Unlike the docker-compose image, the all-in-one does not include the [Tharsis UI
 Tharsis all-in-one Docker image is **only** meant for testing and should **not** be used in production or be exposed to the internet.
 :::
 
-#### Downloading the latest image
+### Downloading the latest image
 
 The latest images are always available in our [GitLab container registry](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-all-in-one-docker/container_registry).
 
-#### Usage guide
+### Usage guide
 
 ```shell title="Run the image with docker"
 docker run --rm -d -p 8000:8000 -p 8080:8080 registry.gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-all-in-one-docker
@@ -61,11 +61,11 @@ When the image starts, a default admin user with username `martian` and password
 Say less. Click [here](https://github.com/martian-cloud/terraform-provider-tharsis/blob/90366750099b2c3ceaa26e5db4dcf1429337b940/.github/workflows/test.yml#L56) for an example.
 :::
 
-### Docker Compose
+## Docker Compose
 
 The docker-compose is meant for users wishing to try out Tharsis and can be run with a simple command. It includes all the components necessary to create Terraform runs within Tharsis.
 
-#### Requirements
+### Requirements
 
 - [Docker Compose](https://docs.docker.com/compose/)
 - [Git](https://git-scm.com/) (only for cloning)
@@ -86,7 +86,7 @@ The `docker-compose.yml` defines the following services:
 Tharsis docker-compose should **not** be used in production or be exposed to the internet.
 :::
 
-#### Usage guide
+### Usage guide
 
 Either clone the [Tharsis API](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api.git) repository or download the contents of the `docker-compose` directory.
 
@@ -112,8 +112,8 @@ The Tharsis API may take some time starting up as it waits for other services to
 
 </details>
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### Can I create Terraform runs with a local Docker Compose instance?
+### Can I create Terraform runs with a local Docker Compose instance?
 
 Yes! The Docker Compose includes all the service dependencies for applying Terraform modules and managing states with Tharsis. The database will store all the resource information and Minio will store the objects (Terraform modules).

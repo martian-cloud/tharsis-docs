@@ -9,13 +9,13 @@ In addition to the [Tharsis CLI](../tharsis/intro.md), the [Terraform CLI](https
 Please refer to the [Terraform CLI documentation](https://www.terraform.io/cli) for the latest information.
 :::
 
-### Login
+## Login
 
 ```shell title="Authenticate using the Tharsis API's hostname"
 terraform login api.tharsis.example.com
 ```
 
-### Configure the provider
+## Configure the provider
 
 The Terraform backend must be configured so it can communicate with Tharsis.
 
@@ -33,7 +33,7 @@ terraform {
 
 > Replace `hostname`, `organization`, and `workspace.name` with appropriate values. Please refer to the code comments.
 
-### Initialize the backend
+## Initialize the backend
 
 Once the Terraform module has been completed, initialize the module and then _optionally_ validate it.
 
@@ -47,7 +47,7 @@ terraform validate # Optional, although recommended.
 If the `backend` configuration changes, running `terraform init -reconfigure` might be necessary.
 :::
 
-### Create a speculative plan
+## Create a speculative plan
 
 ```shell
 terraform plan

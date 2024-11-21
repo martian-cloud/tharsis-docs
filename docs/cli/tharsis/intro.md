@@ -3,7 +3,7 @@ title: Getting Started
 description: "Getting started with the Tharsis CLI"
 ---
 
-### What is the Tharsis CLI?
+## What is the Tharsis CLI?
 
 The Tharsis CLI is a command-line interface to the Tharsis remote Terraform backend.
 
@@ -15,13 +15,13 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ---
 
-### Authentication methods
+## Authentication methods
 
 - The CLI supports two authentication methods:
   1. [Single Sign-On (SSO)](https://en.wikipedia.org/wiki/Single_sign-on)
   2. [Service account](../../guides/overviews/service_accounts.md)
 
-#### Single Sign-On (SSO)
+### Single Sign-On (SSO)
 
 SSO authentication is meant to be used by human users interacting with Tharsis.
 
@@ -36,7 +36,7 @@ The token must be periodically renewed via the SSO process.
 It is recommended that the token be renewed before running a long job to avoid expiration mid-run.
 :::
 
-#### Service account
+### Service account
 
 A service account is meant to be used for Machine to Machine (M2M) authentication like a CI/CD pipeline.
 
@@ -56,7 +56,7 @@ A service account is meant to be used for Machine to Machine (M2M) authenticatio
 Environment variables for service accounts take precedence over SSO authentication.
 :::
 
-### Profiles
+## Profiles
 
 The CLI includes a profile system making it possible to easily switch back and forth between different Tharsis instances.
 
@@ -66,8 +66,8 @@ Each profile has its own name, the Tharsis API URL, and state token from the SSO
 The profile is a global option meaning a user can simply switch to another profile with just an option!
 :::
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### Is it possible to use Terraform CLI with Tharsis?
+### Is it possible to use Terraform CLI with Tharsis?
 
 Yes. Terraform CLI is compatible with Tharsis, although it will only provide a subset of the features that the Tharsis CLI offers. Learn [more](../terraform/usage.md).
