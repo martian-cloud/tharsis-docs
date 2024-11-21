@@ -30,22 +30,22 @@ function FeatureCards() {
   return (
     <div id={styles.featureCardsContainer}>
       <FeatureCard
-        title="No static credentials"
+        title="No Static Credentials"
         url="guides/overviews/managed_identities"
         description="Managed identities allow a subject to assume an IAM or Azure role
             and perform the actions they need without having to manage
-            passwords, registration keys or other sensitive credentials. There
+            passwords, registration keys, or other sensitive credentials. There
             are even access rules to control who or what may assume a managed
             identity."
-      ></FeatureCard>
+      />
       <FeatureCard
-        title="Effortless Machine to Machine (M2M) authentication"
+        title="Effortless Machine to Machine (M2M) Authentication"
         url="guides/overviews/service_accounts"
         description="Service accounts make it painless for an external entity (CICD
             pipeline, runner agent) to authenticate with Tharsis using OIDC
-            federation, eliminating the need for an extensive setup or
+            federation, eliminating the need for extensive setup or
             credential management."
-      ></FeatureCard>
+      />
       <FeatureCard
         title="Integration with Version Control Systems (VCS)"
         url="guides/overviews/vcs_providers"
@@ -53,48 +53,48 @@ function FeatureCards() {
             to launch a Terraform run right from the repository, all of which can
             be fine-tuned with advanced controls to your liking. Simply push a
             commit to a linked repository and view the run within the Tharsis UI!"
-      ></FeatureCard>
+      />
       <FeatureCard
         title="Built-in Terraform Module Registry"
         url="guides/overviews/module_registry"
         description="Unlock a whole new world of collaboration and Terraform module
-            distribution. Create, upload and share modules within your
+            distribution. Create, upload, and share modules within your
             organization or group, all within the Tharsis ecosystem with added
-            benefits like, attesting modules using the in-toto specification and
+            benefits like attesting modules using the in-toto specification and
             limiting managed identity usage to only modules meeting those
             attestations."
-      ></FeatureCard>
+      />
       <FeatureCard
         title="Built-in Terraform Provider Registry"
         url="guides/overviews/provider_registry"
-        description="Publish, version and share Terraform providers within your
+        description="Publish, version, and share Terraform providers within your
             organization without having to rely on public registries, all with
             the help of GoReleaser and a few commands in the Tharsis CLI."
-      ></FeatureCard>
+      />
       <FeatureCard
         title="Powerful Command Line Interface (CLI)"
         url="cli/tharsis/intro"
         description="Written in Go, fueled by the Tharsis SDK and GraphQL API, our CLI
             exposes most API functionalities and makes it straightforward to
             interact with the remote Terraform backend right from the terminal.
-            Perfect for the CICD operations where command lines are a must."
-      ></FeatureCard>
+            Perfect for CICD operations where command lines are a must."
+      />
       <FeatureCard
-        title="Hashicorp Configuration Language (HCL) ready"
+        title="HashiCorp Configuration Language (HCL) Ready"
         url="provider/intro"
         description="Leverage the power of Tharsis through HCL by using our Terraform
             Provider readily available on our GitHub and the public Terraform
             Provider Registry."
-      ></FeatureCard>
+      />
       <FeatureCard
-        title="Write custom tools with our SDK"
+        title="Write Custom Tools with Our SDK"
         url="https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go"
-        description="The Tharsis SDK powers our Terraform Provider, the job executor and
+        description="The Tharsis SDK powers our Terraform Provider, the job executor, and
             the CLI. For power users, if the provided functionality is not
             enough, it's possible to implement custom tools that fit your needs
             with usage examples available in our repository to help anyone get
             started."
-      ></FeatureCard>
+      />
     </div>
   );
 }

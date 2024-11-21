@@ -3,7 +3,7 @@ title: Quickstart
 description: "Begin using Tharsis in 5 mins"
 ---
 
-The following guide will walk us through the basics of creating a group, workspace, and finally a sample run with Tharsis.
+The following guide will walk you through the basics of creating a group, workspace, and finally a sample run with Tharsis.
 
 To begin, download the latest CLI release. Learn [more](setup/cli/install).
 
@@ -15,10 +15,10 @@ Check out our Docker installation guide [here](/docs/setup/docker/install.md).
 
 :::
 
-Use the CLI to run the following commands to get setup:
+Use the CLI to run the following commands to get set up:
 
 <details>
-<summary>Expand if using Docker compose locally</summary>
+<summary>Expand if using Docker Compose locally</summary>
 
 ```shell title="Create a profile to use with Docker"
 tharsis configure --endpoint-url http://localhost:6560 --profile dc

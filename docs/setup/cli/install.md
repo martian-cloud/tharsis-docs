@@ -8,7 +8,7 @@ description: "An installation and build guide for the Tharsis CLI"
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-The [Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) supports all major platforms and binaries are released via [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
+The [Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) supports all major platforms, and binaries are released via [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -16,17 +16,17 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### Download binary
 
-- Two options available for downloading:
+- Two options are available for downloading:
 
-  1. Directly from GitLab releases page if access to a web browser is available.
+  1. Directly from the GitLab releases page if access to a web browser is available.
 
-  2. Using cURL command for CI/CD or headless setup.
+  2. Using the cURL command for CI/CD or headless setup.
 
 #### Directly from GitLab Releases
 
-Latest binaries are available to download from [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
+The latest binaries are available to download from [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
 
-Download the respective binary for the platform and run using `./tharsis`.
+Download the respective binary for the platform and run it using `./tharsis`.
 
 #### Using [cURL](https://en.wikipedia.org/wiki/CURL) command
 
@@ -72,7 +72,7 @@ Download the respective binary for the platform and run using `./tharsis`.
   </TabItem>
 </Tabs>
 
-To download the desired binary, copy the following command and replace `{access-token-here}` with a personal access token from GitLab, `{version-here}` with the desired version like 0.0.3 or 0.0.4 and `{platform}` with one of the respective values above.
+To download the desired binary, copy the following command and replace `{access-token-here}` with a personal access token from GitLab, `{version-here}` with the desired version like 0.0.3 or 0.0.4, and `{platform}` with one of the respective values above.
 
 ```shell title="Copy the command and replace values"
 curl --header "PRIVATE-TOKEN: {access-token-here}" \

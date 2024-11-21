@@ -9,7 +9,7 @@ A run is a unit of execution, either a plan or apply, to create, update, or dest
 
 Tharsis UI's workspace page shows whether there is a run currently active in the workspace. From the `Runs` tab, the runs page shows a list of the current and past runs for the workspace. Clicking on the run ID will show more detail about the selected run.
 
-:::tip did you know...
+:::tip Did you know...
 A run can be of type speculative plan, non-speculative plan, or apply. Any plan can be set to either destroy or to create or update the module resources. When created via the Tharsis UI, a run can execute either a stored module, a configuration version, or a VCS workspace link.
 :::
 
@@ -47,11 +47,11 @@ Runs can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/i
 
 ![Screenshot of the Tharsis UI page - Cancel Run page](/img/runs/cancel-run.png "Cancel Run page")
 
-2. If the graceful cancellation does not succeed within a preset time limit (normally 30 minutes), you can force the run to be cancelled.
+2. If the graceful cancellation does not succeed within a preset time limit (normally 30 minutes), you can force the run to be canceled.
 
 3. If you need to forcibly cancel a run without waiting for the graceful cancellation attempt to finish, one option is to delete the workspace.
 
-:::caution deleting a workspace is not usually recommended
+:::caution Deleting a workspace is not usually recommended
 Deleting a workspace is an <u>**irreversible**</u> operation and will remove everything that you have set up in the workspace, including variables, run history, state versions, managed identities, members, and other settings.
 :::
 

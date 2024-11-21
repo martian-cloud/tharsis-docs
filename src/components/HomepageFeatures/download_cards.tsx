@@ -33,25 +33,25 @@ function DownloadCards() {
         description="Run Tharsis in Docker with just one command."
         buttonLabel="Get started"
         url="setup/docker/install#docker-compose"
-      ></DownloadCard>
+      />
       <DownloadCard
-        title="API image"
-        description="Pre-built API, runner agent and job executor Docker containers."
+        title="API Image"
+        description="Pre-built API, runner agent, and job executor Docker containers."
         buttonLabel="Download"
         url="https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/container_registry"
-      ></DownloadCard>
+      />
       <DownloadCard
-        title="UI image"
+        title="UI Image"
         description="Pre-built UI Docker container."
         buttonLabel="Download"
         url="https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-ui/container_registry"
-      ></DownloadCard>
+      />
       <DownloadCard
-        title="CLI binary"
-        description="Ready to use CLI binaries supported on all major platforms."
+        title="CLI Binary"
+        description="Ready-to-use CLI binaries supported on all major platforms."
         buttonLabel="Download"
         url="https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases"
-      ></DownloadCard>
+      />
     </div>
   );
 }

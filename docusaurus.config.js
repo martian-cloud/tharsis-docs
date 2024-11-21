@@ -50,6 +50,7 @@ const config = {
                 blog: {
                     routeBasePath: "/blog",
                     blogSidebarCount: 0,
+                    onInlineAuthors: 'ignore', // Change to 'throw' to force the use of a authors.yml file.
                 },
                 theme: {
                     customCss: require.resolve("./src/css/custom.css"),

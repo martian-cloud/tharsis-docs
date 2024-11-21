@@ -3,9 +3,9 @@ title: Tharsis in Docker
 description: "Running Tharsis using provided Docker images"
 ---
 
-If you wish to try out the Tharsis-suite in Docker, there are currently two options available.
+If you wish to try out the Tharsis suite in Docker, there are currently two options available.
 
-- Tharsis [all-in-one](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-all-in-one-docker) Docker image (for CICD applications).
+- Tharsis [all-in-one](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-all-in-one-docker) Docker image (for CI/CD applications).
 - Tharsis [docker-compose](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/-/blob/4dd253589259beaf6f9358316855c73cda584b5b/docker-compose/docker-compose.yml) (for users).
 
 :::tip Have a question?
@@ -14,7 +14,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### All-in-one Docker image
 
-The all-in-one Docker image is mainly targeted towards headless or CICD applications where a single Docker image becomes more practical.
+The all-in-one Docker image is mainly targeted towards headless or CI/CD applications where a single Docker image becomes more practical.
 
 #### Requirements
 

@@ -5,7 +5,7 @@ description: "All about runner agents"
 
 ### What are runner agents?
 
-Runner agents are responsible for launching Terraform jobs that deploy your infrastructure to the cloud. Tharsis currently offers two different types. [Shared runners](#shared-runner-agents) (which are automatically available to everyone) and [group runners](#group-runner-agents) (bring your own runner).
+Runner agents are responsible for launching Terraform jobs that deploy your infrastructure to the cloud. Tharsis currently offers two different types: [Shared runners](#shared-runner-agents) (which are automatically available to everyone) and [group runners](#group-runner-agents) (bring your own runner).
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -13,7 +13,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ### Shared runner agents
 
-Shared runner agents are created via the Tharsis API configuration and are available as part of the API's process. By default, if no runner agents are configured at the group-level, the shared runner agents will be used instead.
+Shared runner agents are created via the Tharsis API configuration and are available as part of the API's process. By default, if no runner agents are configured at the group level, the shared runner agents will be used instead.
 
 ### Group runner agents
 
@@ -33,14 +33,14 @@ Be sure to [assign a service account](/docs/cli/tharsis/commands.md#runner-agent
 
 #### In the Tharsis UI, create a service account:
 
-1. Create the service account.  The service account must be in a group that is a parent, grandparent, or other direct ancestor of the workspace(s) in which you intend to use the runner.  Also, the service account needs to be in the same group or a parent group of the group runner.
+1. Create the service account. The service account must be in a group that is a parent, grandparent, or other direct ancestor of the workspace(s) in which you intend to use the runner. Also, the service account needs to be in the same group or a parent group of the group runner.
 
-2. When creating the trust policy via the "Trusted Identity Providers" box, make a note of the issuer URL.  If you are using an IAM role and the iam-oidc-provider for authentication, when you later launch the runner container, in order to facilitate identity-based authentication, the same identity provider/issuer URL will need to be set in the -endpoint option in the THARSIS_CREDENTIAL_HELPER_CMD_ARGS environment variable.
+2. When creating the trust policy via the "Trusted Identity Providers" box, make a note of the issuer URL. If you are using an IAM role and the iam-oidc-provider for authentication, when you later launch the runner container, in order to facilitate identity-based authentication, the same identity provider/issuer URL will need to be set in the -endpoint option in the THARSIS_CREDENTIAL_HELPER_CMD_ARGS environment variable.
 
-3. Create a bound claim in the trust policy for the service account.  For example, if using the "aud" field and the "tharsis" value, assign these values to the fields:
-   - name:  "aud"
+3. Create a bound claim in the trust policy for the service account. For example, if using the "aud" field and the "tharsis" value, assign these values to the fields:
+   - name: "aud"
    - value: "tharsis"
-   When you later launch the runner container, use the -aud option with the same value in the THARSIS_CREDENTIAL_HELPER_CMD_ARGS environment variable.
+     When you later launch the runner container, use the -aud option with the same value in the THARSIS_CREDENTIAL_HELPER_CMD_ARGS environment variable.
 
 #### In the Tharsis UI, create a runner:
 
@@ -52,7 +52,7 @@ Be sure to [assign a service account](/docs/cli/tharsis/commands.md#runner-agent
 
 The runner container runs outside the Tharsis installation.
 
-The recommended container image is named "runner" if building from source.  The full registry namespace is "infor-cloud/martian-cloud/tharsis/tharsis-api/runner".
+The recommended container image is named "runner" if building from source. The full registry namespace is "infor-cloud/martian-cloud/tharsis/tharsis-api/runner".
 
 The following environment variable settings are required or recommended:
 
@@ -62,16 +62,16 @@ The following environment variable settings are required or recommended:
 
 - `THARSIS_SERVICE_ACCOUNT_PATH`: This should be the resource path of the service account you created inside Tharsis.
 
-- `THARSIS_CREDENTIAL_HELPER_CMD_PATH`: If using the iam-oidc-provider, this is the filesystem path to the credential helper binary inside the runner container.  If using the recommended "tharsis-api/runner" image, it should be "/opt/credhelpers/iamoidccredhelper"
+- `THARSIS_CREDENTIAL_HELPER_CMD_PATH`: If using the iam-oidc-provider, this is the filesystem path to the credential helper binary inside the runner container. If using the recommended "tharsis-api/runner" image, it should be "/opt/credhelpers/iamoidccredhelper"
 
 - `THARSIS_CREDENTIAL_HELPER_CMD_ARGS`: If using the iam-oidc-provider, these are example options if using the iam-oidc-provider and "aud" and "tharsis" in the service account's bound claim's trust policy:
   -region: the AWS region of your identity provider
   -endpoint: The URL to your identity provider
-  -aud: This must match the "aud" value in the trust policy in the service account you created inside Tharsis.  It can be "tharsis"
+  -aud: This must match the "aud" value in the trust policy in the service account you created inside Tharsis. It can be "tharsis"
 
-- `THARSIS_SERVICE_DISCOVERY_HOST`: This should be the host name for your service discover host.  If using a Tharsis installation accessible via HTTPS, it can be the host name of your Tharsis API.  More information about the discover process can be found here: https://developer.hashicorp.com/terraform/internals/remote-service-discovery#discovery-process
+- `THARSIS_SERVICE_DISCOVERY_HOST`: This should be the host name for your service discover host. If using a Tharsis installation accessible via HTTPS, it can be the host name of your Tharsis API. More information about the discover process can be found here: https://developer.hashicorp.com/terraform/internals/remote-service-discovery#discovery-process
 
-- See below for the 'THARSIS_JOB_DISPATCHER_*' variables that will also be needed.
+- See below for the 'THARSIS*JOB_DISPATCHER*\*' variables that will also be needed.
 
 For your runner to access your AWS credentials for authentication with the Tharsis API, you can mount your "~/.aws" directory into the container as a volume.
 
@@ -157,7 +157,7 @@ Tharsis defines a precedence for the way runner agents may claim jobs. In partic
 3. No runner agents are available in an immediate or parent group; A shared runner agent will be used instead (default).
 
 :::info TL;DR
-Group runner agents within the job's workspace hierarchy are given precedence otherwise a shared runner is used.
+Group runner agents within the job's workspace hierarchy are given precedence; otherwise, a shared runner is used.
 :::
 
 ### Built-in environment variables
@@ -172,11 +172,11 @@ The following environment variables are made available via Tharsis' job executor
 
 #### How can I create or modify a group runner agent?
 
-Currently, there are two ways. The Tharsis CLI's [runner-agent command](/docs/cli/tharsis/commands.md#runner-agent-command) or the Tharsis UI's runner agents page at the group level.
+Currently, there are two ways: The Tharsis CLI's [runner-agent command](/docs/cli/tharsis/commands.md#runner-agent-command) or the Tharsis UI's runner agents page at the group level.
 
 #### Why can't I assign a service account to a shared runner agent?
 
-Shared runner agents are available on an **as-is** basis and **cannot** be modified by anyone except a system administrator. This includes not being able to assign / unassign service accounts to / from the shared runner agent respectively.
+Shared runner agents are available on an **as-is** basis and **cannot** be modified by anyone except a system administrator. This includes not being able to assign/unassign service accounts to/from the shared runner agent respectively.
 
 #### Can I create or modify a shared runner agent?
 
@@ -184,7 +184,7 @@ No. Shared runner agents can only be created via the API's configuration file an
 
 #### What does a service account help a runner agent do? Do I have to assign a service account?
 
-Service accounts are essential for a runner agent to authenticate with the Tharsis API for claiming jobs, among other things. The need for managing static secrets, such as tokens, or registration keys is eliminated as service accounts replace it with OIDC federation.
+Service accounts are essential for a runner agent to authenticate with the Tharsis API for claiming jobs, among other things. The need for managing static secrets, such as tokens or registration keys, is eliminated as service accounts replace it with OIDC federation.
 
 #### What is a service account and how do I create one?
 
@@ -192,4 +192,4 @@ We're glad you asked! See [here](/docs/guides/overviews/service_accounts.md).
 
 #### What job dispatcher types does the jobs executor plugin support?
 
-As of yet, AWS ECS, Kubernetes and Docker are supported.
+As of yet, AWS ECS, Kubernetes, and Docker are supported.

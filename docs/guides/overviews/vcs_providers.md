@@ -5,7 +5,7 @@ description: "Using Version Control System (VCS) Providers"
 
 ### What are VCS Providers?
 
-Version Control System (VCS) providers are a feature in Tharsis that can establish links between a VCS repository, like GitLab, and your Tharsis workspace. Creating a VCS provider within Tharsis and linking it to your workspace can enhance workflows. For example, runs can be set to automatically trigger in response for commits to a specified branch in a repository.
+Version Control System (VCS) providers are a feature in Tharsis that can establish links between a VCS repository, like GitLab, and your Tharsis workspace. Creating a VCS provider within Tharsis and linking it to your workspace can enhance workflows. For example, runs can be set to automatically trigger in response to commits to a specified branch in a repository.
 
 Additionally, one VCS provider can be linked to multiple workspaces, which is useful in tailoring workflows. For example, a workspace can be set up to respond to Git commits from one directory of a repository while another workspace can be set up to respond to Git commits from another directory only when specified conditions are met (e.g., defined glob patterns), all while using one VCS provider.
 
@@ -56,7 +56,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 - Enter an API URL (optional). If no API URL is entered, Tharsis will use the provider type's publicly available API URL.
 
   :::note
-  A VCS provider's API URL is sometimes different than the primary URL. For example, GitHub uses `https://api.github.com` which is different from `https://github.com`.
+  A VCS provider's API URL is sometimes different from the primary URL. For example, GitHub uses `https://api.github.com` which is different from `https://github.com`.
   :::
 
 #### Automatically create webhooks?
@@ -96,14 +96,14 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
       - api
       - read_repository
 
-      ![Screenshot of the Tharsis UI page to configure permissions with in OAuth app in Gitlab with auto webhooks on](/img/vcs_providers/new-vcs-provider-gitlab-wh-on.png "GitLab permissions - auto webhooks on")
+      ![Screenshot of the Tharsis UI page to configure permissions within OAuth app in GitLab with auto webhooks on](/img/vcs_providers/new-vcs-provider-gitlab-wh-on.png "GitLab permissions - auto webhooks on")
 
     - If you selected `No`, enable the `Confidential` setting and the following two scopes:
 
       - read_api
       - read_user
 
-      ![Screenshot of the Tharsis UI page to configure permissions with in OAuth app in Gitlab with auto webhooks off](/img/vcs_providers/new-vcs-provider-gitlab-wh-off.png "GitLab permissions - auto webhooks off")
+      ![Screenshot of the Tharsis UI page to configure permissions within OAuth app in GitLab with auto webhooks off](/img/vcs_providers/new-vcs-provider-gitlab-wh-off.png "GitLab permissions - auto webhooks off")
 
   - GitHub
 
@@ -113,7 +113,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
     - There are no permissions that must be initially configured when creating an OAuth application via GitHub.
 
-    ![Screenshot of the Tharsis UI page - GitHub callback URL](/img/vcs_providers/github-callback-URL.png "Gitlab callback URL")
+    ![Screenshot of the Tharsis UI page - GitHub callback URL](/img/vcs_providers/github-callback-URL.png "GitHub callback URL")
 
 - When you have created the OAuth application, you will be provided with an ID and a secret value. Copy and paste these values into the ID and secret fields on the New VCS Provider form.
 
@@ -121,7 +121,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
 - Click on <span style={{ color: '#4db6ac' }}>`CREATE VCS PROVIDER`</span>. If creation is successful, Tharsis will immediately generate a new authorization URL and redirect the browser to an approval page where you must authorize your newly created VCS provider to use your OAuth application.
 
-  ![Screenshot of create button to generate VCS provider](/img/vcs_providers/new-vcs-provider-create-button.png "create vcs provider button")
+  ![Screenshot of create button to generate VCS provider](/img/vcs_providers/new-vcs-provider-create-button.png "create VCS provider button")
 
 - After you authorize the application, a page will be generated confirming that your newly created VCS provider was successfully authenticated with Tharsis.
 
