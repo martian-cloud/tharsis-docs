@@ -50,7 +50,7 @@ pages:
     path_prefix: "$PAGES_PREFIX"
   environment:
     name: "Docs ${PAGES_PREFIX}"
-    url: "${CI_PAGES_URL}/${PAGES_PREFIX}"
+    url: $CI_PAGES_URL
   before_script:
     - npm install --legacy-peer-deps
   script:
