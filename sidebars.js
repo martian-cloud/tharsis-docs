@@ -124,6 +124,7 @@ const sidebars = {
             "guides/overviews/runs",
             "guides/overviews/runner_agents",
             "guides/overviews/vcs_providers",
+            "guides/overviews/federated_registries",
             "guides/overviews/module_registry",
             "guides/overviews/provider_registry",
           ],
