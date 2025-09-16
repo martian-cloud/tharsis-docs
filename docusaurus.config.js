@@ -35,7 +35,7 @@ const config = {
                 docsRouteBasePath: "/",
                 hashed: true
             }
-        ]
+        ],
     ],
 
     presets: [
@@ -62,6 +62,12 @@ const config = {
     themeConfig:
         /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            // SEO metadata
+            metadata: [
+                {name: 'description', content: 'Tharsis is an enterprise scale Terraform platform that offers a complete solution for managing your Terraform deployments, state and workspaces.'},
+                {name: 'keywords', content: 'terraform, infrastructure as code, devops, automation, enterprise, platform, state management, open source'},
+                {name: 'author', content: 'Infor'},
+            ],
             navbar: {
                 title: "Tharsis",
                 logo: {
@@ -73,7 +79,7 @@ const config = {
                 hideOnScroll: true,
                 items: [
                     {
-                        to: "intro",
+                        to: "/intro",
                         position: "left",
                         label: "Docs",
                     },
@@ -84,8 +90,10 @@ const config = {
                     },
                     {
                         href: "https://gitlab.com/groups/infor-cloud/martian-cloud/tharsis",
-                        label: "It's open source",
                         position: "right",
+                        className: "header-gitlab-link",
+                        "aria-label": "GitLab repository",
+                        title: "View on GitLab",
                     },
                 ],
             },
@@ -115,11 +123,11 @@ const config = {
                         items: [
                             {
                                 label: "Introduction",
-                                to: "intro",
+                                to: "/intro",
                             },
                             {
                                 label: "Quickstart",
-                                to: "quickstart",
+                                to: "/quickstart",
                             },
                         ],
                     },
@@ -128,11 +136,11 @@ const config = {
                         items: [
                             {
                                 label: "Tharsis",
-                                to: "cli/tharsis/intro",
+                                to: "/cli/tharsis/intro",
                             },
                             {
                                 label: "Terraform",
-                                to: "cli/terraform/usage",
+                                to: "/cli/terraform/usage",
                             },
                         ],
                     },
@@ -171,7 +179,7 @@ const config = {
                         ],
                     },
                 ],
-                copyright: `Copyright © ${new Date().getFullYear()} Infor. All rights reserved. Built with Docusaurus.`,
+                copyright: `Copyright © ${new Date().getFullYear()} Infor. All rights reserved.`,
             },
             prism: {
                 theme: lightCodeTheme,

@@ -1,0 +1,1349 @@
+/* ===== MAIN SECTION ===== */
+.features {
+    padding: 120px 0;
+    background: linear-gradient(135deg, #f1f5f9 0%, rgba(77, 182, 172, 0.25) 100%);
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.features.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+[data-theme='dark'] .features {
+    background: linear-gradient(135deg, var(--ifm-background-color) 0%, rgba(77, 182, 172, 0.08) 100%);
+}
+
+/* ===== LAYOUT ===== */
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.sectionTitle {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 4rem;
+    color: var(--ifm-color-content);
+}
+
+.featuresWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+.featureRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    animation: fadeInUp 0.8s ease-out both;
+}
+
+.featureRow:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.featureRow:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.featureRow:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.featureRow:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.featureRow:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+.featureRow:nth-child(6) {
+    animation-delay: 0.6s;
+}
+
+.featureRow:nth-child(7) {
+    animation-delay: 0.7s;
+}
+
+.featureRow:nth-child(8) {
+    animation-delay: 0.8s;
+}
+
+.featureRow:nth-child(9) {
+    animation-delay: 0.9s;
+}
+
+.featureRow:nth-child(10) {
+    animation-delay: 1.0s;
+}
+
+.featureRow:nth-child(11) {
+    animation-delay: 1.1s;
+}
+
+.featureRow:nth-child(12) {
+    animation-delay: 1.2s;
+}
+
+.featureRow.reverse {
+    direction: rtl;
+}
+
+.featureRow.reverse>* {
+    direction: ltr;
+}
+
+.featureContent {
+    display: flex;
+    flex-direction: column;
+}
+
+.featureText {
+    flex: 1;
+}
+
+.featureHighlight {
+    display: inline-block;
+    background: var(--ifm-color-primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.featureTitle {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0.5rem 0 1rem 0;
+    color: var(--ifm-color-content);
+}
+
+.featureDescription {
+    color: var(--ifm-color-content-secondary);
+    line-height: 1.6;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.featureVisual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+.dashboardImage {
+    width: 400px;
+    height: 240px;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboardImage:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.deploymentVisual {
+    width: 400px;
+    height: 240px;
+    background: black;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.deploymentVisual:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.planButton {
+    background: #64748b;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+    animation: bounce 2s infinite;
+}
+
+.applyButton {
+    background: #4db6ac;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+    animation: bounce 2s infinite 0.5s;
+}
+
+@keyframes bounce {
+
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+
+    40% {
+        transform: translateY(-10px);
+    }
+
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes wiggle {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(-3deg);
+    }
+
+    75% {
+        transform: rotate(3deg);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(-20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes hoverScale {
+    from {
+        transform: scale(1);
+    }
+
+    to {
+        transform: scale(1.05);
+    }
+}
+
+.deploymentContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.deploymentHeader {
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+}
+
+.deploymentForm {
+    background: #f8fafc;
+    border-radius: 6px;
+    padding: 12px;
+    flex: 1;
+    margin: 12px 0;
+}
+
+.deploymentField {
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 12px;
+    color: #475569;
+    margin-bottom: 6px;
+}
+
+.deploymentField:last-child {
+    margin-bottom: 0;
+}
+
+.deploymentField span {
+    color: #0f172a;
+    font-weight: 500;
+}
+
+.deploymentButtons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+}
+
+.planButton {
+    background: #64748b;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.applyButton {
+    background: #4db6ac;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.vcsVisual {
+    width: 400px;
+    height: 240px;
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.vcsVisual:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.vcsStep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: slideIn 0.8s ease-out;
+}
+
+.vcsStep:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.vcsStep:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.vcsStep:nth-child(5) {
+    animation-delay: 0.3s;
+}
+
+.vcsContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vcsHeader {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center;
+}
+
+.vcsFlow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    justify-content: center;
+}
+
+.vcsStep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.vcsIcon {
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid #e2e8f0;
+    animation: bounce 2s infinite;
+}
+
+.vcsIconDual {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 50%;
+    border: 2px solid #e2e8f0;
+    gap: 2px;
+    animation: wiggle 2s ease-in-out infinite;
+}
+
+.githubLogo {
+    font-size: 12px;
+}
+
+.gitlabLogo {
+    font-size: 12px;
+}
+
+.vcsText {
+    font-size: 12px;
+    font-weight: 500;
+    color: #475569;
+    text-align: center;
+}
+
+.vcsArrow {
+    font-size: 18px;
+    color: #64748b;
+    margin: 0 4px;
+}
+
+.vcsPlatforms {
+    display: flex;
+    gap: 8px;
+}
+
+.platformBadge {
+    background: #3b82f6;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.runnerVisual {
+    width: 400px;
+    height: 240px;
+    background: #f1f5f9;
+    border: 2px solid #cbd5e1;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.runnerVisual:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.runnerIcon {
+    font-size: 32px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: rotate 4s linear infinite;
+}
+
+.providerVisual {
+    width: 400px;
+    height: 240px;
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.providerIcon {
+    font-size: 36px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 16px;
+    border: 3px solid #f59e0b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: bounce 2s infinite;
+}
+
+.runnerContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.runnerGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    flex: 1;
+    align-items: center;
+    width: 100%;
+}
+
+.runnerItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.runnerIcon {
+    font-size: 32px;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.runnerText {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+    text-align: center;
+}
+
+.runnerTypes {
+    display: flex;
+    gap: 8px;
+}
+
+.runnerBadge {
+    background: #10b981;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.providerVisual {
+    width: 400px;
+    height: 240px;
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.providerVisual:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.3);
+}
+
+.providerContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.providerFlow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+}
+
+.providerStep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.providerIcon {
+    font-size: 36px;
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 16px;
+    border: 3px solid #f59e0b;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.providerText {
+    font-size: 14px;
+    font-weight: 600;
+    color: #92400e;
+    text-align: center;
+}
+
+.providerArrow {
+    font-size: 24px;
+    color: #f59e0b;
+    font-weight: bold;
+}
+
+.providerActions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.actionBadge {
+    background: #f59e0b;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.dependencyVisual {
+    width: 400px;
+    height: 240px;
+    background: #f0f9ff;
+    border: 2px solid #0ea5e9;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dependencyVisual:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3);
+}
+
+.workspaceBox {
+    background: white;
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    padding: 12px;
+    min-width: 120px;
+}
+
+.dependencyContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dependencyFlow {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+.workspaceBox {
+    background: white;
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    padding: 12px;
+    min-width: 120px;
+}
+
+.workspaceTitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: #0c4a6e;
+    text-align: center;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e0f2fe;
+    padding-bottom: 4px;
+}
+
+.outputItem {
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 10px;
+    color: #059669;
+    margin: 4px 0;
+    padding: 2px 4px;
+    background: #f0fdf4;
+    border-radius: 4px;
+}
+
+.inputItem {
+    font-family: 'Monaco', 'Menlo', monospace;
+    font-size: 10px;
+    color: #dc2626;
+    margin: 4px 0;
+    padding: 2px 4px;
+    background: #fef2f2;
+    border-radius: 4px;
+}
+
+.dependencyLines {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+}
+
+.dependencyLine {
+    font-size: 16px;
+    color: #0ea5e9;
+}
+
+.identityVisual {
+    width: 400px;
+    height: 240px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.identityVisual:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.stepNumber {
+    width: 24px;
+    height: 24px;
+    background: #3b82f6;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.identityContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.identityHeader {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center;
+}
+
+.identityFlow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+}
+
+.flowStep {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #f1f5f9;
+    padding: 8px 16px;
+    border-radius: 6px;
+    width: 200px;
+}
+
+.stepNumber {
+    background: #065f46;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.stepText {
+    font-size: 12px;
+    color: #374151;
+    font-weight: 500;
+}
+
+.flowArrow {
+    color: #065f46;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.serviceAccountVisual {
+    width: 300px;
+    height: 240px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 0 auto;
+}
+
+.serviceAccountVisual:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.pipelineIcon {
+    font-size: 24px;
+    animation: wiggle 2s ease-in-out infinite;
+}
+
+.pipelineIcon:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.pipelineIcon:nth-child(2) {
+    animation-delay: 0.5s;
+}
+
+.pipelineIcon:nth-child(3) {
+    animation-delay: 1s;
+}
+
+.serviceAccountContent {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.serviceAccountHeader {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center;
+}
+
+.pipelineFlow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+}
+
+.pipelineStep {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    background: #f8fafc;
+    padding: 8px;
+    border-radius: 8px;
+    min-width: 60px;
+}
+
+.pipelineIcon {
+    font-size: 20px;
+}
+
+.pipelineText {
+    font-size: 9px;
+    color: #374151;
+    font-weight: 500;
+    text-align: center;
+}
+
+.pipelineArrow {
+    color: #4db6ac;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.customVisual {
+    width: 400px;
+    height: 240px;
+    border-radius: 20px;
+    position: relative;
+    animation: iconFloat 3s ease-in-out infinite;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.customVisual:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Visual 1: Home Dashboard */
+.visual1 {
+    background: #f8fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.visual1::before {
+    content: 'Tharsis Dashboard';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: #1e293b;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.visual1::after {
+    content: 'Workspaces\A• prod-web\A• staging-api\A• dev-sandbox\A\ATeams\A• DevOps\A• Platform\A• Security';
+    position: absolute;
+    top: 35px;
+    left: 5px;
+    width: 70px;
+    bottom: 5px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 8px;
+    line-height: 1.2;
+    color: #475569;
+    white-space: pre-line;
+    background: #f1f5f9;
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.visual1 .dashboard-center {
+    position: absolute;
+    top: 35px;
+    left: 85px;
+    right: 85px;
+    bottom: 5px;
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.visual1 .dashboard-center::before {
+    content: 'Recent Activity\A\A✅ prod-web: Apply completed\A🔄 staging-api: Plan in progress\A👤 alice joined team DevOps\A📦 Module vpc v2.1.0 published\A⚠️ dev-db: Plan failed\A🔐 New managed identity created';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 8px;
+    line-height: 1.3;
+    color: #374151;
+    white-space: pre-line;
+}
+
+.visual1 .dashboard-right {
+    position: absolute;
+    top: 35px;
+    right: 5px;
+    width: 70px;
+    bottom: 5px;
+    background: #f9fafb;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.visual1 .dashboard-right::before {
+    content: 'Active Runs\A\A🟢 3 Running\A⏸️ 1 Pending\A❌ 2 Failed\A\AQuick Actions\A• New Run\A• Create WS\A• Add Team';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 8px;
+    line-height: 1.2;
+    color: #6b7280;
+    white-space: pre-line;
+}
+
+/* Visual 2: Plan Visualization */
+.visual2 {
+    background: #0d1117;
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    padding: 10px;
+    font-family: 'Courier New', monospace;
+}
+
+.visual2::after {
+    content: 'Terraform Plan Diff\A\A+ aws_instance.web\A+ ami           = "ami-0c02fb55956c7d316"\A+ instance_type = "t3.micro"\A+ tags = { "Name" = "web-server" }\A\A~ aws_security_group.web\A~ ingress {\A-   cidr_blocks = ["10.0.0.0/8"]\A+   cidr_blocks = ["0.0.0.0/0"]\A~ }\A\A- aws_s3_bucket.old_bucket\A- bucket = "old-assets-bucket"\A- acl    = "private"';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    font-size: 9px;
+    line-height: 1.3;
+    white-space: pre-line;
+    text-align: left;
+    overflow: hidden;
+    background:
+        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 2.6em/100% 1.3em,
+        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 3.9em/100% 1.3em,
+        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 5.2em/100% 1.3em,
+        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 6.5em/100% 1.3em,
+        linear-gradient(to right, rgba(187, 128, 9, 0.2) 0%, rgba(187, 128, 9, 0.2) 100%) 0 8.45em/100% 1.3em,
+        linear-gradient(to right, rgba(187, 128, 9, 0.2) 0%, rgba(187, 128, 9, 0.2) 100%) 0 9.75em/100% 1.3em,
+        linear-gradient(to right, rgba(248, 81, 73, 0.2) 0%, rgba(248, 81, 73, 0.2) 100%) 0 10.4em/100% 1.3em,
+        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 11.05em/100% 1.3em,
+        linear-gradient(to right, rgba(187, 128, 9, 0.2) 0%, rgba(187, 128, 9, 0.2) 100%) 0 11.7em/100% 1.3em,
+        linear-gradient(to right, rgba(248, 81, 73, 0.2) 0%, rgba(248, 81, 73, 0.2) 100%) 0 13em/100% 1.3em,
+        linear-gradient(to right, rgba(248, 81, 73, 0.2) 0%, rgba(248, 81, 73, 0.2) 100%) 0 14.3em/100% 1.3em,
+        linear-gradient(to right, rgba(248, 81, 73, 0.2) 0%, rgba(248, 81, 73, 0.2) 100%) 0 15.6em/100% 1.3em;
+    background-repeat: no-repeat;
+    color: #e6edf3;
+}
+
+/* Visual 3: RBAC */
+.visual3 {
+    background: #ffffff;
+    border: 1px solid #e1e5e9;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual3::after {
+    content: 'TYPE  NAME             ROLE\A────  ───────────────  ────────\A👤    alice.smith      Owner\A👤    bob.jones        Deployer\A👤    carol.white      Viewer\A\A👥    devops-team      Owner\A👥    qa-team          Deployer\A\A🤖    ci-runner        Deployer\A🤖    backup-service   Viewer';
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-size: 11px;
+    line-height: 1.6;
+    color: #24292f;
+    white-space: pre;
+    text-align: left;
+    padding: 15px;
+}
+
+/* Visual 4: Group Hierarchy */
+.visual4 {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual4::after {
+    content: '🏢 organization\A├── 📁 production\A│   ├── 📁 frontend\A│   │   └── 🌐 web-app\A│   ├── 📁 backend\A│   │   ├── 🌐 api-service\A│   │   └── 🌐 auth-service\A│   └── 📁 data\A│       └── 🌐 database\A├── 📁 staging\A│   ├── 📁 frontend\A│   │   └── 🌐 web-app\A│   └── 📁 backend\A│       └── 🌐 api-service\A└── 📁 development\A    └── 🌐 sandbox';
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-size: 10px;
+    line-height: 1.4;
+    color: #e6edf3;
+    white-space: pre;
+    text-align: left;
+    padding: 12px;
+}
+
+/* Visual 5: Private Registry */
+.visual5 {
+    background: #ffffff;
+    border: 1px solid #e1e5e9;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual5::after {
+    content: 'MODULE                     VERSION\A─────────────────────────  ───────\A📦 terraform-aws-vpc        v2.1.0\A📦 terraform-azure-network  v1.3.2\A📦 terraform-gcp-compute    v3.0.1\A📦 terraform-k8s-cluster    v1.5.0\A📦 terraform-monitoring     v2.0.3\A\A🔒 Private  ✅ Attested  📚 Docs';
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #24292f;
+    white-space: pre;
+    text-align: left;
+    padding: 20px;
+}
+
+/* Visual 6: No-Code Deployments */
+.visual6 {
+    background: linear-gradient(135deg, #10b981, #059669);
+    border: 2px solid #34d399;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual6::after {
+    content: 'No-Code Deploy\A\A🚀 Select Module\A⚙️ Configure Variables\A🎯 Choose Workspace\A▶️ Deploy\A\A✨ No Terraform code needed\A📋 UI-driven workflow\A🔄 CLI support available';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #ffffff;
+    white-space: pre-line;
+    text-align: center;
+}
+
+/* Visual 7: Managed Identities */
+.visual7 {
+    background: linear-gradient(135deg, #065f46, #10b981);
+    border: 2px solid #34d399;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual7::after {
+    content: 'Zero Credentials\A\A🔐 OIDC Authentication\A☁️ AWS & Azure Support\A🛡️ Access Policies\A📋 Module Attestation\A\A✅ No static secrets\A🔄 Dynamic role assumption\A🎯 Fine-grained control';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #ffffff;
+    white-space: pre-line;
+    text-align: center;
+}
+
+/* Visual 8: Service Accounts */
+.visual8 {
+    background: #1f2937;
+    border: 2px solid #374151;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual8::after {
+    content: 'M2M Authentication\A\A🤖 Service Accounts\A🔑 OIDC Tokens\A🔄 CI/CD Integration\A👥 Role Assignment\A\A✅ GitHub Actions\A✅ GitLab Jobs\A✅ No API keys needed';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #e5e7eb;
+    white-space: pre-line;
+    text-align: center;
+}
+
+/* Visual 9: VCS Integration */
+.visual9 {
+    background: #f6f8fa;
+    border: 2px solid #d0d7de;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual9::after {
+    content: 'Git Workflows\A\A🔗 Repository Linking\A🔄 Webhook Automation\A🌿 Branch Management\A📋 Pattern Matching\A\A✅ GitHub & GitLab\A⚡ Auto-trigger runs\A🎯 Selective deployments';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #24292f;
+    white-space: pre-line;
+    text-align: center;
+}
+
+/* Visual 10: Runner Agents */
+.visual10 {
+    background: linear-gradient(135deg, #7c3aed, #5b21b6);
+    border: 2px solid #a855f7;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual10::after {
+    content: 'Flexible Execution\A\A⚡ Scalable Runners\A🐳 Docker Support\A☸️ Kubernetes\A☁️ AWS Fargate\A\A🔄 Shared runners\A🎯 Dedicated agents\A🔒 Private networks';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #ffffff;
+    white-space: pre-line;
+    text-align: center;
+}
+
+/* Visual 11: Terraform Provider */
+.visual11 {
+    background: #0f172a;
+    border: 2px solid #334155;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual11::after {
+    content: 'Native Integration\A\Aresource "tharsis_workspace" "example" {\A  name = "my-workspace"\A  group_path = "my-group"\A}\A\Adata "tharsis_workspace_outputs" "web" {\A  workspace_path = "prod/web"\A}';
+    font-family: 'Courier New', monospace;
+    font-size: 9px;
+    line-height: 1.2;
+    color: #64748b;
+    white-space: pre-line;
+    text-align: center;
+}
+
+/* Visual 12: Workspace Dependencies */
+.visual12 {
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual12::after {
+    content: 'Dependency Tracking\A\A🔄 Cross-workspace data\A📊 Visual relationships\A🎯 Output consumption\A📈 Dependency graphs\A\A✅ web-app → database\A✅ api → shared-vpc\A✅ monitoring → all';
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    line-height: 1.3;
+    color: #92400e;
+    white-space: pre-line;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 996px) {
+    .featureRow {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+
+    .featureRow.reverse {
+        direction: ltr;
+    }
+
+    .featureContent {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .dashboardImage,
+    .deploymentVisual,
+    .vcsVisual,
+    .runnerVisual,
+    .providerVisual,
+    .dependencyVisual,
+    .identityVisual,
+    .serviceAccountVisual,
+    .customVisual {
+        width: 100%;
+        max-width: 420px;
+        height: 250px;
+        overflow: hidden;
+    }
+}
+
+@media (max-width: 768px) {
+    .features {
+        padding: 80px 0;
+    }
+
+    .sectionTitle {
+        font-size: 2rem;
+    }
+
+    .featureTitle {
+        font-size: 1.5rem;
+    }
+
+    .dashboardImage,
+    .deploymentVisual,
+    .vcsVisual,
+    .runnerVisual,
+    .providerVisual,
+    .dependencyVisual,
+    .identityVisual,
+    .serviceAccountVisual,
+    .customVisual {
+        width: 100%;
+        max-width: 380px;
+        height: 220px;
+        overflow: hidden;
+    }
+}

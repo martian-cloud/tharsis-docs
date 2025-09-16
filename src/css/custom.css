@@ -6,40 +6,149 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #4db6ac;
-  --ifm-color-primary-dark: #46ada3;
-  --ifm-color-primary-darker: #42a299;
-  --ifm-color-primary-darkest: #3e988f;
-  --ifm-color-primary-light: #5cbcb2;
-  --ifm-color-primary-lighter: #6ac2b9;
-  --ifm-color-primary-lightest: #79c8c0;
-  --ifm-code-font-size: 95%;
-  --default-transition-duration: .2s;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+    --ifm-color-primary: #4db6ac;
+    --ifm-color-primary-dark: #46ada3;
+    --ifm-color-primary-darker: #42a299;
+    --ifm-color-primary-darkest: #3e988f;
+    --ifm-color-primary-light: #5cbcb2;
+    --ifm-color-primary-lighter: #6ac2b9;
+    --ifm-color-primary-lightest: #e0f2f1;
+    --ifm-code-font-size: 95%;
+    --default-transition-duration: .2s;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
+    /* Enhanced card styling */
+    --ifm-card-background-color: #ffffff;
+    --ifm-card-border-radius: 12px;
+
+    /* Better typography */
+    --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    --ifm-line-height-base: 1.6;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #4db6ac;
-  --ifm-color-primary-dark: #46ada3;
-  --ifm-color-primary-darker: #42a299;
-  --ifm-color-primary-darkest: #3e988f;
-  --ifm-color-primary-light: #5cbcb2;
-  --ifm-color-primary-lighter: #6ac2b9;
-  --ifm-color-primary-lightest: #79c8c0;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+    --ifm-color-primary: #4db6ac;
+    --ifm-color-primary-dark: #46ada3;
+    --ifm-color-primary-darker: #42a299;
+    --ifm-color-primary-darkest: #3e988f;
+    --ifm-color-primary-light: #5cbcb2;
+    --ifm-color-primary-lighter: #6ac2b9;
+    --ifm-color-primary-lightest: #1a2e2a;
+    --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+    /* Dark mode card styling */
+    --ifm-card-background-color: #1e1e1e;
 }
 
 /* Override footer style */
 [data-theme='light'] .footer--dark {
-  --ifm-footer-background-color: #0a413a;
+    --ifm-footer-background-color: #0a413a;
 }
 
 [data-theme='dark'] .footer--dark {
-  --ifm-footer-background-color: #00201c;
+    --ifm-footer-background-color: #00201c;
 }
 
+/* Remove default hero styling since we're using custom */
 .hero {
-    color: var(--ifm-color-content);
-    background-color: var(--ifm-color-primary-darker);
+    background: none;
+    color: inherit;
+}
+
+/* Improved navbar */
+.navbar {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Better button styling globally */
+.button {
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.2s ease;
+}
+
+.button:hover {
+    transform: translateY(-1px);
+}
+
+/* Improved code blocks */
+.prism-code {
+    border-radius: 8px;
+}
+
+/* Better table styling */
+table {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* GitLab logo in navbar */
+.header-gitlab-link:before {
+    content: '';
+    width: 24px;
+    height: 24px;
+    display: flex;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FC6D26' d='M12 21.42l3.684-11.333H8.316L12 21.42z'/%3E%3Cpath fill='%23E24329' d='M12 21.42l-3.684-11.333H1.684L12 21.42z'/%3E%3Cpath fill='%23FC6D26' d='M1.684 10.087L.266 14.18a.856.856 0 00.31.956L12 21.42 1.684 10.087z'/%3E%3Cpath fill='%23FCA326' d='M1.684 10.087h6.632L6.947 1.82c-.18-.553-.97-.553-1.149 0L1.684 10.087z'/%3E%3Cpath fill='%23E24329' d='M12 21.42l3.684-11.333h6.632L12 21.42z'/%3E%3Cpath fill='%23FC6D26' d='M22.316 10.087l1.418 4.093a.856.856 0 01-.31.956L12 21.42l10.316-11.333z'/%3E%3Cpath fill='%23FCA326' d='M22.316 10.087h-6.632L17.053 1.82c.18-.553.97-.553 1.149 0l4.114 8.267z'/%3E%3C/svg%3E") no-repeat;
+}
+
+[data-theme='dark'] .header-gitlab-link:before {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23FC6D26' d='M12 21.42l3.684-11.333H8.316L12 21.42z'/%3E%3Cpath fill='%23E24329' d='M12 21.42l-3.684-11.333H1.684L12 21.42z'/%3E%3Cpath fill='%23FC6D26' d='M1.684 10.087L.266 14.18a.856.856 0 00.31.956L12 21.42 1.684 10.087z'/%3E%3Cpath fill='%23FCA326' d='M1.684 10.087h6.632L6.947 1.82c-.18-.553-.97-.553-1.149 0L1.684 10.087z'/%3E%3Cpath fill='%23E24329' d='M12 21.42l3.684-11.333h6.632L12 21.42z'/%3E%3Cpath fill='%23FC6D26' d='M22.316 10.087l1.418 4.093a.856.856 0 01-.31.956L12 21.42l10.316-11.333z'/%3E%3Cpath fill='%23FCA326' d='M22.316 10.087h-6.632L17.053 1.82c.18-.553.97-.553 1.149 0l4.114 8.267z'/%3E%3C/svg%3E") no-repeat;
+}
+
+.header-gitlab-link {
+    padding: 8px !important;
+}
+
+.header-gitlab-link:hover:before {
+    transform: scale(1.1);
+    transition: transform 0.2s ease;
+}
+
+/* Center footer logo on mobile */
+@media (max-width: 768px) {
+
+    .footer,
+    .footer *,
+    .footer **,
+    footer,
+    footer *,
+    footer ** {
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        justify-content: center !important;
+        align-items: center !important;
+    }
+
+    .footer div,
+    .footer img,
+    footer div,
+    footer img {
+        display: block !important;
+        margin: 0 auto 2.5rem auto !important;
+        text-align: center !important;
+    }
+
+    .footer a,
+    footer a {
+        display: block !important;
+        margin: 0 auto !important;
+        text-align: center !important;
+    }
+
+    .footer>* {
+        margin-bottom: 2.5rem !important;
+    }
+
+    .footer section,
+    .footer .container>*,
+    .footer .row>* {
+        margin-bottom: 2.5rem !important;
+    }
 }

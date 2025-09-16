@@ -1,0 +1,245 @@
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--ifm-color-primary-darker) 0%, var(--ifm-color-primary) 100%);
+    color: white;
+    padding: 120px 0;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Background Elements */
+.heroBackground {
+    position: absolute;
+    inset: 0;
+    opacity: 0.1;
+}
+
+.heroPattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 25% 25%, white 2px, transparent 2px),
+        radial-gradient(circle at 75% 75%, white 2px, transparent 2px);
+    background-size: 60px 60px;
+    background-position: 0 0, 30px 30px;
+}
+
+/* Layout */
+.heroContainer {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 5rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+.heroContent {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* Typography */
+.heroTitle {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin: 0;
+}
+
+.heroDescription {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    opacity: 0.9;
+    margin: 0;
+    max-width: 90%;
+}
+
+/* Stats Section */
+.heroStats {
+    display: flex;
+    gap: 2rem;
+    margin: 1rem 0;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.statNumber {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.statLabel {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Buttons */
+.heroActions {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.primaryButton,
+.secondaryButton {
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.primaryButton {
+    background: white;
+    color: var(--ifm-color-primary-darker);
+    border: 2px solid white;
+}
+
+.primaryButton:hover {
+    background: transparent;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.secondaryButton {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.secondaryButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    border-color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.buttonIcon {
+    transition: transform 0.3s ease;
+}
+
+.primaryButton:hover .buttonIcon {
+    transform: translateX(4px);
+}
+
+/* Video Section */
+.heroVideo {
+    position: relative;
+    animation: fadeInRight 0.8s ease-out 0.2s both;
+}
+
+.videoWrapper {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+    transition: transform 0.3s ease;
+}
+
+.videoWrapper:hover {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 996px) {
+    .heroContainer {
+        grid-template-columns: 1fr;
+        gap: 4rem;
+        text-align: center;
+    }
+
+    .heroTitle {
+        font-size: 3rem;
+    }
+
+    .heroActions,
+    .heroStats {
+        justify-content: center;
+    }
+
+    .videoWrapper {
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: 80px 0;
+        min-height: 70vh;
+    }
+
+    .heroTitle {
+        font-size: 2.5rem;
+    }
+
+    .heroDescription {
+        font-size: 1.2rem;
+        max-width: 100%;
+    }
+
+    .heroStats {
+        gap: 1.5rem;
+    }
+
+    .heroActions {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .primaryButton,
+    .secondaryButton {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+    }
+}
