@@ -1,0 +1,65 @@
+---
+title: Tharsis Now Supports Ephemeral Variables
+tags: [tharsis, terraform, security, ephemeral variables, write-only attributes]
+authors:
+  - name: Brandon Breuil
+hide_table_of_contents: false
+---
+
+Tharsis now has support for ephemeral variables, a powerful new feature that enhances security by preventing sensitive data from being stored in Terraform plan and state files.
+
+![Ephemeral Variables Flow](/posts/ephemeral-variable-support/ephemeral-variable-diagram.svg)
+
+<!--truncate-->
+
+## What are Ephemeral Variables?
+
+Ephemeral variables and write-only attributes allow you to pass secrets into your Terraform configuration without storing the secrets in the plan or state file. This ensures that sensitive information remains secure throughout your infrastructure deployment process.
+
+## Why Use Ephemeral Variables?
+
+When a variable is marked as ephemeral, it will not be stored in the Terraform plan or state file. This can be used with sensitive group/workspace variables in Tharsis to ensure that the sensitive variables are only stored in the database and will be encrypted using the configured encryption plugin for the Tharsis deployment.
+
+## Example of an Ephemeral Input Variable
+
+```hcl
+variable "database_secret" {
+  description = "This is an ephemeral secret which will not be stored in my plan or state file"
+  type        = string
+  ephemeral   = true
+  sensitive   = true
+}
+```
+
+## How to Pass Ephemeral Variables to Resources
+
+Terraform resources which support ephemeral values provide a write-only attribute which can be used to pass in the ephemeral variable value.
+
+```hcl
+resource "aws_ssm_parameter" "foo1" {
+  name             = "/example/database-secret"
+  type             = "String"
+  value_wo         = var.database_secret
+  value_wo_version = var.database_secret_wo_version
+}
+```
+
+## Automatic Version Management
+
+When using write-only attributes, Terraform does not store the values in the state file; therefore, the only way for Terraform to know when the value has changed is using a `wo_version` attribute. The resource will be updated with the new ephemeral value when the version attribute is updated.
+
+Tharsis simplifies this process by automatically injecting a version variable which can be used in the resource definition. From the example above, if a `database_secret_wo_version` variable definition is included in the Terraform config, then Tharsis will automatically pass the variable in.
+
+```hcl
+variable "database_secret_wo_version" {
+  description = "This version of the database secret automatically injected by tharsis"
+}
+```
+
+This version will only change when the underlying Tharsis workspace/group variable is updated since it's derived from a hash of the Tharsis variable version ID. Note that the write-only version variable is only automatically injected for group/workspace variables and not run-scoped variables.
+
+## Learn More
+
+For additional information about managing sensitive data in Terraform, visit the [official Terraform documentation](https://developer.hashicorp.com/terraform/language/manage-sensitive-data).
+
+This feature represents another step forward in Tharsis's commitment to providing secure, enterprise-ready Terraform automation capabilities.
