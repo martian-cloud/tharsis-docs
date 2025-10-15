@@ -3,7 +3,19 @@ title: Quickstart
 description: "Begin using Tharsis in 5 mins"
 ---
 
-The following guide will walk you through the basics of creating a group, workspace, and finally a sample run with Tharsis.
+Get up to speed with Tharsis quickly! We recommend starting with the video demo below to see Tharsis in action, then follow the hands-on guide to create your first group, workspace, and run.
+
+## Tharsis on YouTube
+
+Watch this quick intro and demo to see Tharsis in action:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zhkfyRugk_I" title="Getting Started with Tharsis: An Open Source, DevOps Platform for Terraform" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+
+**Getting Started with Tharsis: An Open Source, DevOps Platform for Terraform**
+
+This demo shows launching an EC2 instance with Tharsis, highlighting key features like plan visualization, drift detection, and the benefits of using Tharsis for your Terraform workflows.
+
+## Getting Started
 
 To begin, download the latest CLI release. Learn [more](setup/cli/install).
 
