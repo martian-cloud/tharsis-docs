@@ -950,6 +950,7 @@ assign-managed-identity      Assign a managed identity to a workspace.
 create                       Create a new workspace.
 delete                       Delete a workspace.
 get                          Get a single workspace.
+label                        Manage labels on a workspace.
 list                         List workspaces.
 outputs                      Get the state version outputs for a workspace.
 set-environment-vars         Set environment variables for a workspace.
@@ -993,8 +994,39 @@ tharsis workspace create \
 - `--description`: a short description for the workspace being created. Optional.
 - `--managed-identity`: path to the managed identity for this workspace. Optional.
 - `--max-job-duration`: number of minutes before a job is gracefully canceled by Tharsis. Optional.
+- `--label`: add a label to the workspace in `key=value` format. Can be specified multiple times. Optional.
 
 </details>
+
+**Create workspace with a single label:**
+
+```shell title="Create workspace with environment label"
+tharsis workspace create \
+  --label environment=production \
+  top-level/mid-level/api-server
+```
+
+**Create workspace with multiple labels:**
+
+```shell title="Create workspace with multiple labels"
+tharsis workspace create \
+  --label environment=production \
+  --label team=platform \
+  --label cost-center=engineering \
+  top-level/mid-level/api-server
+```
+
+**Create workspace with label containing spaces:**
+
+```shell title="Create workspace with label value containing spaces"
+tharsis workspace create \
+  --label "description=Production API Server" \
+  top-level/mid-level/api-server
+```
+
+:::info Label Format
+Labels must be specified in `key=value` format. Label keys can only contain lowercase letters, numbers, hyphens, and underscores (max 64 characters). Label values can contain alphanumeric characters, hyphens, underscores, and spaces (max 255 characters). A workspace can have a maximum of 10 labels.
+:::
 
 :::caution
 Workspace names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
@@ -1083,6 +1115,160 @@ tharsis workspace set-terraform-vars \
 - `--tf-var-file`: path to a .tfvars Terraform variables file. Required.
 
 </details>
+
+#### workspace unassign-managed-identity subcommand
+
+```shell title="Unassign managed identity aws-deployment from workspace_3"
+tharsis workspace unassign-managed-identity \
+  --json \
+  top-level/mid-level/workspace_3 \
+  top-level/aws-deployment
+```
+
+<details>
+<summary>Expand for explanation</summary>
+
+- `--json`: display final output in formatted JSON. Optional.
+
+</details>
+
+#### workspace update subcommand
+
+```shell title="Update workspace hero with new description"
+tharsis workspace update \
+  --description "Updated workspace description" \
+  top-level/mid-level/hero
+```
+
+<details>
+<summary>Expand for explanation</summary>
+
+- `--description`: a short description for the workspace. Optional.
+- `--max-job-duration`: number of minutes before a job is gracefully canceled by Tharsis. Optional.
+- `--label`: set workspace labels in `key=value` format. Can be specified multiple times. **Replaces all existing labels**. Optional.
+
+</details>
+
+**Update workspace with labels:**
+
+```shell title="Update workspace with labels and description"
+tharsis workspace update \
+  --description "Production API workspace" \
+  --label environment=production \
+  --label team=platform \
+  top-level/mid-level/api-server
+```
+
+**Update only labels:**
+
+```shell title="Update workspace labels only"
+tharsis workspace update \
+  --label environment=staging \
+  --label cost-center=engineering \
+  top-level/mid-level/api-server
+```
+
+**Remove all labels from a workspace:**
+
+```shell title="Remove all labels by updating with no label flags"
+tharsis workspace update \
+  --description "Workspace with no labels" \
+  top-level/mid-level/api-server
+```
+
+:::caution Label Replacement Behavior
+The `--label` flag **replaces ALL existing labels** on the workspace. If you want to add or remove individual labels without affecting others, use the `workspace label` subcommand instead, which provides additive label operations.
+:::
+
+:::info Label Format
+Labels must be specified in `key=value` format. Label keys can only contain lowercase letters, numbers, hyphens, and underscores (max 64 characters). Label values can contain alphanumeric characters, hyphens, underscores, and spaces (max 255 characters). A workspace can have a maximum of 10 labels.
+:::
+
+#### workspace label subcommand
+
+The `workspace label` subcommand provides incremental label management, allowing you to add, update, or remove individual labels without affecting other labels on the workspace.
+
+**Command syntax:**
+
+```bash
+tharsis workspace label [options] <workspace_path> [label_operations...]
+```
+
+**Label operations:**
+
+- `key=value` - Add a new label or update an existing label's value
+- `key-` - Remove a label (trailing hyphen indicates removal)
+
+**Options:**
+
+- `--overwrite` - Replace all existing labels with the specified labels (cannot be used with removal operations)
+- `--json` - Output the result in JSON format
+
+**Add or update labels (additive):**
+
+```shell title="Add a single label"
+tharsis workspace label my-group/my-workspace environment=production
+```
+
+```shell title="Add multiple labels"
+tharsis workspace label my-group/my-workspace \
+  environment=production \
+  team=platform \
+  owner=john-doe
+```
+
+```shell title="Update an existing label value"
+tharsis workspace label my-group/my-workspace environment=staging
+```
+
+**Remove labels:**
+
+```shell title="Remove a single label"
+tharsis workspace label my-group/my-workspace environment-
+```
+
+```shell title="Remove multiple labels"
+tharsis workspace label my-group/my-workspace \
+  environment- \
+  team- \
+  owner-
+```
+
+**Mix add and remove operations:**
+
+```shell title="Update and remove labels in one command"
+tharsis workspace label my-group/my-workspace \
+  environment=staging \
+  team- \
+  cost-center=engineering \
+  owner-
+```
+
+**Replace all labels (overwrite):**
+
+```shell title="Replace with new labels"
+tharsis workspace label --overwrite my-group/my-workspace \
+  environment=production \
+  version=v2 \
+  team=platform
+```
+
+```shell title="Remove all labels"
+tharsis workspace label --overwrite my-group/my-workspace
+```
+
+:::tip workspace label vs workspace update
+Use `workspace label` for label-specific operations. The default behavior is additive - existing labels are preserved unless explicitly updated or removed. Use `workspace update --label` only when you need to modify other workspace properties at the same time, but note that it replaces ALL existing labels.
+:::
+
+**Common validation errors:**
+
+- **Invalid label key format**: Keys must be lowercase letters, numbers, hyphens, and underscores only. Cannot start or end with hyphen or underscore.
+- **Invalid label value**: Values can only contain alphanumeric characters, hyphens, underscores, and spaces.
+- **Maximum labels exceeded**: A workspace can have a maximum of 10 labels.
+- **Empty key or value**: Both key and value must be provided in `key=value` format.
+
+For detailed information about workspace labels, constraints, and best practices, see the [workspace overview documentation](../../guides/overviews/workspaces).
 
 ### Frequently asked questions (FAQ)
 
