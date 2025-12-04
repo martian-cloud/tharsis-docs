@@ -7,7 +7,7 @@ description: "Configuring and using managed identities to deploy resources"
 
 Managed identities are used to assume cloud provider credentials using OIDC federation. They provide credentials to the Terraform providers without having to store credentials.
 
-Tharsis supports Amazon Web Services (AWS) and Microsoft Azure managed identities for assuming [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html) and [Azure Service Principals](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli#what-is-an-azure-service-principal) respectively. These managed identities can be created in a group via the UI and assigned to a workspace for deploying resources.
+Tharsis supports Amazon Web Services (AWS), Microsoft Azure, and Kubernetes managed identities for assuming [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html), [Azure Service Principals](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli#what-is-an-azure-service-principal), and Kubernetes roles respectively. These managed identities can be created in a group via the UI and assigned to a workspace for deploying resources.
 
 :::tip Did you know...
 The Tharsis CLI includes a `--managed-identity` flag to automatically assign the given managed identity to a workspace when it's created, meaning a workspace is ready to go with just one command!
@@ -81,6 +81,89 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
   - Once created, the `Issuer`, `Audience`, and `Subject` will be displayed in Tharsis. In the Azure portal, select your app registration. Under `Certificates & Secrets` -> `Federated Credentials` select the `Add Credentials` button and provide the `Issuer`, `Audience`, and `Subject` fields.
 
   - The managed identity can now be [assigned](#assign-a-managed-identity) to any workspace within the group.
+
+### Kubernetes Managed Identity
+
+**Step 1: Create the managed identity in Tharsis**
+
+- Select `Kubernetes` as type, provide a name, optionally a short memorable description, the audience (or go for default "kubernetes"), and click on <span style={{ color: '#4db6ac' }}>`CREATE MANAGED IDENTITY`</span>:
+  ![Screenshot of the Tharsis UI showing new managed identity page](/img/managed_identities/tharsis-kubernetes-identity.png "New managed identity page")
+
+  :::caution
+  Managed identity names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
+
+  The **Audience** field has specific validation rules:
+  - Maximum **100 characters**
+  - **No spaces** allowed
+  - Only **alphanumeric** characters, **hyphens** (-), and **dots** (.) allowed
+  - Examples: `kubernetes`, `prod-cluster`, `cluster.example.com`
+
+  A managed identity's name **cannot** be changed once created. It will have to be deleted and recreated, which is **dangerous**.
+  :::
+
+- Once created, copy the `Subject` (managed identity ID) from the Tharsis UI - you'll need this for the next step.
+
+- The managed identity can now be [assigned](#assign-a-managed-identity) to any workspace within the group.
+
+**Step 2: Configure your Kubernetes cluster with Terraform**
+
+Set up both the OIDC identity provider and ClusterRoleBinding in your Terraform configuration:
+
+```hcl
+provider "aws" {
+  region = var.cluster_region
+}
+
+data "aws_eks_cluster" "this" {
+  name = var.cluster_name
+}
+
+data "aws_eks_cluster_auth" "this" {
+  name = var.cluster_name
+}
+
+provider "kubernetes" {
+  host                   = data.aws_eks_cluster.this.endpoint
+  cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
+  token                  = data.aws_eks_cluster_auth.this.token
+}
+
+resource "aws_eks_identity_provider_config" "tharsis_oidc" {
+  cluster_name = var.cluster_name
+
+  oidc {
+    identity_provider_config_name = "${var.cluster_name}-tharsis-oidc"
+    issuer_url                   = "https://example.tharsis.com"
+    client_id                    = var.audience  # Use audience as client_id
+    username_claim               = "sub"
+  }
+}
+
+# Create ClusterRoleBinding for the managed identity
+resource "kubernetes_cluster_role_binding_v1" "tharsis_managed_identity" {
+  metadata {
+    name = "tharsis-cluster-access-role-binding"
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "ClusterRole"
+    name      = "cluster-admin"  # Adjust permissions as needed
+  }
+
+  subject {
+    kind      = "User"
+    name      = "${var.tharsis_oidc_issuer_url}#${var.managed_identity_id}"
+    api_group = "rbac.authorization.k8s.io"
+  }
+}
+```
+
+> **Variables to configure:**
+> - `audience`: Your desired value (e.g., `kubernetes`)
+> - `managed_identity_id`: The Subject copied from Tharsis in Step 1
+> - `tharsis_oidc_issuer_url`: Your Tharsis instance URL
+
 
 ## Update a managed identity
 
