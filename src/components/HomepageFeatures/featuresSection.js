@@ -92,6 +92,13 @@ export default function FeaturesSection() {
       icon: "🔄",
       highlight: "Dependency management",
     },
+    {
+      title: "AI Assistant Integration",
+      description:
+        "Built-in MCP server enables AI assistants like Kiro, Claude, and Cursor to manage infrastructure. Create runs, troubleshoot failures, and deploy changes through natural language with configurable access controls.",
+      icon: "🤖",
+      highlight: "MCP server",
+    },
   ];
 
   return (
@@ -289,6 +296,32 @@ export default function FeaturesSection() {
                           <div className={styles.inputItem}>← subnet_ids</div>
                           <div className={styles.inputItem}>← vpc_id</div>
                         </div>
+                      </div>
+                    </div>
+                  </div>
+                ) : idx === 12 ? (
+                  <div className={styles.mcpVisual}>
+                    <div className={styles.mcpContent}>
+                      <div className={styles.mcpFlow}>
+                        <div className={styles.mcpStep}>
+                          <div className={styles.mcpIcon}>💬</div>
+                          <div className={styles.mcpText}>AI Assistant</div>
+                        </div>
+                        <div className={styles.mcpArrow}>↔</div>
+                        <div className={styles.mcpStep}>
+                          <div className={styles.mcpIcon}>🔌</div>
+                          <div className={styles.mcpText}>MCP Server</div>
+                        </div>
+                        <div className={styles.mcpArrow}>↔</div>
+                        <div className={styles.mcpStep}>
+                          <div className={styles.mcpIcon}>🏗️</div>
+                          <div className={styles.mcpText}>Tharsis</div>
+                        </div>
+                      </div>
+                      <div className={styles.mcpActions}>
+                        <span className={styles.mcpBadge}>Plan & Apply</span>
+                        <span className={styles.mcpBadge}>Diagnose</span>
+                        <span className={styles.mcpBadge}>Manage</span>
                       </div>
                     </div>
                   </div>

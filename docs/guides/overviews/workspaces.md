@@ -34,7 +34,7 @@ Labels are optional but highly recommended for organizations managing multiple w
 :::
 
 :::tip Have a question?
-Check the [FAQ](#frequently-asked-questions) to see if there's already an answer.
+Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
 :::
 
 ---
@@ -346,27 +346,27 @@ Deleting a workspace is an <u>**irreversible**</u> operation. All workspace reso
 Proceed with **extreme** caution as force deletion **permanently** removes <u>**ALL**</u> deployment state files and related information from Tharsis. If unsure, **do not** proceed.
 :::
 
-### Frequently asked questions
+## Frequently asked questions (FAQ)
 
-#### Who can create / update / delete workspaces?
+### Who can create / update / delete workspaces?
 
 - A deployer or higher (owner, administrator) can create a workspace.
 - Viewer **cannot** modify a workspace.
 - System administrator can create / delete **any** workspace.
 
-#### Why can't I delete a workspace?
+### Why can't I delete a workspace?
 
 Either you don't have appropriate privileges, or the workspace has resources deployed and Tharsis prevented an accidental deletion.
 
-#### I'm confident my Terraform configuration is correct but my runs keep failing. What could be a potential issue?
+### I'm confident my Terraform configuration is correct but my runs keep failing. What could be a potential issue?
 
 If your configuration is correct and no other errors are suspected, it could be that you simply forgot to [assign a managed identity](./managed_identities#assign-a-managed-identity) to your workspace. A deployment to AWS or Azure will fail if no IAM role can be assumed.
 
-#### How many jobs can simultaneously run on a workspace?
+### How many jobs can simultaneously run on a workspace?
 
 All jobs process in a first in, first out order. A workspace can only have one active job at any given moment.
 
-#### Where can I find an overview of my deployed resources, outputs, state file, etc.?
+### Where can I find an overview of my deployed resources, outputs, state file, etc.?
 
 Once a run completes its apply stage, the run populates the workspace details page. The user can view deployed resources, input variables, outputs, dependencies, and of course the state file right from the Tharsis UI.
 
@@ -377,11 +377,11 @@ Once a run completes its apply stage, the run populates the workspace details pa
 
 </details>
 
-#### How do I assign a managed identity to a workspace?
+### How do I assign a managed identity to a workspace?
 
 See [assign a managed identity](./managed_identities.md#assign-a-managed-identity) for the Tharsis UI.
 
-#### What are workspace labels and how do I use them?
+### What are workspace labels and how do I use them?
 
 Workspace labels are key-value pairs that help you organize, categorize, and manage workspaces. They're useful for identifying environments (production, staging), tracking ownership (team, owner), allocating costs (cost-center, project), and marking compliance requirements.
 
@@ -402,7 +402,7 @@ You can add labels when creating a workspace or manage them later through the wo
 - [Workspace Label Constraints](#workspace-label-constraints) - Formatting rules and limits
 - [CLI Label Management](../../cli/tharsis/commands#workspace-label-subcommand) - Command-line label operations
 
-#### Why am I getting a label validation error?
+### Why am I getting a label validation error?
 
 Label validation errors occur when label keys or values don't meet the required formatting rules. Common issues include:
 
@@ -427,7 +427,7 @@ Label validation errors occur when label keys or values don't meet the required 
 - [Workspace Label Constraints](#workspace-label-constraints) - Complete formatting rules and common validation errors
 - [CLI workspace label command](../../cli/tharsis/commands#workspace-label-subcommand) - CLI label management
 
-#### How many labels can I add to a workspace?
+### How many labels can I add to a workspace?
 
 Each workspace can have a maximum of **10 labels**. Each label key must be unique within the workspace.
 
@@ -442,7 +442,7 @@ You can also evaluate which labels are most important for your organizational ne
 
 - [Workspace Label Constraints](#workspace-label-constraints) - Label limits and rules
 
-#### What happens to labels when I delete a workspace?
+### What happens to labels when I delete a workspace?
 
 When you delete a workspace, all labels attached to that workspace are permanently deleted along with the workspace itself. Labels cannot be recovered after workspace deletion.
 

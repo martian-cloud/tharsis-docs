@@ -1,0 +1,99 @@
+---
+title: Introducing the Tharsis MCP Server
+tags: [tharsis, mcp, ai, automation]
+authors:
+  - name: Aman Singh
+hide_table_of_contents: false
+---
+
+import { TerminalConversation } from "@site/src/components/BlogFeatures/mcp";
+
+> _What if managing your Terraform infrastructure was as simple as having a conversation?_
+
+Tharsis now includes a built-in [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server, enabling AI assistants to manage your infrastructure through natural language.
+
+<!--truncate-->
+
+## What is MCP?
+
+The Model Context Protocol is an open standard that allows AI assistants like Kiro, Claude, and Cursor to securely interact with external tools. With Tharsis MCP support, your AI assistant can query workspaces, analyze failed runs, create deployments, and troubleshoot issues—all through conversation.
+
+## Getting Started
+
+Add the Tharsis MCP server to your AI client's configuration:
+
+```json showLineNumbers title="mcp.json"
+{
+  "mcpServers": {
+    "tharsis": {
+      "command": "tharsis",
+      "args": ["mcp"],
+      "env": {}
+    }
+  }
+}
+```
+
+By default, the server runs in read-only mode. Enable write operations with:
+
+```json showLineNumbers title="Enable write operations"
+{
+  "mcpServers": {
+    "tharsis": {
+      "command": "tharsis",
+      "args": ["mcp"],
+      "env": { "THARSIS_MCP_READ_ONLY": "false" }
+    }
+  }
+}
+```
+
+Restart your AI client and you're ready to go.
+
+:::tip Multiple Instances
+Use CLI profiles to connect to different Tharsis instances: `"args": ["-p", "production", "mcp"]`
+:::
+
+## What Can You Do?
+
+The MCP server exposes 40+ tools across 13 toolsets:
+
+- **Workspaces & Groups** - Create, configure, and manage your infrastructure hierarchy
+- **Runs** - Create plans, apply changes, view logs
+- **Variables** - Set Terraform and environment variables
+- **Module Registry** - Publish and manage Terraform modules
+- **Documentation** - Search Tharsis docs from your conversation
+
+Pre-built workflow prompts guide the AI through common operations like `apply_run`, `diagnose_run`, and `setup_workspace`.
+
+## See It in Action
+
+<TerminalConversation />
+
+No more digging through logs manually—just ask.
+
+## Built for Safety
+
+- **Read-only by default** - Write operations must be explicitly enabled
+- **Access control lists** - Restrict which namespaces can be modified
+- **No sensitive data** - Sensitive variables and outputs are filtered out
+
+```json showLineNumbers title="Only allow changes to non-production"
+{
+  "mcpServers": {
+    "tharsis": {
+      "command": "tharsis",
+      "args": ["mcp"],
+      "env": { "THARSIS_MCP_NAMESPACE_MUTATION_ACL": "staging/*,dev/*" }
+    }
+  }
+}
+```
+
+## Learn More
+
+Check out the [full documentation](/cli/tharsis/mcp) for configuration options, available tools, and client setup guides.
+
+---
+
+Ready to try it? Update to the latest Tharsis CLI and run `tharsis mcp`. We'd love to hear what you build—share your feedback with us on [GitLab](https://gitlab.com/infor-cloud/martian-cloud/tharsis)!

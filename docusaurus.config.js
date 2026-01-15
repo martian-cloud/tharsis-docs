@@ -13,7 +13,12 @@ const config = {
     url: String(process.env.DOCS_URL || defaultURI),
     baseUrl: String(process.env.DOCS_BASE_URL || "/"),
     onBrokenLinks: "throw",
-    onBrokenMarkdownLinks: "warn",
+
+    markdown: {
+        hooks: {
+            onBrokenMarkdownLinks: "warn",
+        },
+    },
 
     // TODO: Replace this with Tharsis logo when that happens.
     favicon: "img/favicon.ico",
@@ -186,7 +191,7 @@ const config = {
                 darkTheme: darkCodeTheme,
 
                 // Add any additional languages go here for syntax highlighting.
-                additionalLanguages: ["hcl"],
+                additionalLanguages: ["hcl", "json"],
             },
         }),
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
 
 export default function Footer() {
@@ -12,6 +13,7 @@ export default function Footer() {
   }
 
   const { copyright, links, logo } = footer;
+  const logoSrc = useBaseUrl(logo?.src);
 
   return (
     <footer className={styles.footer}>
@@ -27,7 +29,7 @@ export default function Footer() {
                   className={styles.logoLink}
                 >
                   <img
-                    src={logo.src}
+                    src={logoSrc}
                     alt={logo.alt}
                     width={logo.width}
                     height={logo.height}
