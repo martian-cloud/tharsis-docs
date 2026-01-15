@@ -61,4 +61,6 @@ Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [T
 
 &#10004; Support for most Tharsis API operations.
 
+&#10004; Built-in [MCP server](cli/tharsis/mcp.md) for AI assistant integration (Claude, Cursor, etc.).
+
 &#10004; Written in [The Go Programming Language](https://go.dev/) and available for [all major platforms](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).

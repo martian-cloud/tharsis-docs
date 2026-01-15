@@ -127,6 +127,7 @@ const sidebars = {
             "guides/overviews/federated_registries",
             "guides/overviews/module_registry",
             "guides/overviews/provider_registry",
+            "guides/overviews/resource_identifiers",
           ],
         },
         {
@@ -174,7 +175,7 @@ const sidebars = {
             ],
             slug: "cli/tharsis",
           },
-          items: ["cli/tharsis/intro", "cli/tharsis/commands"],
+          items: ["cli/tharsis/intro", "cli/tharsis/commands", "cli/tharsis/mcp"],
         },
         {
           type: "category",

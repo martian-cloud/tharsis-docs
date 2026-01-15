@@ -80,9 +80,9 @@ Deleting a group is an <u>**irreversible**</u> operation. All nested groups and/
 Proceed with **extreme** caution as deletion **permanently** removes <u>**ALL**</u> nested groups and/or workspaces with their associated deployment states. If unsure, **do not** proceed.
 :::
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### Who can create/update/migrate/delete groups?
+### Who can create/update/migrate/delete groups?
 
 - Owner can delete top-level groups; deployer can delete lower-level groups.
 - Owner and deployer can migrate a group. They must also be an owner or deployer in the target parent group.

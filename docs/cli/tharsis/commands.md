@@ -12,6 +12,7 @@ apply                      Apply a single run.
 configure                  Set, update, or remove a profile.
 destroy                    Destroy the workspace state.
 group                      Do operations on groups.
+mcp                        Start the MCP server for AI assistant integration.
 module                     Do operations on a terraform module.
 plan                       Create a speculative plan
 run                        Do operations on runs.
@@ -312,6 +313,41 @@ tharsis group update \
 - `--json`: display final output in formatted JSON. Optional.
 
 </details>
+
+### MCP command
+
+Starts the Model Context Protocol (MCP) server for AI assistant integration. The MCP server allows AI assistants like Kiro, Claude, and Cursor to interact with Tharsis resources.
+
+:::info
+You don't need to run this command manually. Your AI client starts the MCP server automatically based on its configuration.
+:::
+
+**Subcommands**: none.
+
+```shell title="Start the MCP server"
+tharsis mcp
+```
+
+```shell title="Start with specific toolsets"
+tharsis mcp --toolsets workspace,run,job
+```
+
+```shell title="Start in read-only mode"
+tharsis mcp --read-only
+```
+
+<details>
+<summary>Expand for explanation</summary>
+
+- `--toolsets`: comma-separated list of toolsets to enable. Optional.
+- `--tools`: comma-separated list of specific tools to enable (overrides toolsets). Optional.
+- `--read-only`: disable write operations. Optional.
+
+</details>
+
+:::info
+See the [MCP Server documentation](mcp.md) for full details on configuration, available tools, and client setup.
+:::
 
 ### Module command
 
@@ -1270,21 +1306,21 @@ Use `workspace label` for label-specific operations. The default behavior is add
 
 For detailed information about workspace labels, constraints, and best practices, see the [workspace overview documentation](../../guides/overviews/workspaces).
 
-### Frequently asked questions (FAQ)
+## Frequently asked questions (FAQ)
 
-#### Is configuring a profile necessary?
+### Is configuring a profile necessary?
 
 By default, the CLI will use the default Tharsis endpoint passed in at build-time. Unless a different endpoint is needed, no profile configuration is necessary. Simply run `tharsis sso login` and the `default` profile will be created and stored in the settings file.
 
-#### Can service accounts use profile?
+### Can service accounts use profile?
 
 Yes, service accounts can use profiles in the same manner as a human user.
 
-#### Does the documentation show all options for every command?
+### Does the documentation show all options for every command?
 
 It does not. Only the "most common" options are shown, although, different variations are present throughout the examples.
 
-#### Where is the settings file located?
+### Where is the settings file located?
 
 By default, the settings file is located in the user's home directory under `.tharsis` hidden directory or `~/.tharsis/settings.json`.
 
@@ -1292,14 +1328,14 @@ By default, the settings file is located in the user's home directory under `.th
 **Never** share the settings file as it contains sensitive data like the authentication token from SSO!
 :::
 
-#### How do I use profiles?
+### How do I use profiles?
 
 The profile can be specified using a global flag `-p`. It **must** come before a command name. For example, the command `tharsis -p local group list` will list all the groups using the Tharsis endpoint in the `local` profile.
 
-#### I have a service account token, how do I use it?
+### I have a service account token, how do I use it?
 
-[Tharsis-sdk-go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go) and the Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) support service account authentication with environment variables. See [here](./intro.md#service-account).
+[Tharsis-sdk-go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go) and the [Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) support service account authentication with environment variables. See [here](./intro.md#service-account).
 
-#### Can I use Terraform variables from the CLI's environment inside a run?
+### Can I use Terraform variables from the CLI's environment inside a run?
 
 Yes, you can use Terraform variables from the CLI's environment inside a run. The environment variables names must have the "TF*VAR*" prefix. That prefix is trimmed from the name of the Terraform variable that will be set to the value of the environment variable. For example, if the CLI receives an environment variable named TF_VAR_Something with a value of "else", then there will be a Terraform variable named "Something" set to a value of "else".

@@ -83,6 +83,12 @@ table {
     overflow: hidden;
 }
 
+/* Make tables horizontally scrollable on small screens */
+.markdown table {
+    display: block;
+    overflow-x: auto;
+}
+
 /* Smooth scrolling */
 html {
     scroll-behavior: smooth;
