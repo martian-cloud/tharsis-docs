@@ -1,4 +1,3 @@
-import React from "react";
 import Layout from "@theme/Layout";
 import HeroSection from "@site/src/components/HomepageFeatures/heroSection";
 import FeaturesSection from "@site/src/components/HomepageFeatures/featuresSection";

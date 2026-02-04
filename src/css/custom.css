@@ -121,10 +121,8 @@ html {
 
     .footer,
     .footer *,
-    .footer **,
     footer,
-    footer *,
-    footer ** {
+    footer * {
         text-align: center !important;
         margin-left: auto !important;
         margin-right: auto !important;

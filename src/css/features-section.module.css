@@ -1,7 +1,59 @@
+/* ===== CSS CUSTOM PROPERTIES ===== */
+:root {
+    /* Use existing Infima primary colors where possible:
+       --ifm-color-primary: #4db6ac (teal)
+       --ifm-color-primary-lightest: #e0f2f1 (teal light bg)
+       --ifm-color-primary-darkest: #3e988f (teal dark)
+    */
+
+    /* Accent colors */
+    --color-amber: #f59e0b;
+    --color-amber-light: #fef3c7;
+    --color-amber-dark: #92400e;
+    --color-sky: #0ea5e9;
+    --color-sky-light: #f0f9ff;
+    --color-sky-dark: #0c4a6e;
+    --color-emerald: #10b981;
+    --color-emerald-light: #f0fdf4;
+    --color-emerald-dark: #065f46;
+    --color-blue: #3b82f6;
+    --color-red: #ef4444;
+
+    /* Neutral colors */
+    --color-slate-50: #f8fafc;
+    --color-slate-100: #f1f5f9;
+    --color-slate-200: #e2e8f0;
+    --color-slate-300: #cbd5e1;
+    --color-slate-400: #9ca3af;
+    --color-slate-500: #64748b;
+    --color-slate-600: #475569;
+    --color-slate-700: #374151;
+    --color-slate-800: #1e293b;
+    --color-slate-900: #1e293b;
+
+    /* Dark mode colors */
+    --color-dark-bg: #1e1e1e;
+    --color-dark-surface: #2d2d2d;
+    --color-dark-border: #333;
+    --color-dark-text: #e0e0e0;
+    --color-dark-text-muted: #a0a0a0;
+    --color-dark-text-subtle: #888;
+
+    /* Visual dimensions */
+    --visual-width: 400px;
+    --visual-height: 240px;
+    --visual-padding: 16px;
+    --visual-radius: var(--ifm-card-border-radius, 12px);
+
+    /* Shadows */
+    --shadow-base: 0 4px 20px rgba(0, 0, 0, 0.1);
+    --shadow-hover: 0 8px 30px;
+}
+
 /* ===== MAIN SECTION ===== */
 .features {
     padding: 120px 0;
-    background: linear-gradient(135deg, #f1f5f9 0%, rgba(77, 182, 172, 0.25) 100%);
+    background: linear-gradient(135deg, var(--color-slate-100) 0%, rgba(77, 182, 172, 0.25) 100%);
     opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.8s ease, transform 0.8s ease;
@@ -98,6 +150,10 @@
     animation-delay: 1.3s;
 }
 
+.featureRow:nth-child(14) {
+    animation-delay: 1.4s;
+}
+
 .featureRow.reverse {
     direction: rtl;
 }
@@ -149,114 +205,733 @@
     height: 300px;
 }
 
-.dashboardImage {
-    width: 400px;
-    height: 240px;
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+/* ===== FEATURE VISUALS ===== */
+
+/* Visual 0: Dashboard */
+.dashboardVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: #fff;
+    border: 1px solid var(--color-slate-200);
+    border-radius: var(--visual-radius);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
 }
 
-.dashboardImage:hover {
+.dashboardVisual:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
 }
 
-.deploymentVisual {
-    width: 400px;
-    height: 240px;
-    background: black;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+.dashboardNavbar {
+    display: flex;
+    align-items: center;
+    padding: 6px 10px;
+    background: var(--ifm-color-primary);
+    border-bottom: 1px solid var(--color-slate-200);
+    color: white;
+    gap: 12px;
+}
+
+.dashboardLogo {
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.dashboardNavLinks {
+    display: flex;
+    gap: 8px;
+    font-size: 8px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-left: auto;
+}
+
+.dashboardSearch {
+    font-size: 7px;
+    color: var(--color-slate-500);
+    background: #fff;
+    padding: 3px 40px;
+    border-radius: 4px;
+    margin: 0 auto;
+}
+
+.dashboardBody {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.dashboardDrawer {
+    width: 80px;
+    min-width: 80px;
+    background: var(--color-slate-50);
+    border-right: 1px solid var(--color-slate-200);
+    padding: 6px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.dashboardDrawerSection {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.dashboardDrawerHeader {
+    font-size: 7px;
+    font-weight: 600;
+    color: var(--color-slate-500);
+    margin-bottom: 2px;
+}
+
+.dashboardDrawerSearch {
+    font-size: 7px;
+    color: var(--color-slate-500);
+    background: #fff;
+    padding: 2px 4px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    border: 1px solid var(--color-slate-200);
+}
+
+.dashboardDrawerItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 7px;
+    color: var(--color-slate-700);
+    padding: 2px 4px;
+    border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.drawerIcon {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    background: var(--ifm-color-primary);
+    color: white;
+    font-size: 7px;
+    font-weight: 600;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
+}
+
+.dashboardDrawerItem:hover {
+    background: var(--color-slate-200);
+}
+
+.dashboardMain {
+    flex: 1;
+    display: flex;
+    padding: 8px;
+    padding-left: 16px;
+    gap: 8px;
+    overflow: hidden;
+    background: #fff;
+}
+
+.dashboardActivity {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.dashboardHeader {
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--color-slate-700);
+}
+
+.dashboardEvent {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 6px;
+    background: var(--color-slate-50);
+    border-radius: 4px;
+}
+
+.dashboardEventIcon {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--ifm-color-primary);
+}
+
+.dashboardEventText {
+    font-size: 8px;
+    color: var(--color-slate-700);
+}
+
+.dashboardSidebar {
+    width: 90px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dashboardCard {
+    background: var(--color-slate-50);
+    border: 1px solid var(--color-slate-200);
+    border-radius: 4px;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.dashboardCardIcon {
+    font-size: 10px;
+}
+
+.dashboardCardText {
+    font-size: 7px;
+    color: var(--color-slate-700);
+    font-weight: 500;
+}
+
+.dashboardRuns {
+    background: var(--color-slate-50);
+    border: 1px solid var(--color-slate-200);
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.dashboardRunItem {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 0;
+}
+
+.dashboardRunStatus {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.dashboardRunStatus.applied {
+    background: var(--color-emerald);
+}
+
+.dashboardRunStatus.pending {
+    background: var(--color-amber);
+}
+
+.dashboardRunId {
+    font-size: 7px;
+    color: var(--color-slate-600);
+    font-family: monospace;
+}
+
+/* Visual 1: Plan Visualization */
+.planVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: var(--color-dark-bg);
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--visual-radius);
+    padding: 12px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-align: left;
+}
+
+.planVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
+}
+
+.planHeader {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-dark-text-subtle);
+    margin-bottom: 10px;
+}
+
+.planResources {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.planResource {
+    border: 1px solid var(--color-dark-border);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.planResourceHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 8px;
+    background: var(--color-dark-surface);
+}
+
+.planResourceName {
+    font-size: 9px;
+    font-weight: 500;
+    font-family: monospace;
+    color: var(--color-dark-text);
+}
+
+.planAction {
+    font-size: 8px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 500;
+}
+
+.planAction.create {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+}
+
+.planAction.update {
+    background: rgba(168, 85, 247, 0.2);
+    color: #c084fc;
+}
+
+.planAction.delete {
+    background: rgba(239, 68, 68, 0.2);
+    color: #f87171;
+}
+
+.planDiff {
+    background: #1d1f21;
+    padding: 6px 8px;
+    font-family: monospace;
+    font-size: 8px;
+    line-height: 1.4;
+}
+
+.planDiffLine {
+    color: #c5c8c6;
+}
+
+.planDiffLine.add {
+    color: #b5bd68;
+}
+
+.planDiffLine.remove {
+    color: #cc6666;
+}
+
+/* Visual 2: RBAC */
+.rbacVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: #ffffff;
+    border: 1px solid var(--color-slate-200);
+    border-radius: var(--visual-radius);
     padding: 16px;
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.rbacVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
+}
+
+.rbacHeader {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-slate-700);
+    margin-bottom: 12px;
+}
+
+.rbacTable {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--color-slate-200);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.rbacRow {
+    display: grid;
+    grid-template-columns: 1fr 75px 50px 50px 45px;
+    gap: 4px;
+    padding: 6px 8px;
+    background: white;
+    align-items: center;
+}
+
+.rbacRowHeader {
+    background: var(--color-slate-50);
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--color-slate-500);
+}
+
+.rbacMember {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rbacAvatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--color-slate-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: white;
+}
+
+.rbacAvatar.team {
+    border-radius: 4px;
+    background: var(--ifm-color-primary);
+}
+
+.rbacAvatar.sa {
+    border-radius: 4px;
+    background: var(--color-amber);
+}
+
+.rbacName {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--color-slate-700);
+}
+
+.rbacType {
+    font-size: 9px;
+    color: var(--color-slate-500);
+}
+
+.rbacRole {
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.rbacRole.owner {
+    background: rgba(239, 68, 68, 0.1);
+    color: #dc2626;
+}
+
+.rbacRole.deployer {
+    background: rgba(245, 158, 11, 0.1);
+    color: #d97706;
+}
+
+.rbacRole.viewer {
+    background: rgba(59, 130, 246, 0.1);
+    color: #2563eb;
+}
+
+/* Visual 3: Group Hierarchy */
+.groupVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: var(--color-dark-bg);
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--visual-radius);
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-align: left;
+}
+
+.groupVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
+}
+
+.groupHeader {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-dark-text-subtle);
+    margin-bottom: 12px;
+}
+
+.groupList {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.groupItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: var(--color-dark-surface);
+    border-radius: 6px;
+}
+
+.groupAvatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: var(--ifm-color-primary);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.groupInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.groupName {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-dark-text);
+}
+
+.groupMeta {
+    font-size: 9px;
+    color: var(--color-dark-text-muted);
+}
+
+/* Visual 4: Private Registry */
+.registryVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: #ffffff;
+    border: 1px solid var(--color-slate-200);
+    border-radius: var(--visual-radius);
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    text-align: left;
+}
+
+.registryVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
+}
+
+.registryHeader {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-slate-700);
+    margin-bottom: 12px;
+}
+
+.registryList {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--color-slate-200);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.registryItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: white;
+}
+
+.registryIcon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%237B42BC' d='M40.8 25.6v20.3l17.6-10.2V15.4L40.8 25.6zM22.3 14.3v20.3l17.6 10.2V24.5L22.3 14.3zM22.3 36.2v20.3L39.9 66.7V46.4L22.3 36.2zM4 3.1v20.3l17.6 10.2V13.3L4 3.1z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.registryInfo {
+    flex: 1;
+}
+
+.registryName {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-slate-700);
+}
+
+.registryVersion {
+    font-size: 9px;
+    color: var(--color-slate-500);
+}
+
+.registryBadge {
+    font-size: 8px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--color-amber);
+    color: var(--color-amber-dark);
+}
+
+/* Visual 5: Provider Mirror */
+.mirrorVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: var(--color-dark-bg);
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--visual-radius);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.mirrorVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
+}
+
+.mirrorHeader {
+    background: var(--color-dark-surface);
+    padding: 10px 14px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-dark-text);
+    font-family: monospace;
+    border-bottom: 1px solid var(--color-dark-border);
+    text-align: left;
+}
+
+.mirrorFlow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex: 1;
+    padding: 16px;
+}
+
+.mirrorFlow::before {
+    display: none;
+}
+
+.mirrorSource,
+.mirrorProxy,
+.mirrorCache {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.mirrorProxy {
+    position: relative;
+}
+
+.mirrorProxy::before,
+.mirrorProxy::after {
+    content: '→';
+    position: absolute;
+    color: var(--color-dark-text-muted);
+    font-size: 18px;
+    top: 18px;
+}
+
+.mirrorProxy::before {
+    left: -22px;
+}
+
+.mirrorProxy::after {
+    right: -22px;
+}
+
+.mirrorIcon,
+.mirrorProxyIcon,
+.mirrorCacheIcon {
+    font-size: 40px;
+}
+
+.mirrorLabel,
+.mirrorProxyLabel,
+.mirrorCacheLabel {
+    font-size: 9px;
+    color: var(--color-dark-text-muted);
+}
+
+.mirrorCacheLabel {
+    color: var(--color-emerald);
+    font-weight: 500;
+}
+
+.mirrorOutput {
+    background: var(--color-dark-surface);
+    padding: 10px 14px;
+    font-size: 10px;
+    font-family: monospace;
+    color: var(--color-dark-text-muted);
+    border-top: 1px solid var(--color-dark-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.mirrorVerified {
+    color: var(--color-emerald);
+}
+
+.mirrorOffline {
+    color: var(--color-amber);
+    font-size: 9px;
+}
+
+/* Visual 6: No-Code Deployments */
+.deploymentVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: #fff;
+    border: 1px solid var(--color-slate-200);
+    border-radius: var(--visual-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--visual-padding);
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    text-align: left;
 }
 
 .deploymentVisual:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.planButton {
-    background: #64748b;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 13px;
-    animation: bounce 2s infinite;
-}
-
-.applyButton {
-    background: #4db6ac;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 13px;
-    animation: bounce 2s infinite 0.5s;
-}
-
-@keyframes bounce {
-
-    0%,
-    20%,
-    50%,
-    80%,
-    100% {
-        transform: translateY(0);
-    }
-
-    40% {
-        transform: translateY(-10px);
-    }
-
-    60% {
-        transform: translateY(-5px);
-    }
-}
-
-@keyframes wiggle {
-
-    0%,
-    100% {
-        transform: rotate(0deg);
-    }
-
-    25% {
-        transform: rotate(-3deg);
-    }
-
-    75% {
-        transform: rotate(3deg);
-    }
-}
-
-@keyframes slideIn {
-    from {
-        transform: translateX(-20px);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-@keyframes hoverScale {
-    from {
-        transform: scale(1);
-    }
-
-    to {
-        transform: scale(1.05);
-    }
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
 }
 
 .deploymentContent {
@@ -267,15 +942,36 @@
     justify-content: space-between;
 }
 
-.deploymentHeader {
-    font-size: 16px;
-    font-weight: 600;
-    color: white;
-    text-align: center;
+.deploymentSection {
+    font-size: 9px;
+    font-weight: 500;
+    color: var(--color-slate-600);
+    border-bottom: 1px solid var(--color-slate-200);
+    padding-bottom: 2px;
+}
+
+.deploymentSources {
+    display: flex;
+    gap: 6px;
+}
+
+.deploymentSource {
+    padding: 4px 8px;
+    border: 1px solid var(--color-slate-200);
+    border-radius: 4px;
+    font-size: 8px;
+    color: var(--color-slate-600);
+    background: white;
+}
+
+.deploymentSource.active {
+    border-color: var(--ifm-color-primary);
+    color: var(--ifm-color-primary);
+    background: rgba(77, 182, 172, 0.1);
 }
 
 .deploymentForm {
-    background: #f8fafc;
+    background: var(--color-slate-50);
     border-radius: 6px;
     padding: 12px;
     flex: 1;
@@ -298,467 +994,15 @@
     font-weight: 500;
 }
 
-.deploymentButtons {
-    display: flex;
-    gap: 8px;
-    justify-content: center;
-}
-
-.planButton {
-    background: #64748b;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 13px;
-}
-
-.applyButton {
-    background: #4db6ac;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
-    font-weight: 500;
-    font-size: 13px;
-}
-
-.vcsVisual {
-    width: 400px;
-    height: 240px;
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.vcsVisual:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.vcsStep {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    animation: slideIn 0.8s ease-out;
-}
-
-.vcsStep:nth-child(1) {
-    animation-delay: 0.1s;
-}
-
-.vcsStep:nth-child(3) {
-    animation-delay: 0.2s;
-}
-
-.vcsStep:nth-child(5) {
-    animation-delay: 0.3s;
-}
-
-.vcsContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.vcsHeader {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1e293b;
-    text-align: center;
-}
-
-.vcsFlow {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
-    justify-content: center;
-}
-
-.vcsStep {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.vcsIcon {
-    font-size: 24px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 50%;
-    border: 2px solid #e2e8f0;
-    animation: bounce 2s infinite;
-}
-
-.vcsIconDual {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 50%;
-    border: 2px solid #e2e8f0;
-    gap: 2px;
-    animation: wiggle 2s ease-in-out infinite;
-}
-
-.githubLogo {
-    font-size: 12px;
-}
-
-.gitlabLogo {
-    font-size: 12px;
-}
-
-.vcsText {
-    font-size: 12px;
-    font-weight: 500;
-    color: #475569;
-    text-align: center;
-}
-
-.vcsArrow {
-    font-size: 18px;
-    color: #64748b;
-    margin: 0 4px;
-}
-
-.vcsPlatforms {
-    display: flex;
-    gap: 8px;
-}
-
-.platformBadge {
-    background: #3b82f6;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 10px;
-    font-weight: 500;
-}
-
-.runnerVisual {
-    width: 400px;
-    height: 240px;
-    background: #f1f5f9;
-    border: 2px solid #cbd5e1;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.runnerVisual:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.runnerIcon {
-    font-size: 32px;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 12px;
-    border: 2px solid #e2e8f0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    animation: rotate 4s linear infinite;
-}
-
-.providerVisual {
-    width: 400px;
-    height: 240px;
-    background: #fef3c7;
-    border: 2px solid #f59e0b;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
-}
-
-.providerIcon {
-    font-size: 36px;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 16px;
-    border: 3px solid #f59e0b;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    animation: bounce 2s infinite;
-}
-
-.runnerContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.runnerGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    flex: 1;
-    align-items: center;
-    width: 100%;
-}
-
-.runnerItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.runnerIcon {
-    font-size: 32px;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 12px;
-    border: 2px solid #e2e8f0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.runnerText {
-    font-size: 11px;
-    font-weight: 600;
-    color: #475569;
-    text-align: center;
-}
-
-.runnerTypes {
-    display: flex;
-    gap: 8px;
-}
-
-.runnerBadge {
-    background: #10b981;
-    color: white;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-size: 10px;
-    font-weight: 500;
-}
-
-.providerVisual {
-    width: 400px;
-    height: 240px;
-    background: #fef3c7;
-    border: 2px solid #f59e0b;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.providerVisual:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(245, 158, 11, 0.3);
-}
-
-.providerContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.providerFlow {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex: 1;
-    justify-content: center;
-}
-
-.providerStep {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-}
-
-.providerIcon {
-    font-size: 36px;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: white;
-    border-radius: 16px;
-    border: 3px solid #f59e0b;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.providerText {
-    font-size: 14px;
-    font-weight: 600;
-    color: #92400e;
-    text-align: center;
-}
-
-.providerArrow {
-    font-size: 24px;
-    color: #f59e0b;
-    font-weight: bold;
-}
-
-.providerActions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.actionBadge {
-    background: #f59e0b;
-    color: white;
-    padding: 4px 8px;
-    border-radius: 12px;
-    font-size: 10px;
-    font-weight: 500;
-}
-
-.dependencyVisual {
-    width: 400px;
-    height: 240px;
-    background: #f0f9ff;
-    border: 2px solid #0ea5e9;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    box-sizing: border-box;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.dependencyVisual:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(14, 165, 233, 0.3);
-}
-
-.workspaceBox {
-    background: white;
-    border: 2px solid #0ea5e9;
-    border-radius: 8px;
-    padding: 12px;
-    min-width: 120px;
-}
-
-.dependencyContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.dependencyFlow {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-    justify-content: center;
-}
-
-.workspaceBox {
-    background: white;
-    border: 2px solid #0ea5e9;
-    border-radius: 8px;
-    padding: 12px;
-    min-width: 120px;
-}
-
-.workspaceTitle {
-    font-size: 12px;
-    font-weight: 600;
-    color: #0c4a6e;
-    text-align: center;
-    margin-bottom: 8px;
-    border-bottom: 1px solid #e0f2fe;
-    padding-bottom: 4px;
-}
-
-.outputItem {
-    font-family: 'Monaco', 'Menlo', monospace;
-    font-size: 10px;
-    color: #059669;
-    margin: 4px 0;
-    padding: 2px 4px;
-    background: #f0fdf4;
-    border-radius: 4px;
-}
-
-.inputItem {
-    font-family: 'Monaco', 'Menlo', monospace;
-    font-size: 10px;
-    color: #dc2626;
-    margin: 4px 0;
-    padding: 2px 4px;
-    background: #fef2f2;
-    border-radius: 4px;
-}
-
-.dependencyLines {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-}
-
-.dependencyLine {
-    font-size: 16px;
-    color: #0ea5e9;
-}
-
+/* Visual 7: Managed Identities */
 .identityVisual {
-    width: 400px;
-    height: 240px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: var(--color-dark-bg);
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--visual-radius);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     padding: 16px;
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -766,92 +1010,83 @@
 
 .identityVisual:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.stepNumber {
-    width: 24px;
-    height: 24px;
-    background: #3b82f6;
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.identityContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    box-shadow: var(--shadow-hover) rgba(59, 130, 246, 0.3);
 }
 
 .identityHeader {
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--color-dark-text-subtle);
     text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-dark-border);
 }
 
 .identityFlow {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    flex: 1;
+}
+
+.identityStep {
+    display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    flex: 1;
-    justify-content: center;
 }
 
-.flowStep {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #f1f5f9;
-    padding: 8px 16px;
-    border-radius: 6px;
-    width: 200px;
+.identityIcon {
+    font-size: 28px;
 }
 
-.stepNumber {
-    background: #065f46;
-    color: white;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 600;
-    flex-shrink: 0;
-}
-
-.stepText {
-    font-size: 12px;
-    color: #374151;
+.identityLabel {
+    font-size: 11px;
+    color: var(--color-dark-text);
     font-weight: 500;
 }
 
-.flowArrow {
-    color: #065f46;
-    font-size: 16px;
-    font-weight: bold;
+.identityArrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
 }
 
+.identityArrowLine {
+    color: var(--color-emerald);
+    font-size: 24px;
+}
+
+.identityArrowText {
+    font-size: 9px;
+    color: var(--color-emerald);
+}
+
+.identityBenefit {
+    background: rgba(16, 185, 129, 0.15);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 10px;
+    color: var(--color-emerald);
+    text-align: center;
+    margin-top: auto;
+}
+
+.identityCheck {
+    margin-right: 4px;
+}
+
+/* Visual 8: Service Accounts */
 .serviceAccountVisual {
-    width: 400px;
-    height: 240px;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: #fff;
+    border: 1px solid var(--color-slate-200);
+    border-radius: var(--visual-radius);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     padding: 16px;
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -859,516 +1094,470 @@
 
 .serviceAccountVisual:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.pipelineIcon {
-    font-size: 24px;
-    animation: wiggle 2s ease-in-out infinite;
-}
-
-.pipelineIcon:nth-child(1) {
-    animation-delay: 0s;
-}
-
-.pipelineIcon:nth-child(2) {
-    animation-delay: 0.5s;
-}
-
-.pipelineIcon:nth-child(3) {
-    animation-delay: 1s;
-}
-
-.serviceAccountContent {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
 }
 
 .serviceAccountHeader {
-    font-size: 14px;
+    font-size: 11px;
     font-weight: 600;
-    color: #1e293b;
+    color: var(--color-slate-700);
     text-align: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-slate-200);
 }
 
-.pipelineFlow {
+.serviceAccountFlow {
     display: flex;
     align-items: center;
-    gap: 16px;
-    flex: 1;
     justify-content: center;
+    gap: 20px;
+    flex: 1;
 }
 
-.pipelineStep {
+.serviceAccountStep {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    background: #f8fafc;
-    padding: 12px 16px;
-    border-radius: 8px;
-    min-width: 80px;
 }
 
-.pipelineIcon {
+.serviceAccountIcon {
+    font-size: 32px;
+}
+
+.serviceAccountLabel {
+    font-size: 10px;
+    color: var(--color-slate-600);
+}
+
+.serviceAccountArrow {
+    color: var(--color-emerald);
     font-size: 20px;
 }
 
-.pipelineText {
-    font-size: 9px;
-    color: #374151;
-    font-weight: 500;
-    text-align: center;
-}
-
-.pipelineArrow {
-    color: #4db6ac;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.customVisual {
-    width: 400px;
-    height: 240px;
-    border-radius: 20px;
-    position: relative;
-    animation: iconFloat 3s ease-in-out infinite;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.customVisual:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-/* Visual 1: Home Dashboard */
-.visual1 {
-    background: #f8fafc;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-}
-
-.visual1::before {
-    content: 'Tharsis Dashboard';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 30px;
-    background: #1e293b;
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    padding-left: 10px;
+.serviceAccountBenefit {
+    background: rgba(16, 185, 129, 0.1);
+    padding: 8px 12px;
+    border-radius: 6px;
     font-size: 10px;
-    font-weight: 600;
-    z-index: 2;
-}
-
-.visual1::after {
-    content: 'Workspaces\A• prod-web\A• staging-api\A• dev-sandbox\A\ATeams\A• DevOps\A• Platform\A• Security';
-    position: absolute;
-    top: 35px;
-    left: 5px;
-    width: 70px;
-    bottom: 5px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 8px;
-    line-height: 1.2;
-    color: #475569;
-    white-space: pre-line;
-    background: #f1f5f9;
-    padding: 5px;
-    border-radius: 4px;
-}
-
-.visual1 .dashboard-center {
-    position: absolute;
-    top: 35px;
-    left: 85px;
-    right: 85px;
-    bottom: 5px;
-    background: #ffffff;
-    border-radius: 4px;
-    padding: 5px;
-}
-
-.visual1 .dashboard-center::before {
-    content: 'Recent Activity\A\A✅ prod-web: Apply completed\A🔄 staging-api: Plan in progress\A👤 alice joined team DevOps\A📦 Module vpc v2.1.0 published\A⚠️ dev-db: Plan failed\A🔐 New managed identity created';
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 8px;
-    line-height: 1.3;
-    color: #374151;
-    white-space: pre-line;
-}
-
-.visual1 .dashboard-right {
-    position: absolute;
-    top: 35px;
-    right: 5px;
-    width: 70px;
-    bottom: 5px;
-    background: #f9fafb;
-    border-radius: 4px;
-    padding: 5px;
-}
-
-.visual1 .dashboard-right::before {
-    content: 'Active Runs\A\A🟢 3 Running\A⏸️ 1 Pending\A❌ 2 Failed\A\AQuick Actions\A• New Run\A• Create WS\A• Add Team';
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 8px;
-    line-height: 1.2;
-    color: #6b7280;
-    white-space: pre-line;
-}
-
-/* Visual 2: Plan Visualization */
-.visual2 {
-    background: #0d1117;
-    border: 2px solid #30363d;
-    border-radius: 8px;
-    position: relative;
-    overflow: hidden;
-    padding: 10px;
-    font-family: 'Courier New', monospace;
-}
-
-.visual2::after {
-    content: 'Terraform Plan Diff\A\A+ aws_instance.web\A+ ami           = "ami-0c02fb55956c7d316"\A+ instance_type = "t3.micro"\A+ tags = { "Name" = "web-server" }\A\A~ aws_security_group.web\A~ ingress {\A-   cidr_blocks = ["10.0.0.0/8"]\A+   cidr_blocks = ["0.0.0.0/0"]\A~ }\A\A- aws_s3_bucket.old_bucket\A- bucket = "old-assets-bucket"\A- acl    = "private"';
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    font-size: 9px;
-    line-height: 1.3;
-    white-space: pre-line;
-    text-align: left;
-    overflow: hidden;
-    background:
-        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 2.6em/100% 1.3em,
-        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 3.9em/100% 1.3em,
-        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 5.2em/100% 1.3em,
-        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 6.5em/100% 1.3em,
-        linear-gradient(to right, rgba(187, 128, 9, 0.2) 0%, rgba(187, 128, 9, 0.2) 100%) 0 8.45em/100% 1.3em,
-        linear-gradient(to right, rgba(187, 128, 9, 0.2) 0%, rgba(187, 128, 9, 0.2) 100%) 0 9.75em/100% 1.3em,
-        linear-gradient(to right, rgba(248, 81, 73, 0.2) 0%, rgba(248, 81, 73, 0.2) 100%) 0 10.4em/100% 1.3em,
-        linear-gradient(to right, rgba(46, 160, 67, 0.2) 0%, rgba(46, 160, 67, 0.2) 100%) 0 11.05em/100% 1.3em,
-        linear-gradient(to right, rgba(187, 128, 9, 0.2) 0%, rgba(187, 128, 9, 0.2) 100%) 0 11.7em/100% 1.3em,
-        linear-gradient(to right, rgba(248, 81, 73, 0.2) 0%, rgba(248, 81, 73, 0.2) 100%) 0 13em/100% 1.3em,
-        linear-gradient(to right, rgba(248, 81, 73, 0.2) 0%, rgba(248, 81, 73, 0.2) 100%) 0 14.3em/100% 1.3em,
-        linear-gradient(to right, rgba(248, 81, 73, 0.2) 0%, rgba(248, 81, 73, 0.2) 100%) 0 15.6em/100% 1.3em;
-    background-repeat: no-repeat;
-    color: #e6edf3;
-}
-
-/* Visual 3: RBAC */
-.visual3 {
-    background: #ffffff;
-    border: 1px solid #e1e5e9;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual3::after {
-    content: 'TYPE  NAME             ROLE\A────  ───────────────  ────────\A👤    alice.smith      Owner\A👤    bob.jones        Deployer\A👤    carol.white      Viewer\A\A👥    devops-team      Owner\A👥    qa-team          Deployer\A\A🤖    ci-runner        Deployer\A🤖    backup-service   Viewer';
-    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-    font-size: 11px;
-    line-height: 1.6;
-    color: #24292f;
-    white-space: pre;
-    text-align: left;
-    padding: 15px;
-}
-
-/* Visual 4: Group Hierarchy */
-.visual4 {
-    background: #0d1117;
-    border: 1px solid #30363d;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual4::after {
-    content: '🏢 organization\A├── 📁 production\A│   ├── 📁 frontend\A│   │   └── 🌐 web-app\A│   ├── 📁 backend\A│   │   ├── 🌐 api-service\A│   │   └── 🌐 auth-service\A│   └── 📁 data\A│       └── 🌐 database\A├── 📁 staging\A│   ├── 📁 frontend\A│   │   └── 🌐 web-app\A│   └── 📁 backend\A│       └── 🌐 api-service\A└── 📁 development\A    └── 🌐 sandbox';
-    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-    font-size: 10px;
-    line-height: 1.4;
-    color: #e6edf3;
-    white-space: pre;
-    text-align: left;
-    padding: 12px;
-}
-
-/* Visual 5: Private Registry */
-.visual5 {
-    background: #ffffff;
-    border: 1px solid #e1e5e9;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual5::after {
-    content: 'MODULE                     VERSION\A─────────────────────────  ───────\A📦 terraform-aws-vpc        v2.1.0\A📦 terraform-azure-network  v1.3.2\A📦 terraform-gcp-compute    v3.0.1\A📦 terraform-k8s-cluster    v1.5.0\A📦 terraform-monitoring     v2.0.3\A\A🔒 Private  ✅ Attested  📚 Docs';
-    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    color: #24292f;
-    white-space: pre;
-    text-align: left;
-    padding: 20px;
-}
-
-/* Visual 6: No-Code Deployments */
-.visual6 {
-    background: linear-gradient(135deg, #10b981, #059669);
-    border: 2px solid #34d399;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual6::after {
-    content: 'No-Code Deploy\A\A🚀 Select Module\A⚙️ Configure Variables\A🎯 Choose Workspace\A▶️ Deploy\A\A✨ No Terraform code needed\A📋 UI-driven workflow\A🔄 CLI support available';
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 11px;
-    line-height: 1.3;
-    color: #ffffff;
-    white-space: pre-line;
+    color: var(--color-emerald-dark);
     text-align: center;
+    margin-top: auto;
 }
 
-/* Visual 7: Managed Identities */
-.visual7 {
-    background: linear-gradient(135deg, #065f46, #10b981);
-    border: 2px solid #34d399;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual7::after {
-    content: 'Zero Credentials\A\A🔐 OIDC Authentication\A☁️ AWS & Azure Support\A🛡️ Access Policies\A📋 Module Attestation\A\A✅ No static secrets\A🔄 Dynamic role assumption\A🎯 Fine-grained control';
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 11px;
-    line-height: 1.3;
-    color: #ffffff;
-    white-space: pre-line;
-    text-align: center;
-}
-
-/* Visual 8: Service Accounts */
-.visual8 {
-    background: #1f2937;
-    border: 2px solid #374151;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual8::after {
-    content: 'M2M Authentication\A\A🤖 Service Accounts\A🔑 OIDC Tokens\A🔄 CI/CD Integration\A👥 Role Assignment\A\A✅ GitHub Actions\A✅ GitLab Jobs\A✅ No API keys needed';
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 11px;
-    line-height: 1.3;
-    color: #e5e7eb;
-    white-space: pre-line;
-    text-align: center;
+.serviceAccountCheck {
+    margin-right: 4px;
 }
 
 /* Visual 9: VCS Integration */
-.visual9 {
-    background: #f6f8fa;
-    border: 2px solid #d0d7de;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
+.vcsVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: var(--color-dark-bg);
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--visual-radius);
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    padding: 14px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.visual9::after {
-    content: 'Git Workflows\A\A🔗 Repository Linking\A🔄 Webhook Automation\A🌿 Branch Management\A📋 Pattern Matching\A\A✅ GitHub & GitLab\A⚡ Auto-trigger runs\A🎯 Selective deployments';
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+.vcsVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(226, 232, 240, 0.5);
+}
+
+.vcsHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-dark-border);
+}
+
+.vcsPrIcon {
+    color: var(--color-emerald);
+    font-size: 14px;
+}
+
+.vcsPrTitle {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-dark-text);
+    flex: 1;
+}
+
+.vcsPrBadge {
+    font-size: 9px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--color-emerald);
+    font-weight: 500;
+}
+
+.vcsChecks {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+    padding: 12px 0;
+}
+
+.vcsCheck {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 11px;
-    line-height: 1.3;
-    color: #24292f;
-    white-space: pre-line;
+    color: var(--color-dark-text-muted);
+    padding: 6px 8px;
+    background: var(--color-dark-surface);
+    border-radius: 6px;
+}
+
+.vcsCheckIcon {
+    color: var(--color-emerald);
+    font-weight: bold;
+}
+
+.vcsCheckPending {
+    color: var(--color-amber);
+}
+
+.vcsCheckStatus {
+    color: var(--color-emerald);
+    margin-left: auto;
+    font-size: 10px;
+}
+
+.vcsCheckWaiting {
+    color: #666;
+    margin-left: auto;
+    font-size: 10px;
+}
+
+.vcsPlanSummary {
+    background: var(--color-dark-surface);
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--color-dark-text-muted);
     text-align: center;
+    margin-top: auto;
+}
+
+.vcsAdd {
+    color: var(--color-emerald);
+    font-weight: 600;
+}
+
+.vcsChange {
+    color: var(--color-amber);
+    font-weight: 600;
+}
+
+.vcsDestroy {
+    color: var(--color-red);
+    font-weight: 600;
 }
 
 /* Visual 10: Runner Agents */
-.visual10 {
-    background: linear-gradient(135deg, #7c3aed, #5b21b6);
-    border: 2px solid #a855f7;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
+.runnerVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: #fff;
+    border: 1px solid var(--color-slate-200);
+    border-radius: var(--visual-radius);
     display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual10::after {
-    content: 'Flexible Execution\A\A⚡ Scalable Runners\A🐳 Docker Support\A☸️ Kubernetes\A☁️ AWS Fargate\A\A🔄 Shared runners\A🎯 Dedicated agents\A🔒 Private networks';
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 11px;
-    line-height: 1.3;
-    color: #ffffff;
-    white-space: pre-line;
-    text-align: center;
-}
-
-/* Visual 11: Terraform Provider */
-.visual11 {
-    background: #0f172a;
-    border: 2px solid #334155;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual11::after {
-    content: 'Native Integration\A\Aresource "tharsis_workspace" "example" {\A  name = "my-workspace"\A  group_path = "my-group"\A}\A\Adata "tharsis_workspace_outputs" "web" {\A  workspace_path = "prod/web"\A}';
-    font-family: 'Courier New', monospace;
-    font-size: 9px;
-    line-height: 1.2;
-    color: #64748b;
-    white-space: pre-line;
-    text-align: center;
-}
-
-/* Visual 12: Workspace Dependencies */
-.visual12 {
-    background: #fef3c7;
-    border: 2px solid #f59e0b;
-    border-radius: 12px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.visual12::after {
-    content: 'Dependency Tracking\A\A🔄 Cross-workspace data\A📊 Visual relationships\A🎯 Output consumption\A📈 Dependency graphs\A\A✅ web-app → database\A✅ api → shared-vpc\A✅ monitoring → all';
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 11px;
-    line-height: 1.3;
-    color: #92400e;
-    white-space: pre-line;
-    text-align: center;
-}
-
-/* Visual 13: MCP / AI Integration */
-.mcpVisual {
-    width: 400px;
-    height: 240px;
-    background: #f0fdf4;
-    border: 2px solid #10b981;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     padding: 16px;
     box-sizing: border-box;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.mcpVisual:hover {
+.runnerVisual:hover {
     transform: scale(1.05);
-    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.3);
+    box-shadow: var(--shadow-hover) rgba(203, 213, 225, 0.5);
 }
 
-.mcpContent {
-    width: 100%;
-    height: 100%;
+.runnerGraph {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 16px;
+    flex: 1;
 }
 
-.mcpFlow {
+.runnerQueue {
     display: flex;
-    align-items: center;
-    gap: 12px;
+    flex-direction: column;
+    gap: 6px;
 }
 
-.mcpStep {
+.runnerJob {
+    background: var(--color-slate-50);
+    border: 1px solid var(--color-slate-200);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 10px;
+    color: var(--color-slate-600);
+}
+
+.runnerArrowFlow {
+    color: var(--color-emerald);
+    font-size: 20px;
+}
+
+.runnerAgent,
+.runnerCloud {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
-    background: rgba(16, 185, 129, 0.1);
-    padding: 12px 16px;
-    border-radius: 8px;
-    min-width: 80px;
 }
 
-.mcpIcon {
-    font-size: 24px;
+.runnerAgentIcon,
+.runnerCloudIcon {
+    font-size: 32px;
 }
 
-.mcpText {
+.runnerAgentLabel,
+.runnerCloudLabel {
     font-size: 10px;
-    color: #065f46;
-    font-weight: 500;
+    color: var(--color-slate-600);
+}
+
+.runnerLabel {
     text-align: center;
-}
-
-.mcpArrow {
-    color: #10b981;
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.mcpActions {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.mcpBadge {
-    background: rgba(16, 185, 129, 0.15);
-    color: #065f46;
-    padding: 4px 10px;
-    border-radius: 12px;
     font-size: 10px;
+    color: var(--color-slate-500);
+    margin-top: auto;
+}
+
+/* Visual 11: Terraform Provider */
+.providerVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: var(--color-dark-bg);
+    border-radius: var(--visual-radius);
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.providerVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
+}
+
+.providerHeader {
+    background: var(--color-dark-surface);
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--color-dark-text-subtle);
+    border-bottom: 1px solid var(--color-dark-border);
+}
+
+.providerCode {
+    padding: 12px;
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 10px;
+    line-height: 1.5;
+    color: var(--color-dark-text);
+    flex: 1;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.providerKeyword {
+    color: #c586c0;
+}
+
+.providerString {
+    color: #ce9178;
+}
+
+.providerAttr {
+    color: #9cdcfe;
+}
+
+/* Visual 12: Workspace Dependencies */
+.dependencyVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: #fff;
+    border: 1px solid var(--color-slate-200);
+    border-radius: var(--visual-radius);
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.dependencyVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(77, 182, 172, 0.3);
+}
+
+.dependencyGraph {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex: 1;
+}
+
+.depUpstream {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.depNode {
+    background: var(--color-slate-50);
+    border: 1px solid var(--color-slate-200);
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 11px;
+    color: var(--color-slate-600);
+    font-family: monospace;
+}
+
+.depArrows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: var(--color-emerald);
+    font-size: 20px;
+}
+
+.depMain {
+    display: flex;
+    align-items: center;
+}
+
+.depNodeMain {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid var(--color-emerald);
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-size: 12px;
+    color: var(--color-emerald-dark);
+    font-family: monospace;
     font-weight: 500;
 }
 
-/* Responsive Design */
+.depLabel {
+    text-align: center;
+    font-size: 10px;
+    color: var(--color-slate-500);
+    margin-top: auto;
+}
+
+/* Visual 13: MCP / AI Assistant */
+.mcpVisual {
+    width: var(--visual-width);
+    height: var(--visual-height);
+    background: #1a1a1a;
+    border: 1px solid var(--color-dark-border);
+    border-radius: var(--visual-radius);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.mcpVisual:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-hover) rgba(16, 185, 129, 0.3);
+}
+
+.mcpTerminalBar {
+    background: var(--color-dark-surface);
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.mcpTerminalTitle {
+    flex: 1;
+    text-align: center;
+    color: var(--color-dark-text-subtle);
+    font-size: 11px;
+    margin-right: 50px;
+}
+
+.mcpDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.mcpChat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-family: 'SF Mono', Monaco, monospace;
+    font-size: 10px;
+    padding: 10px 12px;
+    line-height: 1.5;
+}
+
+.mcpMessage {
+    color: var(--color-dark-text);
+}
+
+.mcpResponse {
+    color: var(--color-dark-text-muted);
+    padding-left: 16px;
+}
+
+.mcpUser {
+    color: var(--color-emerald);
+    font-weight: 600;
+}
+
+.mcpError {
+    color: var(--color-red);
+}
+
+.mcpFix {
+    color: var(--color-amber);
+}
+
+.mcpSuccess {
+    color: var(--color-emerald);
+}
+
+.mcpCode {
+    background: var(--color-dark-border);
+    padding: 1px 4px;
+    border-radius: 3px;
+    color: var(--color-dark-text);
+}
+
+.mcpAdd {
+    color: var(--color-emerald);
+}
+
+.mcpChange {
+    color: var(--color-amber);
+}
+
+.mcpRemove {
+    color: var(--color-red);
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+
 @media (max-width: 996px) {
     .featureRow {
         grid-template-columns: 1fr;
@@ -1386,16 +1575,15 @@
         text-align: center;
     }
 
-    .dashboardImage,
     .deploymentVisual,
     .vcsVisual,
     .runnerVisual,
     .providerVisual,
+    .mirrorVisual,
     .dependencyVisual,
     .identityVisual,
     .serviceAccountVisual,
-    .mcpVisual,
-    .customVisual {
+    .mcpVisual {
         width: 100%;
         max-width: 420px;
         height: 250px;
@@ -1426,18 +1614,43 @@
     }
 
     .dashboardImage,
+    .dashboardVisual,
+    .rbacVisual,
+    .groupVisual,
+    .registryVisual,
     .deploymentVisual,
     .vcsVisual,
     .runnerVisual,
     .providerVisual,
+    .mirrorVisual,
     .dependencyVisual,
     .identityVisual,
     .serviceAccountVisual,
-    .mcpVisual,
-    .customVisual {
+    .mcpVisual {
         width: 100%;
         max-width: 380px;
         height: 220px;
         overflow: hidden;
+    }
+
+    .planVisual {
+        width: 100%;
+        max-width: 380px;
+        height: auto;
+        min-height: 220px;
+        overflow: visible;
+    }
+
+    .providerVisual {
+        width: 100%;
+        max-width: 380px;
+        height: auto;
+        min-height: 220px;
+        overflow: visible;
+    }
+
+    .mcpChat,
+    .runnerList {
+        text-align: left;
     }
 }

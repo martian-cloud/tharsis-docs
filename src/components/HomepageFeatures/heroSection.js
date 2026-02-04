@@ -1,5 +1,5 @@
-import React from "react";
 import Link from "@docusaurus/Link";
+import Heading from "@theme/Heading";
 import DemoVideo from "./demoVideo";
 import styles from "../../css/hero-section.module.css";
 
@@ -27,7 +27,9 @@ export default function HeroSection() {
       </div>
       <div className={styles.heroContainer}>
         <div className={styles.heroContent}>
-          <h1 className={styles.heroTitle}>{HERO_CONTENT.title}</h1>
+          <Heading as="h1" className={styles.heroTitle}>
+            {HERO_CONTENT.title}
+          </Heading>
           <p className={styles.heroDescription}>{HERO_CONTENT.description}</p>
 
           <div className={styles.heroStats}>

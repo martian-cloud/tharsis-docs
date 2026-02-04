@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "@docusaurus/Link";
+import Heading from "@theme/Heading";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import styles from "./styles.module.css";
@@ -39,7 +40,7 @@ export default function Footer() {
               </div>
             )}
             <div className={styles.brandDescription}>
-              <h3>Tharsis</h3>
+              <Heading as="h3">Tharsis</Heading>
               <p>
                 Enterprise Terraform platform for secure, scalable
                 infrastructure management.
@@ -51,7 +52,7 @@ export default function Footer() {
           <div className={styles.footerLinks}>
             {links.map((linkColumn, i) => (
               <div key={i} className={styles.footerColumn}>
-                <h4 className={styles.footerTitle}>{linkColumn.title}</h4>
+                <Heading as="h4" className={styles.footerTitle}>{linkColumn.title}</Heading>
                 <ul className={styles.footerList}>
                   {linkColumn.items.map((item, j) => (
                     <li key={j} className={styles.footerItem}>

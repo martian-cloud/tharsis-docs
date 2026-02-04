@@ -1,5 +1,5 @@
-import React from "react";
 import Link from "@docusaurus/Link";
+import Heading from "@theme/Heading";
 import styles from "../../css/quick-start-section.module.css";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 
@@ -13,7 +13,9 @@ export default function QuickStartSection() {
     >
       <div className={styles.container}>
         <div className={styles.quickStartContent}>
-          <h2 className={styles.quickStartTitle}>Ready to Get Started?</h2>
+          <Heading as="h2" className={styles.quickStartTitle}>
+            Ready to Get Started?
+          </Heading>
           <p className={styles.quickStartDescription}>
             Deploy your first Terraform module with Tharsis in minutes. Choose
             your preferred way to begin.

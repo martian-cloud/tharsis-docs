@@ -38,12 +38,40 @@ default:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
 
 #################################
+##            CACHE            ##
+#################################
+
+.node-cache-template: &node-cache-template
+  paths:
+    - node_modules/
+  key:
+    files:
+      - .gitlab-ci.yml
+      - package-lock.json
+    prefix: node_modules
+  policy: pull-push
+
+#################################
 ##            BUILD            ##
 #################################
+
+lint:
+  image: node:lts
+  stage: test
+  cache:
+    <<: *node-cache-template
+  before_script:
+    - npm install
+  script:
+    - npm run lint
+  rules:
+    - !reference [.on_merge_request_and_merged_events, rules]
 
 pages:
   image: node:lts
   stage: deploy
+  cache:
+    <<: *node-cache-template
   variables:
     PAGES_PREFIX: ""
   pages:
@@ -52,7 +80,7 @@ pages:
     name: "Docs ${PAGES_PREFIX}"
     url: $CI_PAGES_URL
   before_script:
-    - npm install --legacy-peer-deps
+    - npm install
   script:
     - npm run build
     - mkdir public

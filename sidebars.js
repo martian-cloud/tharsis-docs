@@ -127,6 +127,7 @@ const sidebars = {
             "guides/overviews/federated_registries",
             "guides/overviews/module_registry",
             "guides/overviews/provider_registry",
+            "guides/overviews/provider_mirror",
             "guides/overviews/resource_identifiers",
           ],
         },
