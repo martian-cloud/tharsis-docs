@@ -851,7 +851,9 @@ tharsis terraform-provider upload-version \
 
 ### Terraform-provider-mirror command
 
-The terraform-provider-mirror command allows interacting with the Tharsis Terraform provider mirror, which supports Terraform's Provider Network Mirror Protocol. The Tharsis provider mirror hosts a set of Terraform providers for use within a group's hierarchy and gives root group owners full control on which providers, platform packages and registries are available via their mirror. Subcommands help upload provider packages from any Terraform Provider Registry to the mirror. Uploaded packages will be verified for legitimacy against the provider's Terraform Registry API.
+The terraform-provider-mirror command allows interacting with the Tharsis Terraform provider mirror, which supports Terraform's [Provider Network Mirror Protocol](https://developer.hashicorp.com/terraform/internals/provider-network-mirror-protocol). The Tharsis provider mirror hosts a set of Terraform providers for use within a group's hierarchy and gives root group owners full control on which providers, platform packages and registries are available via their mirror.
+
+**Automatic Caching**: When running Terraform jobs in Tharsis workspaces, providers are automatically cached to the mirror on first use. This means you don't need to manually sync providers before running jobs. The subcommands below are useful for pre-populating the mirror or managing cached providers.
 
 **Subcommands**:
 
@@ -957,21 +959,35 @@ tharsis terraform-provider-mirror sync \
   --platform="windows_amd64" \
   --platform="linux_386" \
   --group-path "top-level" \
-  registry.terraform.io/hashicorp/aws
+  hashicorp/aws
 ```
 
 <details>
 <summary>Expand for explanation</summary>
 
 - `--group-path`: Full path to the root group where this Terraform provider version will be mirrored. Required.
-- `--platform`: Specifies which platform (os_arch) the packages should be uploaded for. Defaults to all supported.
+- `--platform`: Specifies which platform (os_arch) the packages should be uploaded for. Can be specified multiple times. Defaults to all supported platforms.
 - `--version`: The semantic version of the target Terraform provider. Defaults to latest.
+- `--concurrency`: Number of concurrent platform uploads. Defaults to 4.
 
 Specify the Fully Qualified Name (FQN), which must be formatted as:
 
-`{registry hostname}/{registry namespace}/{provider name}`
+`[registry hostname/]{registry namespace}/{provider name}`
 
-Example: `registry.terraform.io/hashicorp/aws`
+The hostname can be omitted for providers from the public Terraform registry (registry.terraform.io).
+
+Examples:
+
+- `registry.terraform.io/hashicorp/aws`
+- `hashicorp/aws` (equivalent to above)
+- `registry.example.com/myorg/custom`
+
+**Private Registry Authentication**
+
+For private registries, authentication tokens are resolved in the following order:
+
+1. **CLI environment variable**: `TF_TOKEN_<hostname>` where periods are replaced with underscores and hyphens with double underscores (e.g., `TF_TOKEN_registry_example_com`)
+2. **Federated registry**: Runs service discovery and uses the token from a matching CLI profile
 
 </details>
 

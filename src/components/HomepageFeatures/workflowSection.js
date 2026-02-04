@@ -1,4 +1,4 @@
-import React from "react";
+import Heading from "@theme/Heading";
 import styles from "../../css/workflow-section.module.css";
 import { useScrollAnimation } from "../../hooks/useScrollAnimation";
 
@@ -34,13 +34,17 @@ export default function WorkflowSection() {
       className={`${styles.workflow} ${isVisible ? styles.animate : ""}`}
     >
       <div className={styles.container}>
-        <h2 className={styles.sectionTitle}>Simple. Secure. Scalable.</h2>
+        <Heading as="h2" className={styles.sectionTitle}>
+          Simple. Secure. Scalable.
+        </Heading>
         <div className={styles.stepsContainer}>
           {steps.map((step, idx) => (
             <div key={idx} className={styles.step}>
               <div className={styles.stepNumber}>{step.number}</div>
               <div className={styles.stepIcon}>{step.icon}</div>
-              <h3 className={styles.stepTitle}>{step.title}</h3>
+              <Heading as="h3" className={styles.stepTitle}>
+                {step.title}
+              </Heading>
               <p className={styles.stepDescription}>{step.description}</p>
               {idx < steps.length - 1 && (
                 <div className={styles.connector}></div>

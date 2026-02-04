@@ -17,6 +17,8 @@ See our [Getting Started](/docs/provider/intro.md) guide!
 
 :::
 
+---
+
 ## Provider Addresses
 
 Tharsis adheres to the [Terraform Provider Registry](https://developer.hashicorp.com/terraform/internals/provider-registry-protocol)'s format for provider addresses. A provider address is a string that uniquely identifies a provider within a registry's namespace.
@@ -131,47 +133,4 @@ You can always locate the usage example for any provider version in the Tharsis 
 
 ## Using a Terraform Provider Network Mirror
 
-The Tharsis API implements the Provider Network Mirror Protocol and can function as a network mirror: https://developer.hashicorp.com/terraform/internals/provider-network-mirror-protocol
-
-Using the Tharsis API as a network mirror can have the following advantages:
-
-- Reduced network latency
-- Increased network throughput
-- Reduced likelihood of being rate-limited by an upstream repository
-
-To configure the network mirror feature via the Tharsis CLI, do something similar to
-
-`tharsis terraform-provider-mirror sync --group-path example-group registry.terraform.io/hashicorp/aws`
-
-See [CLI terraform-provider-mirror command](/cli/tharsis/commands#terraform-provider-mirror-command) for more information about that CLI command.
-
-Additional details about using a network mirror can be found here: https://servian.dev/terraform-local-providers-and-registry-mirror-configuration-b963117dfffa
-
-For example, from the above page, to configure the actual network mirror, put something similar to this in the Terraform CLI configuration file:
-
-```
-provider_installation {
-  network_mirror {
-    url = "https://tharsis.example.io/v1/provider-mirror/providers/example-group/"
-  }
-}
-
-credentials "tharsis.example.io" {
-  token = "..."
-}
-```
-
-(The credentials block should only be necessary when using a service account.)
-
-And something similar to this in a relevant HCL file:
-
-```
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.66.0"
-    }
-  }
-}
-```
+Tharsis can also function as a [Terraform Provider Network Mirror](https://developer.hashicorp.com/terraform/internals/provider-network-mirror-protocol), caching providers locally for improved performance and offline access. See the [Provider Mirror](provider_mirror.md) documentation for details.

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import ReactPlayer from "react-player/lazy";
 import BrowserOnly from "@docusaurus/BrowserOnly";
@@ -28,7 +28,7 @@ export default function DemoVideo() {
 
   // Force re-render when component mounts to fix blank video issue
   useEffect(() => {
-    setKey(prev => prev + 1);
+    setKey((prev) => prev + 1);
   }, []);
 
   return (
