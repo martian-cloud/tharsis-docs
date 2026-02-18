@@ -57,7 +57,7 @@ export default function FeaturesSection() {
     {
       title: "Service Accounts",
       description:
-        "Machine-to-machine authentication for CI/CD pipelines using OIDC tokens. Assign roles within groups or workspaces without managing static API keys or secrets.",
+        "Machine-to-machine authentication for CI/CD pipelines and automated systems. Supports OIDC federation for platforms like GitLab CI and GitHub Actions, or client credentials for direct authentication without managing static API keys.",
       highlight: "M2M authentication",
     },
     {

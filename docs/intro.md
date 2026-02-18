@@ -13,7 +13,7 @@ Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [T
 
 &#10004; Configurable job executor plugin.
 
-&#10004; Machine to Machine (M2M) authentication with service accounts.
+&#10004; Machine to Machine (M2M) authentication with service accounts (OIDC federation or client credentials).
 
 &#10004; Managed identity support to securely authenticate with cloud providers (no credential storage).
 
