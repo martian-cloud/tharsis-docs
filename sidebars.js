@@ -129,7 +129,7 @@ const sidebars = {
             "guides/overviews/provider_registry",
             "guides/overviews/provider_mirror",
             "guides/overviews/resource_identifiers",
-          ],
+            "guides/overviews/mcp",          ],
         },
         {
           type: "category",
