@@ -27,6 +27,10 @@ The server communicates over stdio, making it compatible with any MCP client.
 You don't need to run this command manually. Your AI client starts the MCP server automatically based on its configuration.
 :::
 
+:::info Multiple Instances
+When using a non-default profile, all tool names are prefixed with the normalized profile name (e.g., `production_get_workspace`, `production_list_runs`). The `default` profile has no prefix. This avoids naming conflicts when multiple Tharsis MCP servers are configured in AI agents like Kiro.
+:::
+
 ## Configuration
 
 The MCP server is configured through environment variables:
@@ -91,6 +95,8 @@ Tools for managing Terraform runs (plan and apply workflows).
 | ------------ | ----- | ----------- | --------------------------------------------------- |
 | `list_runs`  | read  | no          | List runs with optional workspace filtering         |
 | `get_run`    | read  | no          | Get run details including status and error messages |
+| `get_plan`   | read  | no          | Get plan details by ID                              |
+| `get_apply`  | read  | no          | Get apply details by ID                             |
 | `create_run` | write | no          | Create a new run from configuration or module       |
 | `apply_run`  | write | yes         | Apply a planned run                                 |
 | `cancel_run` | write | yes         | Cancel a running or queued run                      |
@@ -99,9 +105,10 @@ Tools for managing Terraform runs (plan and apply workflows).
 
 Tools for accessing Terraform job execution details.
 
-| Tool           | Type | Destructive | Description                                     |
-| -------------- | ---- | ----------- | ----------------------------------------------- |
-| `get_job_logs` | read | no          | Retrieve paginated logs from plan or apply jobs |
+| Tool             | Type | Destructive | Description                                     |
+| ---------------- | ---- | ----------- | ----------------------------------------------- |
+| `get_latest_job` | read | no          | Get the latest job for a plan or apply           |
+| `get_job_logs`   | read | no          | Retrieve paginated logs from plan or apply jobs |
 
 ### configuration_version
 

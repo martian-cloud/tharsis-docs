@@ -42,31 +42,45 @@ trn:TYPE:PATH
 - Running CLI commands
 
 :::info
-For nested resources like runs and jobs, the final path segment is the resource's Global ID. For example: `trn:run:my-org/my-workspace/Ul83MWQ...`
+For nested resources like runs and jobs, the final path segment is the resource's Global ID. For example: `trn:run:my-group/my-workspace/Ul83MWQ...`
 :::
 
 ### Supported Types
 
-| Type                          | Path Format                                | Example                                                          |
-| ----------------------------- | ------------------------------------------ | ---------------------------------------------------------------- |
-| `group`                       | `parent/child`                             | `trn:group:infrastructure/production`                            |
-| `workspace`                   | `group-path/workspace-name`                | `trn:workspace:infrastructure/production/web-app`                |
-| `run`                         | `workspace-path/run-id`                    | `trn:run:infra/prod/web-app/Ul83MWQ...`                          |
-| `plan`                        | `workspace-path/plan-id`                   | `trn:plan:infra/prod/web-app/UGxhbl8...`                         |
-| `apply`                       | `workspace-path/apply-id`                  | `trn:apply:infra/prod/web-app/QXBwbH...`                         |
-| `job`                         | `workspace-path/job-id`                    | `trn:job:infra/prod/web-app/Sm9iXzE...`                          |
-| `state_version`               | `workspace-path/state-version-id`          | `trn:state_version:infra/prod/web-app/U1ZfMT...`                 |
-| `configuration_version`       | `workspace-path/config-version-id`         | `trn:configuration_version:infra/web-app/Q1ZfMT...`              |
-| `managed_identity`            | `group-path/identity-name`                 | `trn:managed_identity:infrastructure/aws-deploy`                 |
-| `service_account`             | `group-path/service-account-name`          | `trn:service_account:infrastructure/ci-runner`                   |
-| `terraform_module`            | `group-path/module-name/system`            | `trn:terraform_module:infra/vpc/aws`                             |
-| `terraform_module_version`    | `group-path/module-name/system/version`    | `trn:terraform_module_version:infra/vpc/aws/1.0.0`               |
-| `terraform_provider`          | `group-path/provider-name`                 | `trn:terraform_provider:infrastructure/custom`                   |
-| `terraform_provider_version`  | `group-path/provider-name/version`         | `trn:terraform_provider_version:infra/custom/1.0.0`              |
-| `terraform_provider_platform` | `group-path/provider-name/version/os_arch` | `trn:terraform_provider_platform:infra/custom/1.0.0/linux_amd64` |
-| `runner`                      | `group-path/runner-name`                   | `trn:runner:infrastructure/shared-runner`                        |
-| `variable`                    | `namespace-path/variable-name`             | `trn:variable:infra/prod/web-app/api_key`                        |
-| `vcs_provider`                | `group-path/vcs-provider-name`             | `trn:vcs_provider:infrastructure/github`                         |
+| Type                                 | Path Format                                          | Example                                                                                            |
+| ------------------------------------ | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `group`                              | `parent/child`                                       | `trn:group:infrastructure/production`                                                              |
+| `workspace`                          | `group-path/workspace-name`                          | `trn:workspace:infrastructure/production/web-app`                                                  |
+| `run`                                | `workspace-path/run-id`                              | `trn:run:infra/prod/web-app/Ul83MWQ...`                                                            |
+| `plan`                               | `workspace-path/plan-id`                             | `trn:plan:infra/prod/web-app/UGxhbl8...`                                                           |
+| `apply`                              | `workspace-path/apply-id`                            | `trn:apply:infra/prod/web-app/QXBwbH...`                                                           |
+| `job`                                | `workspace-path/job-id`                              | `trn:job:infra/prod/web-app/Sm9iXzE...`                                                            |
+| `state_version`                      | `workspace-path/state-version-id`                    | `trn:state_version:infra/prod/web-app/U1ZfMT...`                                                   |
+| `state_version_output`               | `workspace-path/state-version-id/output-name`        | `trn:state_version_output:infra/web-app/U1ZfMT.../vpc_id`                                          |
+| `configuration_version`              | `workspace-path/config-version-id`                   | `trn:configuration_version:infra/web-app/Q1ZfMT...`                                                |
+| `managed_identity`                   | `group-path/identity-name`                           | `trn:managed_identity:infrastructure/aws-deploy`                                                   |
+| `managed_identity_access_rule`       | `group-path/identity-name/rule-id`                   | `trn:managed_identity_access_rule:infra/aws-deploy/TUJBUL8...`                                     |
+| `service_account`                    | `group-path/service-account-name`                    | `trn:service_account:infrastructure/ci-runner`                                                     |
+| `terraform_module`                   | `group-path/module-name/system`                      | `trn:terraform_module:infra/vpc/aws`                                                               |
+| `terraform_module_version`           | `group-path/module-name/system/version`              | `trn:terraform_module_version:infra/vpc/aws/1.0.0`                                                 |
+| `terraform_module_attestation`       | `group-path/module-name/system/data-sha-hex`         | `trn:terraform_module_attestation:infra/vpc/aws/a1b2c3...`                                         |
+| `terraform_provider`                 | `group-path/provider-name`                           | `trn:terraform_provider:infrastructure/custom`                                                     |
+| `terraform_provider_version`         | `group-path/provider-name/version`                   | `trn:terraform_provider_version:infra/custom/1.0.0`                                                |
+| `terraform_provider_platform`        | `group-path/provider-name/version/os/arch`           | `trn:terraform_provider_platform:infra/custom/1.0.0/linux/amd64`                                   |
+| `terraform_provider_version_mirror`  | `group-path/hostname/namespace/type/version`         | `trn:terraform_provider_version_mirror:infra/registry.terraform.io/hashicorp/aws/5.0`              |
+| `terraform_provider_platform_mirror` | `group-path/hostname/namespace/type/version/os/arch` | `trn:terraform_provider_platform_mirror:infra/registry.terraform.io/hashicorp/aws/5.0/linux/amd64` |
+| `runner`                             | `group-path/runner-name` or `runner-name`            | `trn:runner:infrastructure/shared-runner`                                                          |
+| `variable`                           | `namespace-path/category/variable-key`               | `trn:variable:infra/prod/web-app/terraform/api_key`                                                |
+| `namespace_membership`               | `namespace-path/membership-id`                       | `trn:namespace_membership:infra/prod/TlNNXz...`                                                    |
+| `role`                               | `role-name`                                          | `trn:role:deployer`                                                                                |
+| `team`                               | `team-name`                                          | `trn:team:platform-eng`                                                                            |
+| `team_member`                        | `team-name/username`                                 | `trn:team_member:platform-eng/jsmith`                                                              |
+| `user`                               | `username`                                           | `trn:user:jsmith`                                                                                  |
+| `gpg_key`                            | `group-path/fingerprint`                             | `trn:gpg_key:infra/ABC123DEF456...`                                                                |
+| `vcs_provider`                       | `namespace-path/vcs-provider-name`                   | `trn:vcs_provider:infrastructure/github`                                                           |
+| `workspace_vcs_provider_link`        | `workspace-path/link-id`                             | `trn:workspace_vcs_provider_link:infra/web-app/V1ZQTF8...`                                         |
+| `webhook`                            | `namespace-path/webhook-name`                        | `trn:webhook:infra/prod/deploy-notify`                                                             |
+| `federated_registry`                 | `group-path/hostname`                                | `trn:federated_registry:infra/registry.example.com`                                                |
 
 ## Which to Use?
 

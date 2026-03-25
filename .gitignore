@@ -335,3 +335,7 @@ Temporary Items
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.kiro
+
+# Auto-generated documentation imported from Tharsis CLI project repo via the plugin:
+docs/cli/tharsis/commands.md

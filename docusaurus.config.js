@@ -32,6 +32,26 @@ const config = {
     },
 
     plugins: [
+        'docusaurus-markdown-source-plugin',
+        function copyRemoteMarkdown() {
+            // Files fetched by docusaurus-plugin-remote-content that need
+            // to be copied to the build output for the markdown source plugin.
+            const remoteFiles = [
+                { src: 'docs/cli/tharsis/commands.md', dest: 'cli/tharsis/commands.md' },
+            ];
+            return {
+                name: 'copy-remote-markdown',
+                async postBuild({ outDir }) {
+                    const fs = require('fs');
+                    const path = require('path');
+                    for (const { src, dest } of remoteFiles) {
+                        const srcPath = path.join(__dirname, src);
+                        const destPath = path.join(outDir, dest);
+                        if (fs.existsSync(srcPath)) fs.copyFileSync(srcPath, destPath);
+                    }
+                },
+            };
+        },
         [
             require.resolve("@easyops-cn/docusaurus-search-local"),
             /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} **/
@@ -40,6 +60,15 @@ const config = {
                 docsRouteBasePath: "/",
                 hashed: true
             }
+        ],
+        [
+            "docusaurus-plugin-remote-content",
+            {
+                name: "tharsis-cli-generated-markdown",
+                sourceBaseUrl: "https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/raw/main/docs/",
+                outDir: "docs/cli/tharsis",
+                documents: ["commands.md"],
+            },
         ],
     ],
 
@@ -191,7 +220,7 @@ const config = {
                 darkTheme: darkCodeTheme,
 
                 // Add any additional languages go here for syntax highlighting.
-                additionalLanguages: ["hcl", "json"],
+                additionalLanguages: ["hcl", "json", "bash", "powershell"],
             },
         }),
 };
