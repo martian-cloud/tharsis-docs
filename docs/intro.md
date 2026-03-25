@@ -31,7 +31,11 @@ Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [T
 
 &#10004; Written in [The Go Programming Language](https://go.dev/) and available as a [Docker image](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/container_registry).
 
-&#10004; Develop your own tools with the [Tharsis SDK for Go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go).
+&#10004; gRPC API for programmatic access and CLI integration.
+
+:::note
+The [Tharsis SDK for Go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go) is deprecated. The CLI now communicates directly with the Tharsis API via gRPC using the [client package](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/-/tree/main/pkg/client).
+:::
 
 ### Tharsis UI
 

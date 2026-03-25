@@ -3,10 +3,7 @@ title: Installation and Build Guide
 description: "An installation and build guide for the Tharsis CLI"
 ---
 
-<!-- Import for Tabs used below -->
-
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
+import CLIDownloadScripts from "@site/src/components/CLIDownloadScripts";
 
 The [Tharsis CLI](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli) supports all major platforms, and binaries are released via [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
 
@@ -16,77 +13,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ## Download binary
 
-- Two options are available for downloading:
-
-  1. Directly from the GitLab releases page if access to a web browser is available.
-
-  2. Using the cURL command for CI/CD or headless setup.
-
-### Directly from GitLab Releases
-
-The latest binaries are available to download from [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
-
-Download the respective binary for the platform and run it using `./tharsis`.
-
-### Using [cURL](https://en.wikipedia.org/wiki/CURL) command
-
-<h4>Available Platforms</h4>
-<Tabs groupId="operating-systems">
-  <TabItem value="win" label="Windows">
-
-    windows_amd64
-    windows_386
-
-  </TabItem>
-  <TabItem value="mac" label="macOS">
-
-    darwin_arm64
-    darwin_amd64
-
-  </TabItem>
-  <TabItem value="linux" label="Linux">
-
-    linux_arm64
-    linux_arm
-    linux_amd64
-    linux_386
-
-  </TabItem>
-  <TabItem value="solaris" label="Oracle Solaris">
-
-    solaris_amd64
-
-  </TabItem>
-  <TabItem value="open" label="OpenBSD">
-
-    openbsd_amd64
-    openbsd_386
-
-  </TabItem>
-  <TabItem value="free" label="FreeBSD">
-
-    freebsd_arm
-    freebsd_amd64
-    freebsd_386
-
-  </TabItem>
-</Tabs>
-
-To download the desired binary, copy the following command and replace `{access-token-here}` with a personal access token from GitLab, `{version-here}` with the desired version like 0.0.3 or 0.0.4, and `{platform}` with one of the respective values above.
-
-```shell title="Copy the command and replace values"
-curl --header "PRIVATE-TOKEN: {access-token-here}" \
-  https://gitlab.com/api/v4/projects/39923532/packages/generic/tharsis-cli/{version-here}/tharsis_{version-here}_{platform} \
-  --output tharsis
-```
-
-:::note
-The GitLab personal access token will need permission to access the CLI project in order to download the binary.
-:::
-
-:::tip
-It is helpful to replace the values prior to pasting in terminal.
-:::
+<CLIDownloadScripts />
 
 :::caution
 Installing the Tharsis CLI on other platforms may be possible, but it is not recommended nor supported.
@@ -94,7 +21,7 @@ Installing the Tharsis CLI on other platforms may be possible, but it is not rec
 
 ## Build from source
 
-While downloading a pre-built binary meets most use-cases, it may be desired to build a binary from source. Doing so will allow changing the default Tharsis endpoint (`DEFAULT_ENDPOINT_URL`) the CLI uses, which offers some convenience when configuring the CLI.
+While downloading a pre-built binary meets most use-cases, it may be desired to build a binary from source. Doing so will allow changing the default Tharsis HTTP endpoint (`DefaultHTTPEndpoint`) the CLI uses, which offers some convenience when configuring the CLI.
 
 The CLI project includes a handy `Makefile` to help the build process be a little easier.
 
@@ -109,8 +36,13 @@ git clone https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli.git
 
 ```shell showLineNumbers title="Use make to compile a binary"
 cd <project-directory>
-export DEFAULT_ENDPOINT_URL='https://api.tharsis.example.com' # Optional.
 make build
+```
+
+To set a custom default HTTP endpoint at build time, pass it via ldflags:
+
+```shell title="Build with a custom default endpoint"
+go build -ldflags "-X main.DefaultHTTPEndpoint=https://api.tharsis.example.com" -o tharsis ./cmd/tharsis
 ```
 
 ## Frequently asked questions (FAQ)

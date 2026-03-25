@@ -33,7 +33,7 @@ Use the CLI to run the following commands to get set up:
 <summary>Expand if using Docker Compose locally</summary>
 
 ```shell title="Create a profile to use with Docker"
-tharsis configure --endpoint-url http://localhost:6560 --profile dc
+tharsis configure --http-endpoint http://localhost:6560 --profile dc
 ```
 
 Above command will create a profile named `dc` to use against the Docker compose.

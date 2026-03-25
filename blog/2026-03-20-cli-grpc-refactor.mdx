@@ -1,0 +1,150 @@
+---
+title: "Tharsis CLI: From SDK to gRPC"
+tags: [tharsis, cli, grpc, refactor]
+authors:
+  - name: Aman Singh
+hide_table_of_contents: false
+---
+
+The Tharsis CLI has been refactored to communicate directly with the Tharsis API via gRPC, replacing the previous SDK-based architecture. This post covers what changed, why, and what it means for users.
+
+<!--truncate-->
+
+## Why the Refactor?
+
+:::info TL;DR
+The CLI switched from the Tharsis SDK (a GraphQL wrapper) to calling the Tharsis API directly over gRPC. This eliminates a dependency, removes boilerplate, and gives us type-safe contracts, native streaming, and standard error handling out of the box.
+:::
+
+The Tharsis CLI previously depended on the [Tharsis SDK for Go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go), a separate library that wrapped the Tharsis GraphQL API. While the SDK served its purpose, GraphQL turned out to be a poor fit for a CLI-to-server communication layer, and the SDK accumulated a significant amount of custom code to work around that mismatch.
+
+### The Problem with GraphQL in a CLI
+
+GraphQL was designed for frontend clients that need flexible, client-driven queries — a browser fetching exactly the fields it needs for a particular UI view. A CLI is the opposite: every command needs a fixed, predictable set of fields. That mismatch created several pain points:
+
+**Struct-based query construction.** The Go GraphQL client library required defining Go structs with `graphql` tags that mirror the exact shape of each query. Every SDK operation needed a dedicated struct for the query, a struct for the GraphQL response types, and a conversion function to map GraphQL types (`graphql.String`, `graphql.Int`, `graphql.Boolean`) back to native Go types. For example, a single `GetWorkspaces` operation required:
+
+- A `getWorkspacesQuery` struct with nested `PageInfo`, `Edges`, and `TotalCount` fields, all tagged with the full GraphQL argument list
+- A `graphQLWorkspace` struct duplicating every workspace field with GraphQL-specific types
+- A `workspaceFromGraphQL` conversion function to cast each field back to Go types
+- Manual variable construction with type-specific wrappers like `graphql.String(*input.Path)`
+
+This pattern repeated for every resource type in the system — workspaces, groups, runs, modules, managed identities, and more.
+
+**Subscription complexity.** Real-time features like job log streaming required a separate WebSocket-based GraphQL subscription client with its own connection lifecycle, authentication injection, keep-alive handling, and reconnection logic. The SDK maintained a `lazySubscriptionClient` with atomic state tracking and mutex synchronization just to manage the WebSocket connection.
+
+**Dual type systems.** The SDK maintained its own `types` package (`types.Workspace`, `types.Run`, etc.) that duplicated the API's domain models. Every API change required updating the GraphQL struct, the SDK type, and the conversion function between them — three places for every field change.
+
+**Error translation.** GraphQL returns errors as part of the response body rather than via HTTP status codes. The SDK needed custom error parsing to extract `GraphQLProblem` arrays from mutation responses and convert them into typed errors the CLI could act on.
+
+### What gRPC Solves
+
+The CLI now uses the [gRPC client package](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/-/tree/main/pkg/client) from the Tharsis API directly. This eliminates the entire SDK layer:
+
+- **Protobuf contracts** — The CLI and API share the same `.proto` definitions. Types are generated once and used everywhere. No more manual struct mapping or type conversion.
+- **Compile-time safety** — Field additions or removals in the API's protobuf definitions are caught at compile time, not at runtime through a missing GraphQL field.
+- **Native streaming** — gRPC's bidirectional streaming replaces the WebSocket subscription client. Job log streaming and run event subscriptions are just regular gRPC stream calls with no custom connection management.
+- **Standard error handling** — gRPC status codes (`NotFound`, `InvalidArgument`, `PermissionDenied`) map directly to the CLI's error handling, replacing the custom GraphQL problem parsing.
+- **One fewer dependency** — The separate SDK repository no longer needs to be versioned, released, and kept in sync with the API.
+
+:::note
+The Tharsis SDK for Go is now deprecated. Existing tools built on the SDK will continue to work, but new development should use the gRPC client package.
+:::
+
+## What Changed for Users
+
+### New Authentication Variables
+
+Service account authentication has been updated:
+
+| Before                         | After                        |
+| ------------------------------ | ---------------------------- |
+| `THARSIS_SERVICE_ACCOUNT_PATH` | `THARSIS_SERVICE_ACCOUNT_ID` |
+| `THARSIS_ENDPOINT`             | _(removed, use profiles)_    |
+
+`THARSIS_SERVICE_ACCOUNT_PATH` still works for backwards compatibility but is deprecated. The new `THARSIS_SERVICE_ACCOUNT_ID` accepts a TRN (e.g., `trn:service_account:my-group/my-sa`) or an internal ID.
+
+### IDs and TRNs Replace Paths
+
+Commands now expect IDs instead of resource paths as arguments. Both Global IDs (opaque base64-encoded strings) and TRNs (human-readable `trn:TYPE:PATH` format) are accepted:
+
+```bash
+# Before (path-based)
+tharsis workspace get my-group/my-workspace
+
+# After (GID or TRN)
+tharsis workspace get trn:workspace:my-group/my-workspace
+tharsis workspace get V1NfZjA5OWVkMmQtNDZmMS00ZmYw...
+```
+
+This shift eliminates ambiguity between resource types that share similar path structures (e.g., a group path vs. a workspace path). Global IDs are stable across renames and moves, while TRNs provide a human-readable way to reference resources by path. Together, they give you the flexibility to use whichever format suits your workflow.
+
+Resource paths still work for backwards compatibility — the CLI automatically converts them to TRNs internally — but IDs and TRNs are now the preferred format. This applies to command arguments and many flags across workspace, group, module, managed identity, and other commands. Several flags that accepted names or paths (like `--username`, `--team-name`, `--group-path`, `--sort-order`) have been deprecated in favor of ID or TRN-based equivalents.
+
+See [Resource Identifiers](/guides/overviews/resource_identifiers) for the full list of supported TRN types.
+
+### New --http-endpoint Flag
+
+The `--endpoint-url` flag has been renamed to `--http-endpoint`:
+
+```bash
+# Before
+tharsis configure --endpoint-url https://api.tharsis.example.com --profile prod
+
+# After
+tharsis configure --http-endpoint https://api.tharsis.example.com --profile prod
+```
+
+### Custom Endpoint Builds
+
+The build-time variable for setting a default endpoint has changed:
+
+```bash
+# Before
+export DEFAULT_ENDPOINT_URL='https://api.tharsis.example.com'
+make build
+
+# After
+go build -ldflags "-X main.DefaultHTTPEndpoint=https://api.tharsis.example.com" -o tharsis ./cmd/tharsis
+```
+
+### New Global Options
+
+- `--no-color` — Disable colored output. Also respects the `NO_COLOR` environment variable.
+- `--enable-autocomplete` / `--disable-autocomplete` — Manage shell autocompletion.
+- `THARSIS_PROFILE` — Set the active profile via environment variable (overridden by `-p` flag).
+- `THARSIS_CLI_LOG` — Control log verbosity for debugging (`debug`, `info`, `warn`, `error`).
+
+### Separate Credentials File
+
+Tokens are now stored in a separate credentials file rather than inline in the settings file. This improves security and allows long-lived processes like the MCP server to pick up refreshed tokens from concurrent `sso login` invocations.
+
+## New MCP Tools and Multi-Instance Improvements
+
+The built-in MCP server also received updates:
+
+- **New tools** — `get_plan`, `get_apply`, and `get_latest_job` have been added to the `run` and `job` toolsets.
+- **Profile-based tool prefixing** — When connecting multiple Tharsis instances, non-default profiles prefix all tool names (e.g., `production_get_workspace`) to avoid naming conflicts in AI agents like Kiro.
+
+## Always Up-to-Date Command Docs
+
+The CLI includes a `documentation generate` command that produces the complete [command reference](/cli/tharsis/commands) directly from the source code. Each command's usage, description, flags, and examples are defined alongside the implementation, and the documentation is generated from those definitions via `go generate`. This means the command reference on the docs site always reflects the latest CLI release — no manual doc updates needed when commands or flags change.
+
+## How to Upgrade
+
+1. Download the latest CLI binary from [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
+2. Update any CI/CD pipelines using `THARSIS_SERVICE_ACCOUNT_PATH` to `THARSIS_SERVICE_ACCOUNT_ID` (the old variable still works but is deprecated).
+3. Update any scripts using `--endpoint-url` to `--http-endpoint`.
+
+All command names and subcommands remain the same. Many commands now accept resource IDs or TRNs as their primary argument instead of resource paths, with the old path-based flags deprecated but still functional. See the [Command Reference](/cli/tharsis/commands) for current usage.
+
+## Learn More
+
+- [CLI Getting Started](/cli/tharsis/intro)
+- [CLI Installation Guide](/setup/cli/install)
+- [Command Reference](/cli/tharsis/commands)
+- [MCP Server Documentation](/cli/tharsis/mcp)
+
+---
+
+Questions or feedback? Reach out on [GitLab](https://gitlab.com/infor-cloud/martian-cloud/tharsis).
