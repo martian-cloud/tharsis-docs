@@ -2,7 +2,7 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 const { themes } = require('prism-react-renderer');
 const lightCodeTheme = themes.github;
-const darkCodeTheme = themes.dracula;
+const darkCodeTheme = themes.nightOwl;
 const defaultURI = "http://localhost:3000";
 
 /** @type {import('@docusaurus/types').Config} */
@@ -20,8 +20,7 @@ const config = {
         },
     },
 
-    // TODO: Replace this with Tharsis logo when that happens.
-    favicon: "img/favicon.ico",
+    favicon: "img/tharsis-logo.svg",
 
     // Even if you don't use internalization, you can use this field to set useful
     // metadata like html lang. For example, if your site is Chinese, you may want
@@ -106,9 +105,7 @@ const config = {
                 title: "Tharsis",
                 logo: {
                     alt: "Tharsis Logo",
-
-                    // TODO: Replace this with Tharsis logo when that happens.
-                    src: "img/favicon.ico",
+                    src: "img/tharsis-logo.svg",
                 },
                 hideOnScroll: true,
                 items: [
@@ -143,9 +140,9 @@ const config = {
             footer: {
                 style: "dark",
                 logo: {
-                    alt: "Infor Logo",
-                    src: "img/favicon.ico",
-                    href: "https://www.infor.com/",
+                    alt: "Tharsis Logo",
+                    src: "img/tharsis-logo.svg",
+                    href: "https://gitlab.com/groups/infor-cloud/martian-cloud/tharsis",
                     target: "_blank",
                     style: { marginTop: 0 },
                     width: 100,
@@ -169,12 +166,16 @@ const config = {
                         title: "CLI",
                         items: [
                             {
-                                label: "Tharsis",
-                                to: "/cli/tharsis/intro",
+                                label: "MCP Server",
+                                to: "/cli/tharsis/mcp",
                             },
                             {
                                 label: "Terraform",
                                 to: "/cli/terraform/usage",
+                            },
+                            {
+                                label: "Tharsis",
+                                to: "/cli/tharsis/intro",
                             },
                         ],
                     },
@@ -188,8 +189,16 @@ const config = {
                         ],
                     },
                     {
-                        title: "Follow Us",
+                        title: "Follow Infor",
                         items: [
+                            {
+                                label: "Facebook",
+                                href: "https://facebook.com/infor",
+                            },
+                            {
+                                label: "Instagram",
+                                href: "https://instagram.com/infor",
+                            },
                             {
                                 label: "LinkedIn",
                                 href: "https://www.linkedin.com/company/infor",
@@ -199,16 +208,8 @@ const config = {
                                 href: "https://twitter.com/infor",
                             },
                             {
-                                label: "Facebook",
-                                href: "https://facebook.com/infor",
-                            },
-                            {
                                 label: "YouTube",
                                 href: "https://www.youtube.com/c/InforGlobal",
-                            },
-                            {
-                                label: "Instagram",
-                                href: "https://instagram.com/infor",
                             },
                         ],
                     },
