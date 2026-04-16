@@ -55,7 +55,7 @@ const config = {
             require.resolve("@easyops-cn/docusaurus-search-local"),
             /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} **/
             {
-                indexBlog: false,
+                indexBlog: true,
                 docsRouteBasePath: "/",
                 hashed: true
             }
