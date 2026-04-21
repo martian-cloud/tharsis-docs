@@ -1,6 +1,8 @@
 ---
 title: Model Context Protocol
 description: "Using Tharsis MCP servers for AI assistant integration"
+keywords:
+  [tharsis, MCP, model context protocol, AI assistant, Claude, Cursor, Kiro]
 ---
 
 ## What is MCP?
@@ -24,11 +26,12 @@ Tharsis offers two MCP server options: a local server that runs with the CLI, an
 The Tharsis CLI includes a built-in MCP server that runs locally on your machine and uses your CLI authentication.
 
 **Use cases:**
+
 - Personal AI assistant integration (Kiro, Claude Desktop, Cursor)
 - Local development workflows
 - Direct CLI-based automation
 
-See the [CLI MCP documentation](../../cli/tharsis/mcp.md) for setup and configuration.
+See the [CLI MCP documentation](../cli/tharsis/mcp.md) for setup and configuration.
 
 ---
 
@@ -39,6 +42,7 @@ The Tharsis API exposes an MCP server endpoint that AI platforms can connect to 
 **Endpoint:** `https://<your-tharsis-api-url>/mcp`
 
 **Use cases:**
+
 - Cloud-based AI platforms and agents
 - Multi-user AI assistant deployments
 - Centralized infrastructure management through AI
@@ -50,6 +54,7 @@ The remote MCP server supports all Tharsis authentication methods. For AI tool i
 See [Service Accounts](./service_accounts.md) for instructions on creating a service account with client credentials authentication.
 
 You'll need:
+
 - Client ID
 - Client Secret
 - Token Exchange URL: `https://<your-tharsis-api-url>/v1/serviceaccounts/oauth/token`
@@ -66,9 +71,9 @@ The remote MCP server provides read-only tools for querying Tharsis resources:
 
 Tools for retrieving apply status and execution details.
 
-| Tool        | Description                      |
-| ----------- | -------------------------------- |
-| `get_apply` | Get apply status and details     |
+| Tool        | Description                  |
+| ----------- | ---------------------------- |
+| `get_apply` | Get apply status and details |
 
 #### documentation
 
@@ -83,11 +88,11 @@ Tools for searching and retrieving Tharsis documentation.
 
 Tools for retrieving job status and logs.
 
-| Tool              | Description                                     |
-| ----------------- | ----------------------------------------------- |
-| `get_job`         | Get job status and details                      |
-| `get_latest_job`  | Get the most recent job for a run               |
-| `get_job_logs`    | Retrieve paginated logs from plan or apply jobs |
+| Tool             | Description                                     |
+| ---------------- | ----------------------------------------------- |
+| `get_job`        | Get job status and details                      |
+| `get_latest_job` | Get the most recent job for a run               |
+| `get_job_logs`   | Retrieve paginated logs from plan or apply jobs |
 
 #### plan
 

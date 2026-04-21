@@ -1,9 +1,15 @@
 ---
 title: Usage Guide
 description: "Using Terraform CLI with Tharsis"
+keywords:
+  [terraform CLI, tharsis, remote backend, terraform login, terraform init]
 ---
 
 In addition to the [Tharsis CLI](../tharsis/intro.md), the [Terraform CLI](https://www.terraform.io/cli) can be used with Tharsis as well.
+
+:::tip
+The Tharsis CLI also supports running Terraform commands directly via the `tf-exec` subcommand, without needing to configure a remote backend. See the [tf-exec command reference](../tharsis/commands.md#tf-exec-command) for details.
+:::
 
 :::info
 Please refer to the [Terraform CLI documentation](https://www.terraform.io/cli) for the latest information.
@@ -56,6 +62,5 @@ terraform plan
 > If the configuration was correct, Terraform should display job logs and exit with a message <span style={{ color: 'aqua' }}>Uploaded plan output to object store</span>.
 
 :::info important
-Before deploying to AWS or Azure, a managed identity must be created. Learn [more](../../guides/overviews/managed_identities.md#create-a-managed-identity).
+Before deploying to AWS or Azure, a managed identity must be created. Learn [more](../../guides/managed_identities.md#create-a-managed-identity).
 :::
-

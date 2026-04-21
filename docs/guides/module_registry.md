@@ -1,6 +1,16 @@
 ---
 title: Terraform Module Registry
 description: "All about the Tharsis Terraform Module Registry"
+keywords:
+  [
+    tharsis,
+    module registry,
+    terraform modules,
+    versioning,
+    attestation,
+    in-toto,
+    supply chain,
+  ]
 ---
 
 Tharsis Terraform Module Registry provides a central place to publish, version, attest, and share Terraform modules.
@@ -63,6 +73,33 @@ You can always locate the usage example for any module version in the Tharsis UI
 
 Tharsis currently supports the [in-toto](https://in-toto.io/) specification, a system that attests to the integrity and verifiability of a software supply chain. A compromised supply chain immensely decreases the overall security of a software product and threat actors can impact several users at once. in-toto helps a user verify if a step in the supply chain process was intended and performed by the right individual, thus, decreasing the likelihood of a compromised end product. Learn [more](https://github.com/in-toto/docs/blob/d416c1f334ac6b581f75c0fa65125fb434d7a610/in-toto-spec.md).
 
+**Module publishing**
+
+```mermaid
+flowchart TD
+    A[Build module] --> B[Generate SHA-256 digest]
+    B --> C[Sign with cosign using private key]
+    C --> D[Upload attestation to Tharsis via CLI]
+```
+
+**Run-time verification**
+
+Each attestation policy on the managed identity access rule must be satisfied by at least one attestation on the module version. All policies must pass for the run to proceed.
+
+```mermaid
+flowchart TD
+    A[Run created with module source] --> B[Compute module SHA-256 digest]
+    B --> C[Fetch attestations for module version]
+    C --> D[For each attestation policy]
+    D --> E{Verify DSSE signature, digest, and predicate type}
+    E -->|Match found| F[Policy satisfied ✅]
+    E -->|No match| G[Policy failed ❌]
+    F --> H{All policies checked?}
+    G --> I[Run blocked ❌]
+    H -->|More policies| D
+    H -->|All satisfied| J[Run proceeds ✅]
+```
+
 :::tip did you know?
 
 The attestation process can be streamlined by using the Cosign binary in a CICD pipeline to create an attestation and upload it to the Tharsis API via the CLI. See [module create-attestation subcommand](/docs/cli/tharsis/commands.md#module-create-attestation-subcommand).
@@ -71,7 +108,7 @@ The attestation process can be streamlined by using the Cosign binary in a CICD 
 
 ## Create a Terraform module
 
-Either the [API](/docs/setup/api/install.md) or the [CLI](/docs/cli/tharsis/intro.md) can be used to create a new module.
+Either the [API](/docs/setup/api.md) or the [CLI](/docs/cli/tharsis/intro.md) can be used to create a new module.
 
 ### Tharsis API
 
@@ -165,7 +202,7 @@ See [module create subcommand](/docs/cli/tharsis/commands.md#module-create-subco
 
 ## Version a Terraform module
 
-Either the [API](/docs/setup/api/install.md) or the [CLI](/docs/cli/tharsis/intro.md) can be used to create a new module version.
+Either the [API](/docs/setup/api.md) or the [CLI](/docs/cli/tharsis/intro.md) can be used to create a new module version.
 
 :::tip did you know?
 
@@ -266,7 +303,7 @@ The CLI allows us to kill two birds with one stone. We can simultaneously upload
 
 ## Attest a Terraform module
 
-Either the [API](/docs/setup/api/install.md) or the [CLI](/docs/cli/tharsis/intro.md) can be used to create a new module attestation.
+Either the [API](/docs/setup/api.md) or the [CLI](/docs/cli/tharsis/intro.md) can be used to create a new module attestation.
 
 ### Requirements
 

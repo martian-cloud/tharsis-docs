@@ -1,11 +1,15 @@
 ---
 title: Getting Started
 description: "Getting started with the Tharsis CLI"
+keywords:
+  [tharsis CLI, commands, authentication, SSO, service account, profiles]
 ---
 
 ## What is the Tharsis CLI?
 
 The Tharsis CLI is a command-line interface to the Tharsis remote Terraform backend. It communicates directly with the Tharsis API via gRPC.
+
+For installation instructions, see the [CLI setup guide](/docs/setup/cli.md).
 
 :::note SDK Deprecation
 The [Tharsis SDK for Go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go) is deprecated. The CLI now uses the gRPC [client package](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/-/tree/main/pkg/client) from the Tharsis API directly.
@@ -21,7 +25,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 - The CLI supports two authentication methods:
   1. [Single Sign-On (SSO)](https://en.wikipedia.org/wiki/Single_sign-on)
-  2. [Service account](../../guides/overviews/service_accounts.md)
+  2. [Service account](../../guides/service_accounts.md)
 
 ### Single Sign-On (SSO)
 
@@ -86,15 +90,15 @@ The `-p` flag takes precedence over the `THARSIS_PROFILE` environment variable. 
 
 ## Environment variables
 
-| Variable            | Description                                                                                       |
-| ------------------- | ------------------------------------------------------------------------------------------------- |
-| `THARSIS_PROFILE`   | Sets the active profile. Overridden by the `-p` flag.                                             |
-| `THARSIS_CLI_LOG`   | Sets the log level for debugging (e.g., `debug`, `info`, `warn`, `error`). Defaults to off.       |
-| `NO_COLOR`          | Disables colored output when set to any non-empty value. Also available as the `--no-color` flag. |
+| Variable          | Description                                                                                      |
+| ----------------- | ------------------------------------------------------------------------------------------------ |
+| `THARSIS_PROFILE` | Sets the active profile. Overridden by the `-p` flag.                                            |
+| `THARSIS_CLI_LOG` | Sets the log level for debugging (e.g., `debug`, `info`, `warn`, `error`). Defaults to off.      |
+| `NO_COLOR`        | Disables colored output when set to any non-empty value. Also available as the `-no-color` flag. |
 
 ## Resource identifiers
 
-CLI commands accept both Global IDs and TRNs as resource identifiers. Global IDs are stable across renames and moves, while TRNs provide a human-readable way to reference resources by type and path — avoiding ambiguity between resource types that share similar path structures. See [Resource Identifiers](../../guides/overviews/resource_identifiers.md) for details on each format.
+CLI commands accept both Global IDs and TRNs as resource identifiers. Global IDs are stable across renames and moves, while TRNs provide a human-readable way to reference resources by type and path — avoiding ambiguity between resource types that share similar path structures. See [Resource Identifiers](../../guides/resource_identifiers.md) for details on each format.
 
 ```shell title="Using a TRN"
 tharsis workspace get trn:workspace:my-group/my-workspace
@@ -109,17 +113,17 @@ tharsis workspace get V1NfZjA5OWVkMmQtNDZmMS00ZmYw...
 The CLI supports shell autocompletion for commands and flags. To enable it:
 
 ```shell
-tharsis --enable-autocomplete
+tharsis -enable-autocomplete
 ```
 
 To disable it:
 
 ```shell
-tharsis --disable-autocomplete
+tharsis -disable-autocomplete
 ```
 
 ## Frequently asked questions (FAQ)
 
 ### Is it possible to use Terraform CLI with Tharsis?
 
-Yes. Terraform CLI is compatible with Tharsis, although it will only provide a subset of the features that the Tharsis CLI offers. Learn [more](../terraform/usage.md).
+Yes. Terraform CLI is compatible with Tharsis, although it will only provide a subset of the features that the Tharsis CLI offers. Learn [more](../terraform/usage.md). You can also run Terraform commands directly through the Tharsis CLI using the `tf-exec` subcommand — see the [command reference](commands.md#tf-exec-command).

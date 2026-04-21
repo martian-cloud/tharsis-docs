@@ -1,6 +1,7 @@
 ---
-title: Installation and Build Guide
+title: CLI
 description: "An installation and build guide for the Tharsis CLI"
+keywords: [tharsis cli, installation, download, binary, command line]
 ---
 
 import CLIDownloadScripts from "@site/src/components/CLIDownloadScripts";
@@ -39,7 +40,7 @@ cd <project-directory>
 make build
 ```
 
-To set a custom default HTTP endpoint at build time, pass it via ldflags:
+To set a custom default endpoint at build time, pass it via ldflags:
 
 ```shell title="Build with a custom default endpoint"
 go build -ldflags "-X main.DefaultHTTPEndpoint=https://api.tharsis.example.com" -o tharsis ./cmd/tharsis
@@ -47,27 +48,27 @@ go build -ldflags "-X main.DefaultHTTPEndpoint=https://api.tharsis.example.com" 
 
 ## Frequently asked questions (FAQ)
 
-### How can I make the binary an executable?
-
-On a Linux system, `cd` into the CLI's directory and run `chmod +x tharsis`. Run with `./tharsis`
-
-For Windows users, it _may_ be necessary to append `.exe` to the binary name to make it an executable. For example `--output tharsis.exe` in the `cURL` command.
-
 ### Is there a way to run the CLI from any directory?
 
-Yes. If on the Linux system, and using [Bash shell](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>) run the following command in a terminal window:
+Yes. Add the directory containing the binary to your system's `PATH`.
+
+On Linux/macOS (Bash):
 
 ```bash
 echo "PATH=\$PATH:[binary path]" >> ~/.bashrc && source ~/.bashrc
 ```
 
-> Replace `[binary path]` with the full path to the CLI binary.
+On Windows (PowerShell):
 
-Please consult the internet for exporting to `PATH` on different platforms.
+```powershell
+[Environment]::SetEnvironmentVariable("Path", $env:Path + ";[binary path]", "User")
+```
+
+> Replace `[binary path]` with the full path to the directory containing the CLI binary.
 
 ### Does the CLI auto-update?
 
-At the moment, it does not. A new binary will have to be manually downloaded using the above methods.
+At the moment, it does not. However, running `tharsis version` will show when a newer version is available and provide the download URL.
 
 ### Is the CLI binary signed?
 

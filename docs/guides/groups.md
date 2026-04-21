@@ -1,17 +1,39 @@
 ---
 title: Groups
 description: "What are groups and why they are important"
+keywords: [tharsis, groups, hierarchy, inheritance, namespaces, organization]
 ---
 
 ## What are groups?
 
 Groups are containers that hold configuration information to help organize workspaces in a hierarchical manner.
 
-Tharsis UI's groups page provides access to global Terraform/environment variables shared by all nested workspaces/groups, managed identities for assuming roles when deploying in workspaces, a members page, and a settings page as well (coming soon!).
+```mermaid
+flowchart TD
+    A["🏢 top-group"]
+    A --> B["📁 staging"]
+    A --> C["📁 production"]
+    B --> D["📦 app-workspace"]
+    B --> E["📦 db-workspace"]
+    C --> F["📦 app-workspace"]
+    C --> G["📦 db-workspace"]
 
-:::tip did you know...
-Groups can be nested like a tree structure, meaning subgroups can be created as needed. Any given group may optionally contain one or more workspaces.
-:::
+```
+
+## Inheritance
+
+Resources set at a group level are inherited by all child groups and workspaces. Children can override inherited variable values. The following resources support inheritance: variables, managed identities, memberships, service accounts, runner agents, Terraform modules, and VCS providers.
+
+```mermaid
+flowchart TD
+    A["🏢 top-group<br/>region = us-east-1<br/>AWS managed identity<br/>Runner: group-runner"]
+    A --> B["📁 staging<br/>region = us-east-2 ← override"]
+    A --> C["📁 production<br/>no overrides"]
+    B --> D["📦 app-workspace<br/>✅ region = us-east-2<br/>✅ AWS identity<br/>✅ group-runner"]
+    C --> E["📦 app-workspace<br/>✅ region = us-east-1<br/>✅ AWS identity<br/>✅ group-runner"]
+```
+
+Tharsis UI's groups page provides access to activity events, runs, variables, managed identities, runner agents, service accounts, Terraform modules, VCS providers, federated registries, provider mirror, GPG keys, members, and settings.
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -21,7 +43,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ## Create a group
 
-Groups can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/intro.md).
+Groups can be created directly via the UI or the [Tharsis-CLI](../cli/tharsis/intro.md).
 :::caution top-level groups
 **Top-level** groups may only be created by system administrators.
 :::

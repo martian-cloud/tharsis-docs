@@ -79,7 +79,9 @@ pages:
   environment:
     name: "Docs ${PAGES_PREFIX}"
     url: $CI_PAGES_URL
+    on_stop: stop_review
   before_script:
+    - apt-get update -qq && apt-get install -y -qq git
     - npm install
   script:
     - npm run build
@@ -94,6 +96,21 @@ pages:
       variables:
         PAGES_PREFIX: "mr-$CI_MERGE_REQUEST_IID"
         DOCS_BASE_URL: /martian-cloud/tharsis/$CI_PROJECT_NAME/mr-$CI_MERGE_REQUEST_IID/
+
+stop_review:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+    PAGES_PREFIX: "mr-$CI_MERGE_REQUEST_IID"
+  script:
+    - echo "Stopping review environment"
+  environment:
+    name: "Docs ${PAGES_PREFIX}"
+    action: stop
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: manual
+      allow_failure: true
 
 #################################
 ##            SAST             ##

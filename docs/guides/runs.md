@@ -1,11 +1,29 @@
 ---
 title: Runs
 description: "What are runs and why they are important"
+keywords:
+  [tharsis, runs, plan, apply, destroy, terraform execution, job lifecycle]
 ---
 
 ## What are runs?
 
 A run is a unit of execution, either a plan or apply, to create, update, or destroy resources.
+
+```mermaid
+flowchart TD
+    A[Pending] --> B[Plan Queued]
+    B --> C[Planning]
+    C -->|No changes| D[Planned and Finished ✅]
+    C -->|Speculative with changes| E[Planned and Finished ✅]
+    C -->|Apply with changes| F[Planned]
+    C -->|Error| G[Errored ❌]
+    C -->|Canceled| H[Canceled]
+    F --> I[Apply Queued]
+    I --> J[Applying]
+    J -->|Success| K[Applied ✅]
+    J -->|Error| L[Errored ❌]
+    J -->|Canceled| M[Canceled]
+```
 
 Tharsis UI's workspace page shows whether there is a run currently active in the workspace. From the `Runs` tab, the runs page shows a list of the current and past runs for the workspace. Clicking on the run ID will show more detail about the selected run.
 
@@ -21,7 +39,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ## Create or launch a run
 
-Runs can be created directly via the UI or the [Tharsis-CLI](../../cli/tharsis/intro.md).
+Runs can be created directly via the UI or the [Tharsis-CLI](../cli/tharsis/intro.md).
 
 ### Creating a run via the UI
 

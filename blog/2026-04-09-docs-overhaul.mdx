@@ -1,0 +1,70 @@
+---
+title: "Tharsis Docs Overhaul: New Structure, Deployments Guide, and More"
+tags: [tharsis, docs, deployments, provider, mermaid]
+authors:
+  - name: Aman Singh
+---
+
+We've made significant improvements to the Tharsis documentation. Here's what's new.
+
+{/* truncate */}
+
+## Unified API + UI
+
+The Tharsis API now ships as a single binary with the UI embedded. The docs reflect this — the separate UI setup page is gone, replaced by a unified [API setup guide](/setup/api) covering both build modes (`build-tharsis` for the full binary, `build-api` for API-only).
+
+## Flattened structure
+
+We've simplified the docs hierarchy:
+
+- **Setup** — Three pages: API, CLI, Docker. No more nested subdirectories.
+- **Basic Guides** — All feature guides are now direct children, no more "Overviews" nesting.
+- **Deployments** — A new top-level section with dedicated pages for each deployment method.
+
+## New Deployments section
+
+Four focused guides covering every way to deploy with Tharsis:
+
+- [Module Sources](/deployments/module_sources) — Tharsis registry, third-party registries, and authentication
+- [CLI Deployments](/deployments/cli) — Local and remote module deployment via the CLI
+- [VCS-Driven Deployments](/deployments/vcs) — Automatic runs from Git commits
+- [CI/CD Deployments](/deployments/cicd) — GitLab CI and GitHub Actions examples with OIDC
+
+## Comprehensive environment variables
+
+The [API setup page](/setup/api) now documents every environment variable from the source code, organized by category with all supported plugin types and their specific configuration keys — including filesystem vs S3 object stores, SMTP/SES/Plunk email providers, memory vs Redis rate limiting, and more.
+
+## Variables guide
+
+A new dedicated [Variables guide](/guides/variables) covering Terraform vs environment variables, sensitive variables, HCL variables, group inheritance with precedence rules, ephemeral variables with automatic version management, and restricted environment variables.
+
+## Terraform Provider docs
+
+The [Terraform Provider](/provider/intro) section now pulls resource and data source documentation directly from the [provider repository](https://github.com/martian-cloud/terraform-provider-tharsis) at build time — always up to date, no manual sync needed.
+
+## Interactive diagrams
+
+We've added Mermaid diagrams throughout the docs to visualize complex flows:
+
+- **Runner agents** — Full run execution sequence from job creation to state upload
+- **VCS providers** — Webhook processing flow with branch/tag and glob pattern matching
+- **Managed identities** — OIDC federation flow between Tharsis, the job executor, and cloud providers
+- **Service accounts** — Side-by-side OIDC and client credentials authentication flows
+- **Groups** — Hierarchy structure and resource inheritance
+- **Federated registries** — Cross-instance module sharing via OIDC trust
+- **Provider mirror** — Manual CLI sync vs automatic job executor caching
+- **Module attestation** — Publishing and run-time verification flows
+
+## Other improvements
+
+- Dynamic announcement bar for recent blog posts
+- "Last updated" timestamps with author on every page
+- "Edit this page" links pointing to the GitLab source
+- Custom 404 page
+- GraphQL and YAML syntax highlighting
+- Service account permission restrictions documentation
+- CLI flag corrections (`--` → `-`)
+
+## What's next
+
+We're continuing to improve the docs. If you have feedback or suggestions, open an issue on [GitLab](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-docs).

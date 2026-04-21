@@ -1,162 +1,110 @@
 ---
 title: Getting Started
-description: "Using Tharsis Terraform Provider"
+description: "Using the Tharsis Terraform Provider"
+keywords:
+  [tharsis, terraform provider, workspace outputs, HCL, infrastructure as code]
 ---
 
-## What is the Tharsis Terraform Provider?
+The [Tharsis Terraform Provider](https://github.com/martian-cloud/terraform-provider-tharsis) allows you to interact with Tharsis resources directly from your Terraform configuration. The primary use case is reading workspace outputs to share data between workspaces. Full documentation is available on the [Terraform Registry](https://registry.terraform.io/providers/martian-cloud/tharsis/latest).
 
-[Tharsis Terraform Provider](https://github.com/martian-cloud/terraform-provider-tharsis) provides a way to represent some of Tharsis' functionalities using Terraform.
+## Provider configuration
 
-## Using the provider
+Add the provider to your `required_providers` block:
 
-To use this provider, you must add the provider definition to your configuration. You can use either a static token or service account for authentication.
+```hcl showLineNumbers title="main.tf"
+terraform {
+  required_providers {
+    tharsis = {
+      source  = "registry.terraform.io/martian-cloud/tharsis"
+      version = "0.15.1"
+    }
+  }
+}
 
-### Static token
-
-```hcl showLineNumbers
 provider "tharsis" {}
 ```
 
-<details>
-<summary>Expand for explanation</summary>
+When running inside a Tharsis workspace, the provider is automatically configured by the job executor — no `host` or `static_token` needed.
 
-|           Name | Type   | Definition                                                           |
-| -------------: | ------ | -------------------------------------------------------------------- |
-|         `host` | string | Hostname for the Tharsis API (e.g. https://api.tharsis.example.com). |
-| `static_token` | string | Static token for authenticating with the Tharsis API.                |
+### Running outside Tharsis
 
-:::note
-`host` and `static_token` are set automatically by the job executor. However, they are required when running outside Tharsis.
-:::
+When running outside of Tharsis (e.g. locally), you must provide the API endpoint and a token:
 
-Alternatively, you can provide these values by environment variables.
+```hcl showLineNumbers title="Provider with explicit configuration"
+provider "tharsis" {
+  host         = "https://api.tharsis.example.com"
+  static_token = var.tharsis_token
+}
+```
 
-|   Environment Variable | Definition                                 |
-| ---------------------: | ------------------------------------------ |
-|     `THARSIS_ENDPOINT` | The host for Tharsis.                      |
+These can also be set via environment variables:
+
+| Environment Variable   | Description                                |
+| ---------------------- | ------------------------------------------ |
+| `THARSIS_ENDPOINT`     | The Tharsis API URL.                       |
 | `THARSIS_STATIC_TOKEN` | The static token to use with the provider. |
 
-:::info important
-The `provider` block values take precedence over environment variables. It is **recommended** to use configuration values to define the provider over environment variables, especially if you are defining the provider more than once.
-
+:::note
+Provider block values take precedence over environment variables.
 :::
-
-</details>
 
 ## Retrieving workspace outputs
 
-`tharsis_workspace_outputs` data source is used to retrieve outputs from workspace under a given path.
+The most common use case is sharing outputs between workspaces. Tharsis provides two data sources for this:
 
-<details>
-<summary>Terraform module for retrieving outputs from another workspace</summary>
+- `tharsis_workspace_outputs` — returns outputs as strings
+- `tharsis_workspace_outputs_json` — returns outputs as JSON strings (for complex types)
 
-```hcl showLineNumbers
-terraform {
-  required_providers {
-    tharsis = {
-      source = "registry.terraform.io/martian-cloud/tharsis"
-    }
-  }
+### String outputs
+
+```hcl showLineNumbers title="Read outputs from another workspace"
+data "tharsis_workspace_outputs" "network" {
+  path = "infrastructure/networking/vpc"
 }
 
-provider "tharsis" {}
-
-data "tharsis_workspace_outputs" "this" {
-  path = "group/sub-group/workspace"
-}
-
-# When running via a Tharsis executor, in a workspace,
-# the path can be relative to the workspace.
-#
-# For instance, if you had the following structure where
-# you are operating from myworkspace:
-#   group
-#   |- sub-group
-#   |--|- workspace
-#   |--my-group
-#   |--|- myworkspace  <- this is the current workspace
-#
-#  You can access `workspace` relative to your `myworkspace`
-#  by using the relative path `../sub-group/workspace`
-#
-# data "tharsis_workspace_outputs" "this" {
-#   path = "../sub-group/workspace"
-# }
-
-output "str" {
-  value = data.tharsis_workspace_outputs.this.outputs.output_name
+resource "aws_instance" "app" {
+  subnet_id = data.tharsis_workspace_outputs.network.outputs.subnet_id
 }
 ```
 
-<details>
-<summary>Expand for explanation</summary>
+### JSON outputs
 
-|               Name | Read-Only |     Type      | Required | Description                                         |
-| -----------------: | :-------: | :-----------: | :------: | --------------------------------------------------- |
-|             `path` |     -     |    String     |   Yes    | The path of the workspace to retrieve outputs.      |
-|        `full_path` |    Yes    |    String     |    -     | The full path of the workspace.                     |
-|          `outputs` |    Yes    | Map of String |    -     | The outputs of the workspace specified by the path. |
-| `state_version_id` |    Yes    |    String     |    -     | The ID of the workspace's current state version.    |
-|     `workspace_id` |    Yes    |    String     |    -     | The ID of the workspace.                            |
+For outputs that contain objects, lists, or maps, use the JSON data source with [`jsondecode`](https://www.terraform.io/language/functions/jsondecode):
 
-</details>
-
-</details>
-
-<details>
-<summary>Terraform module for retrieving JSON outputs from another workspace</summary>
-
-```hcl showLineNumbers
-terraform {
-  required_providers {
-    tharsis = {
-      source = "registry.terraform.io/martian-cloud/tharsis"
-    }
-  }
+```hcl showLineNumbers title="Read JSON outputs from another workspace"
+data "tharsis_workspace_outputs_json" "network" {
+  path = "infrastructure/networking/vpc"
 }
 
-provider "tharsis" {}
-
-data "tharsis_workspace_outputs_json" "this" {
-  path = "group/sub-group/workspace"
-}
-
-# When running via a Tharsis executor, in a workspace,
-# the path can be relative to the workspace.
-#
-# For instance, if you had the following structure where
-# you are operating from myworkspace:
-#   group
-#   |- sub-group
-#   |--|- workspace
-#   |--my-group
-#   |--|- myworkspace  <- this is the current workspace
-#
-#  You can access `workspace` relative to your `myworkspace`
-#  by using the relative path `../sub-group/workspace`
-#
-# data "tharsis_workspace_outputs" "this" {
-#   path = "../sub-group/workspace"
-# }
-
-output "object" {
-  value = jsondecode(data.tharsis_workspace_outputs_json.this.outputs.object)
+locals {
+  subnets = jsondecode(data.tharsis_workspace_outputs_json.network.outputs.subnet_ids)
 }
 ```
 
-<details>
-<summary>Expand for explanation</summary>
+### Relative paths
 
-[`jsondecode`](https://www.terraform.io/language/functions/jsondecode) maps JSON values to [Terraform language values](https://www.terraform.io/language/expressions/types).
+When running inside a Tharsis workspace, you can use relative paths to reference sibling workspaces:
 
-|               Name | Read-Only |     Type      | Required | Description                                         |
-| -----------------: | :-------: | :-----------: | :------: | --------------------------------------------------- |
-|             `path` |     -     |    String     |   Yes    | The path of the workspace to retrieve outputs.      |
-|        `full_path` |    Yes    |    String     |    -     | The full path of the workspace.                     |
-|          `outputs` |    Yes    | Map of String |    -     | The outputs of the workspace specified by the path. |
-| `state_version_id` |    Yes    |    String     |    -     | The ID of the workspace's current state version.    |
-|     `workspace_id` |    Yes    |    String     |    -     | The ID of the workspace.                            |
+```
+group/
+├── networking/
+│   └── vpc          ← source workspace
+└── compute/
+    └── app          ← current workspace
+```
 
-</details>
+```hcl title="Relative path from app to vpc"
+data "tharsis_workspace_outputs" "network" {
+  path = "../networking/vpc"
+}
+```
 
-</details>
+### Data source attributes
+
+| Name               | Type          | Required  | Description                                     |
+| ------------------ | ------------- | --------- | ----------------------------------------------- |
+| `path`             | String        | Yes       | Path of the workspace to retrieve outputs from. |
+| `full_path`        | String        | Read-only | Full path of the resolved workspace.            |
+| `outputs`          | Map of String | Read-only | The workspace outputs.                          |
+| `state_version_id` | String        | Read-only | ID of the workspace's current state version.    |
+| `workspace_id`     | String        | Read-only | ID of the workspace.                            |
