@@ -12,6 +12,7 @@ export default function prismIncludeLanguages(PrismObject) {
     json: () => require('prismjs/components/prism-json'),
     bash: () => require('prismjs/components/prism-bash'),
     powershell: () => require('prismjs/components/prism-powershell'),
+    graphql: () => require('prismjs/components/prism-graphql'),
   };
 
   globalThis.Prism = PrismObject;

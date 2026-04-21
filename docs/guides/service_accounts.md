@@ -1,6 +1,16 @@
 ---
 title: Service Accounts
 description: "What are service accounts and when to use them"
+keywords:
+  [
+    tharsis,
+    service accounts,
+    authentication,
+    OIDC,
+    client credentials,
+    M2M,
+    CI/CD,
+  ]
 ---
 
 ## What are service accounts?
@@ -18,6 +28,32 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 ---
 
 ## Authentication methods
+
+**OIDC Federation**
+
+```mermaid
+flowchart TD
+    A[CI/CD Platform] -->|OIDC token + SA ID| B[Tharsis API]
+    B -->|Find matching trust policies| C{Issuer matches?}
+    C -->|No| E[Reject]
+    C -->|Yes| D{Verify token signature}
+    D -->|Invalid| E
+    D -->|Valid| F{Bound claims match?}
+    F -->|No| E
+    F -->|Yes| G[Generate Tharsis token]
+```
+
+**Client Credentials**
+
+```mermaid
+flowchart TD
+    H[Script/Tool] -->|client_id + client_secret| I[Tharsis API]
+    I --> J{SA exists & credentials enabled?}
+    J -->|No| K[Reject]
+    J -->|Yes| L{Secret valid & not expired?}
+    L -->|No| K
+    L -->|Yes| M[Generate Tharsis token]
+```
 
 Service accounts support two authentication methods:
 
@@ -113,6 +149,12 @@ Resetting credentials immediately invalidates the old secret. Update all systems
 
 ---
 
+## Viewing service account memberships
+
+To view which groups and workspaces a service account is a member of, navigate to the service account's details page and select the **Assigned Namespaces** tab. This is useful for understanding the scope of a service account's access and for determining who needs Owner permissions to edit it.
+
+---
+
 ## Update a service account
 
 To update a service account, navigate to the "Service Accounts" page, select the service account you want to update, and click on the "Edit" button.
@@ -126,6 +168,12 @@ You can update:
 When enabling client credentials on an existing service account, the client ID and secret will be displayed once. Make sure to copy them.
 
 Click `Update Service Account` to save the changes.
+
+:::important
+If the service account is a member of any groups or workspaces, the caller must have an **Owner** role in **all** of those groups and/or workspaces to edit the service account. This includes modifying trust policies, enabling/disabling client credentials, and resetting (rotating) client credentials. This restriction prevents members with lower roles from escalating access by modifying a service account's authentication configuration. Without this safeguard, a compromised or malicious service account could potentially modify its own authentication requirements.
+
+If the service account is not yet a member of any groups or workspaces, any caller with sufficient permissions can edit it.
+:::
 
 ---
 
@@ -156,6 +204,10 @@ Without a role, the service account will not be able to access any resources in 
 ### Who can create / update / delete service accounts?
 
 Deployer or higher roles can create a service account.
+
+### Who can delete a service account?
+
+Any member of the target group with a role of Deployer or higher can delete a service account. Unlike editing, deleting a service account does not require an Owner role in all groups or workspaces where the service account is a member.
 
 ### How do I use a service account with the Tharsis CLI?
 
@@ -193,7 +245,9 @@ Use **client credentials** when:
 
 ### How do I rotate client credentials?
 
-Use the "Reset Client Credentials" button on the service account details page. This generates a new client secret and invalidates the old one immediately.
+Navigate to the service account details page and click "Reset Client Credentials". This generates a new client secret and invalidates the old one immediately. You can optionally set a new expiration date. Make sure to copy the new secret — it's only shown once.
+
+If the service account has active memberships, you'll need an **Owner** role in all of those groups and/or workspaces to reset credentials. See [Updating a service account](#update-a-service-account) for details.
 
 ### What happens when my client secret expires?
 

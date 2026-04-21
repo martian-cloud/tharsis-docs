@@ -77,13 +77,26 @@
     border-radius: 8px;
 }
 
-/* Better table styling */
-table {
-    border-radius: 8px;
-    overflow: hidden;
+/* Improve YAML syntax highlighting in dark mode */
+[data-theme='dark'] .prism-code .token.key.atrule {
+    color: #7fdbca;
 }
 
-/* Make tables horizontally scrollable on small screens */
+[data-theme='dark'] .prism-code .token.punctuation {
+    color: #c792ea;
+}
+
+[data-theme='dark'] .prism-code .token.important,
+[data-theme='dark'] .prism-code .token.boolean,
+[data-theme='dark'] .prism-code .token.number {
+    color: #f78c6c;
+}
+
+[data-theme='dark'] .prism-code .token.string {
+    color: #ecc48d;
+}
+
+/* Better table styling */
 .markdown table {
     display: block;
     overflow-x: auto;

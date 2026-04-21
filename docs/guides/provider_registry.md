@@ -1,6 +1,15 @@
 ---
 title: Terraform Provider Registry
 description: "All about the Tharsis Terraform Provider Registry"
+keywords:
+  [
+    tharsis,
+    provider registry,
+    terraform providers,
+    GPG keys,
+    signing,
+    versioning,
+  ]
 ---
 
 Tharsis Terraform Provider Registry offers a central place to publish, version, and share Terraform providers with your community.

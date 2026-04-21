@@ -1,70 +1,97 @@
 ---
 title: Introduction
 description: "What is Tharsis?"
+keywords:
+  [
+    tharsis,
+    terraform,
+    infrastructure as code,
+    open source,
+    devops,
+    state management,
+    deployment platform,
+  ]
 ---
 
-A tool to deploy automated infrastructure in a consistent manner, and provide for separation of duties between products and business functions.
+A modern, [open-source](https://gitlab.com/groups/infor-cloud/martian-cloud/tharsis), self-hosted Terraform platform that provides a complete solution for managing your infrastructure deployments, state, and workspaces.
 
-Tharsis builds on top of [Terraform](https://www.terraform.io/), i.e. it uses [Terraform modules](https://www.terraform.io/language/modules/develop) to deploy resources using environment-specific configuration. It stores the state data and outputs that can be used for other deployments.
+Tharsis eliminates the complexity of running Terraform at scale. It provides secure state management, OIDC-based managed identities for cloud authentication without storing secrets, built-in module and provider registries, VCS-driven workflows, and a powerful CLI with gRPC and MCP support. Whether you're a single team or an enterprise with hundreds of workspaces, Tharsis gives you the control, visibility, and automation to deploy infrastructure with confidence.
 
 ## Some key features
 
-### Tharsis API
+### Tharsis API + UI
 
-&#10004; Configurable job executor plugin.
+&#10004; Hierarchical group structure with variable and managed identity inheritance.
 
-&#10004; Machine to Machine (M2M) authentication with service accounts (OIDC federation or client credentials).
+&#10004; Managed identities for secure cloud authentication via OIDC — no secrets to store or rotate.
 
-&#10004; Managed identity support to securely authenticate with cloud providers (no credential storage).
+&#10004; Service accounts with OIDC federation and client credentials for M2M authentication.
 
-&#10004; Users are not required to handle secrets.
+&#10004; Role-based access control (RBAC) with viewer, deployer, and owner roles.
+
+&#10004; Terraform module and provider registries with versioning and attestation support.
+
+&#10004; Federated registries for cross-instance module and provider sharing.
+
+&#10004; Provider mirror for air-gapped and restricted environments.
+
+&#10004; VCS integration with GitHub and GitLab for automatic run triggering.
+
+&#10004; Workspace drift detection and scheduled assessments.
+
+&#10004; Module attestation for supply chain security.
+
+&#10004; Configurable job executors (Docker, Kubernetes, ECS).
+
+&#10004; Live run logs and real-time UI updates powered by GraphQL subscriptions.
+
+&#10004; Activity events for full audit trail of resource modifications.
+
+&#10004; Built-in GraphiQL editor for direct API exploration.
 
 &#10004; Compatible with the Terraform CLI remote backend.
 
-&#10004; Ability to quickly cancel jobs.
+&#10004; SCIM support for user and team provisioning.
 
-&#10004; Support for uploading and downloading Terraform modules.
+&#10004; Email notifications for key events.
 
-&#10004; Version Control System (VCS) integration with GitHub and GitLab.
+&#10004; GraphQL and gRPC APIs for programmatic access.
 
-&#10004; Terraform module and provider registries.
+&#10004; Built-in remote [MCP server](guides/mcp.md) for AI assistant integration without a local CLI.
 
-&#10004; Written in [The Go Programming Language](https://go.dev/) and available as a [Docker image](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/container_registry).
-
-&#10004; gRPC API for programmatic access and CLI integration.
+&#10004; Written in [Go](https://go.dev/) and [TypeScript](https://www.typescriptlang.org/).
 
 :::note
 The [Tharsis SDK for Go](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-sdk-go) is deprecated. The CLI now communicates directly with the Tharsis API via gRPC using the [client package](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-api/-/tree/main/pkg/client).
 :::
 
-### Tharsis UI
-
-&#10004; Simple, modern, and intuitive.
-
-&#10004; User-friendly access to group, workspace management, access control, etc.
-
-&#10004; Real-time activity events to associate resource modifications with users making them.
-
-&#10004; Effortless access to the Tharsis Terraform module and provider registries.
-
-&#10004; Access to GraphiQL editor to interface directly with the GraphQL API.
-
-&#10004; Ability to gracefully and forcefully cancel runs with a click of a button.
-
-&#10004; Ability to trigger runs, view live logs, all powered by GraphQL subscriptions and WebSockets to provide event-driven UI updates.
-
-&#10004; Written in [TypeScript](https://www.typescriptlang.org/) and available as a [Docker image](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-ui/container_registry).
-
 ### Tharsis CLI
 
-&#10004; A command language that interfaces with Tharsis remote Terraform backend.
+&#10004; Full CLI for managing groups, workspaces, runs, modules, providers, and more.
 
-&#10004; Supports both SSO and service account-based authentication.
+&#10004; Run Terraform commands directly via the `tf-exec` subcommand.
 
-&#10004; Ready for use in CI/CD pipelines.
-
-&#10004; Support for most Tharsis API operations.
+&#10004; SSO and service account authentication with multi-profile support.
 
 &#10004; Built-in [MCP server](cli/tharsis/mcp.md) for AI assistant integration (Claude, Cursor, etc.).
 
-&#10004; Written in [The Go Programming Language](https://go.dev/) and available for [all major platforms](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
+&#10004; Ready for use in CI/CD pipelines.
+
+&#10004; Written in [Go](https://go.dev/) and available for [all major platforms](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
+
+### Tharsis Terraform Provider
+
+&#10004; Manage Tharsis resources (groups, workspaces, variables, managed identities, and more) using Terraform.
+
+&#10004; Share workspace outputs across deployments.
+
+&#10004; Available on the [Terraform Registry](https://registry.terraform.io/providers/martian-cloud/tharsis/latest).
+
+## Deploying with Tharsis
+
+| Method                                          | Description                                                   |
+| ----------------------------------------------- | ------------------------------------------------------------- |
+| [Module Sources](deployments/module_sources.md) | Use Tharsis's built-in registry or third-party registries     |
+| [CLI](deployments/cli.md)                       | Deploy directly from the command line                         |
+| [VCS](deployments/vcs.md)                       | Automatically trigger runs from Git commits                   |
+| [CI/CD](deployments/cicd.md)                    | Integrate with GitLab CI, GitHub Actions, and other pipelines |

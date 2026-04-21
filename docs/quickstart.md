@@ -1,6 +1,8 @@
 ---
 title: Quickstart
 description: "Begin using Tharsis in 5 mins"
+keywords:
+  [tharsis, quickstart, getting started, terraform, first deployment, tutorial]
 ---
 
 Get up to speed with Tharsis quickly! We recommend starting with the video demo below to see Tharsis in action, then follow the hands-on guide to create your first group, workspace, and run.
@@ -15,54 +17,35 @@ Watch this quick intro and demo to see Tharsis in action:
 
 This demo shows launching an EC2 instance with Tharsis, highlighting key features like plan visualization, drift detection, and the benefits of using Tharsis for your Terraform workflows.
 
-## Getting Started
+## Prerequisites
 
-To begin, download the latest CLI release. Learn [more](setup/cli/install).
+- A running Tharsis instance (see [Docker setup](/docs/setup/docker.md) for the quickest option)
+- [Tharsis CLI](/docs/setup/cli.md) installed and configured
 
-:::tip want to try it out locally?
+After installing the CLI, configure it to point to your Tharsis instance and log in:
 
-Pre-built Docker images are available in our GitLab registry and allow running the entire Tharsis suite in minutes!
-
-Check out our Docker installation guide [here](/docs/setup/docker/install.md).
-
-:::
-
-Use the CLI to run the following commands to get set up:
-
-<details>
-<summary>Expand if using Docker Compose locally</summary>
-
-```shell title="Create a profile to use with Docker"
-tharsis configure --http-endpoint http://localhost:6560 --profile dc
-```
-
-Above command will create a profile named `dc` to use against the Docker compose.
-
-```shell title="Sample usage"
-tharsis -p dc ...
-```
-
-</details>
-
-```shell title="Login to the default Tharsis API endpoint"
+```shell
+tharsis configure
 tharsis sso login
 ```
 
-```shell title="Create a subgroup if needed"
-tharsis group create quickstart/sample
-```
+## Create a group and workspace
 
-> Creates subgroup `sample` under top-level group `quickstart`. Group path will be different for you.
+```shell title="Create a subgroup"
+tharsis group create <parent-group>/<subgroup>
+```
 
 ```shell title="Create a workspace"
-tharsis workspace create quickstart/sample/demo
+tharsis workspace create <parent-group>/<subgroup>/<workspace>
 ```
 
-> Creates workspace `demo` under subgroup `sample`.
+:::note
+If you don't have a top-level group, ask a system administrator to create one for you.
+:::
 
-Apply a sample Terraform module:
+## Apply a sample Terraform module
 
-Copy the sample module below and save it to a new directory in a file called `module.tf`:
+Create a new directory and save the following as `module.tf`:
 
 ```hcl showLineNumbers title="Sample Terraform Module using null resource"
 # Simulate creating a resource which takes a minute.
@@ -75,8 +58,8 @@ resource "null_resource" "next" {
 }
 ```
 
-```shell title="Apply the Terraform module in quickstart/sample/demo workspace"
-tharsis apply --directory-path "/path/to/directory/containing/module/file" quickstart/sample/demo
+```shell title="Apply the Terraform module"
+tharsis apply -directory-path "/path/to/directory/containing/module/file" <parent-group>/<subgroup>/<workspace>
 ```
 
 <span style={{ fontSize: '1.5em', color: 'orange' }}>🔥🔥 Congratulations! You've just learned the basics of Tharsis 🔥🔥</span>

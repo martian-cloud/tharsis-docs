@@ -1,6 +1,8 @@
 ---
 title: Memberships, Roles, and Namespaces
 description: "How memberships, roles, and namespaces interconnect"
+keywords:
+  [tharsis, memberships, roles, RBAC, access control, viewer, deployer, owner]
 ---
 
 ## What are memberships, roles, and namespaces?
@@ -20,7 +22,6 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 ## Membership types and differences
 
 - Tharsis offers three types of memberships:
-
   - User (a human user)
   - Team (a collection of human users)
   - Service Account (M2M)
@@ -51,7 +52,6 @@ A team can also be assigned a role, making the process of access control more st
 ## Roles and permissions
 
 - Tharsis offers three types of roles out-of-the-box:
-
   - **Viewer**
     - Read-only permissions to group or workspace.
     - Can view all workspace data except sensitive data like the state file and variables.
@@ -66,7 +66,6 @@ A team can also be assigned a role, making the process of access control more st
     - Sets group/workspace policies.
 
 - Custom roles <span style={{ color: 'red' }}>`(NOT YET SUPPORTED)`</span>
-
   - Useful when default roles are not sufficient.
   - Provide a mechanism for assigning granular permissions to roles.
   - Can only be created by system admins.
@@ -76,6 +75,10 @@ A team can also be assigned a role, making the process of access control more st
 ### If multiple memberships are specified for the same subject in a namespace hierarchy, which one takes precedence?
 
 The first membership found while traversing up the hierarchy will take precedence.
+
+### Why do I need an Owner role to edit a service account?
+
+If a service account is a member of any groups or workspaces, only callers with an **Owner** role in **all** of those groups and/or workspaces can edit the service account. This restriction prevents members with lower roles from escalating access by modifying a service account's trust policy (bound claims), which controls how the service account authenticates. If the service account is not yet a member of any groups or workspaces, any caller with sufficient permissions can edit it. See [Service Accounts](./service_accounts.md#update-a-service-account) for more details.
 
 ### Where can I manage the members for a group or a workspace?
 

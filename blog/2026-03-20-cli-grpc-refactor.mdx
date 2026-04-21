@@ -79,20 +79,20 @@ tharsis workspace get V1NfZjA5OWVkMmQtNDZmMS00ZmYw...
 
 This shift eliminates ambiguity between resource types that share similar path structures (e.g., a group path vs. a workspace path). Global IDs are stable across renames and moves, while TRNs provide a human-readable way to reference resources by path. Together, they give you the flexibility to use whichever format suits your workflow.
 
-Resource paths still work for backwards compatibility — the CLI automatically converts them to TRNs internally — but IDs and TRNs are now the preferred format. This applies to command arguments and many flags across workspace, group, module, managed identity, and other commands. Several flags that accepted names or paths (like `--username`, `--team-name`, `--group-path`, `--sort-order`) have been deprecated in favor of ID or TRN-based equivalents.
+Resource paths still work for backwards compatibility — the CLI automatically converts them to TRNs internally — but IDs and TRNs are now the preferred format. This applies to command arguments and many flags across workspace, group, module, managed identity, and other commands. Several flags that accepted names or paths (like `-username`, `-team-name`, `-group-path`, `-sort-order`) have been deprecated in favor of ID or TRN-based equivalents.
 
-See [Resource Identifiers](/guides/overviews/resource_identifiers) for the full list of supported TRN types.
+See [Resource Identifiers](/guides/resource_identifiers) for the full list of supported TRN types.
 
-### New --http-endpoint Flag
+### New -http-endpoint Flag
 
-The `--endpoint-url` flag has been renamed to `--http-endpoint`:
+The `-endpoint-url` flag has been renamed to `-http-endpoint`:
 
 ```bash
 # Before
-tharsis configure --endpoint-url https://api.tharsis.example.com --profile prod
+tharsis configure -endpoint-url https://api.tharsis.example.com -profile prod
 
 # After
-tharsis configure --http-endpoint https://api.tharsis.example.com --profile prod
+tharsis configure -http-endpoint https://api.tharsis.example.com -profile prod
 ```
 
 ### Custom Endpoint Builds
@@ -110,8 +110,8 @@ go build -ldflags "-X main.DefaultHTTPEndpoint=https://api.tharsis.example.com" 
 
 ### New Global Options
 
-- `--no-color` — Disable colored output. Also respects the `NO_COLOR` environment variable.
-- `--enable-autocomplete` / `--disable-autocomplete` — Manage shell autocompletion.
+- `-no-color` — Disable colored output. Also respects the `NO_COLOR` environment variable.
+- `-enable-autocomplete` / `-disable-autocomplete` — Manage shell autocompletion.
 - `THARSIS_PROFILE` — Set the active profile via environment variable (overridden by `-p` flag).
 - `THARSIS_CLI_LOG` — Control log verbosity for debugging (`debug`, `info`, `warn`, `error`).
 
@@ -134,14 +134,14 @@ The CLI includes a `documentation generate` command that produces the complete [
 
 1. Download the latest CLI binary from [GitLab releases](https://gitlab.com/infor-cloud/martian-cloud/tharsis/tharsis-cli/-/releases).
 2. Update any CI/CD pipelines using `THARSIS_SERVICE_ACCOUNT_PATH` to `THARSIS_SERVICE_ACCOUNT_ID` (the old variable still works but is deprecated).
-3. Update any scripts using `--endpoint-url` to `--http-endpoint`.
+3. Update any scripts using `-endpoint-url` to `-http-endpoint`.
 
 All command names and subcommands remain the same. Many commands now accept resource IDs or TRNs as their primary argument instead of resource paths, with the old path-based flags deprecated but still functional. See the [Command Reference](/cli/tharsis/commands) for current usage.
 
 ## Learn More
 
 - [CLI Getting Started](/cli/tharsis/intro)
-- [CLI Installation Guide](/setup/cli/install)
+- [CLI Installation Guide](/setup/cli)
 - [Command Reference](/cli/tharsis/commands)
 - [MCP Server Documentation](/cli/tharsis/mcp)
 

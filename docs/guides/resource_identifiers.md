@@ -1,6 +1,7 @@
 ---
 title: Resource Identifiers
 description: "Understanding Global IDs and Tharsis Resource Names (TRNs)"
+keywords: [tharsis, resource identifiers, TRN, GID, global ID, API references]
 ---
 
 Tharsis uses two types of identifiers to reference resources: Global IDs and Tharsis Resource Names (TRNs).

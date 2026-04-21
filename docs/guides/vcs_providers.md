@@ -1,6 +1,17 @@
 ---
 title: VCS Providers
 description: "Using Version Control System (VCS) Providers"
+keywords:
+  [
+    tharsis,
+    VCS,
+    version control,
+    GitHub,
+    GitLab,
+    webhooks,
+    automatic runs,
+    git integration,
+  ]
 ---
 
 ## What are VCS Providers?
@@ -10,6 +21,20 @@ Version Control System (VCS) providers are a feature in Tharsis that can establi
 Additionally, one VCS provider can be linked to multiple workspaces, which is useful in tailoring workflows. For example, a workspace can be set up to respond to Git commits from one directory of a repository while another workspace can be set up to respond to Git commits from another directory only when specified conditions are met (e.g., defined glob patterns), all while using one VCS provider.
 
 ## VCS Integration
+
+```mermaid
+flowchart TD
+    A[Git Push / Tag / MR] --> B[Webhook]
+    B --> C[Tharsis API]
+    C --> D{Webhook enabled?}
+    D -->|No| E[Skip]
+    D -->|Yes| F{Ref matches branch/tag?}
+    F -->|No| E
+    F -->|Yes| G{Files match glob patterns?}
+    G -->|No| E
+    G -->|Yes| H[Create VCS Event]
+    H --> I[Clone repo & create run]
+```
 
 VCS Integration comprises the following two parts:
 
@@ -27,7 +52,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ## Creating and Setting up a VCS Provider
 
-VCS providers are created and managed within [Groups](../overviews/groups.md). To view the list of VCS providers in a specific group, navigate to the group's page and select `VCS Providers` from the sidebar. VCS providers that have been created in the group will be listed. A search bar is available to find providers by name.
+VCS providers are created and managed within [Groups](./groups.md). To view the list of VCS providers in a specific group, navigate to the group's page and select `VCS Providers` from the sidebar. VCS providers that have been created in the group will be listed. A search bar is available to find providers by name.
 
 :::tip VCS Providers are inherited
 
@@ -84,29 +109,23 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 ### Creating an OAuth Application
 
 - In a separate window, go to your host provider and start the process to create an OAuth application.
-
   - GitLab
-
     - Use the copy icon to copy the redirect URI. This value is required when creating the OAuth application.
 
     ![Screenshot of the Tharsis UI page - GitLab redirect URI](/img/vcs_providers/gitlab-redirect-URI.png "GitLab redirect URI")
-
     - If you selected `Yes` to automatically create webhooks, enable the `Confidential` setting. Also, enable the following two scopes:
-
       - api
       - read_repository
 
       ![Screenshot of the Tharsis UI page to configure permissions within OAuth app in GitLab with auto webhooks on](/img/vcs_providers/new-vcs-provider-gitlab-wh-on.png "GitLab permissions - auto webhooks on")
 
     - If you selected `No`, enable the `Confidential` setting and the following two scopes:
-
       - read_api
       - read_user
 
       ![Screenshot of the Tharsis UI page to configure permissions within OAuth app in GitLab with auto webhooks off](/img/vcs_providers/new-vcs-provider-gitlab-wh-off.png "GitLab permissions - auto webhooks off")
 
   - GitHub
-
     - Use the copy icon to copy the callback URL. This value is required when creating the OAuth application.
 
     - GitHub requires a homepage URL. The UI provides a URL, but you may use a different one as the homepage URL will not affect completing the OAuth flow.
@@ -134,13 +153,11 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
   ![Screenshot of Tharsis UI page - VCS Provider - editing options](/img/vcs_providers/vcs-provider-detail-edit.png "VCS Provider - editing options")
 
 - Edit
-
   - When you select `EDIT`, you will navigate to a page where you can update the description.
 
     ![Screenshot of Tharsis UI page - VCS Provider - edit](/img/vcs_providers/vcs-provider-edit.png "VCS Provider - Edit")
 
 - Edit OAuth Credentials
-
   - On this page, you can update your OAuth ID and secret value.
   - For security reasons, your OAuth ID and secret value are write-only. The UI will not display these values.
   - After updating your credentials, you may need to reset your OAuth token to confirm your OAuth application is successfully authorized (see below).
@@ -148,7 +165,6 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
     ![Screenshot of Tharsis UI page - VCS Provider - edit oauth credentials](/img/vcs_providers/vcs-provider-edit-oauth.png "VCS Provider - Edit OAuth Credentials")
 
 - Reset OAuth Token
-
   - This option will open a dialog confirmation. When you click on <span style={{ color: '#4db6ac' }}>`RESET OAUTH TOKEN`</span>, Tharsis will redirect the browser to an approval page where you must reauthorize your VCS provider to use your OAuth application.
 
     ![Screenshot of Tharsis UI page - VCS Provider - reset oauth credentials](/img/vcs_providers/vcs-provider-resetoauth.png "VCS Provider - Reset OAuth Credentials")
@@ -173,7 +189,7 @@ Once a VCS provider is created in a Tharsis group, it is inherited by all its ch
 
 ## Linking a VCS Provider to a Workspace
 
-When you have a VCS provider that has been successfully authenticated to your OAuth application, you can then connect your provider to a [Workspace](../overviews/workspaces.md) by creating a Workspace VCS Provider Link.
+When you have a VCS provider that has been successfully authenticated to your OAuth application, you can then connect your provider to a [Workspace](./workspaces.md) by creating a Workspace VCS Provider Link.
 
 :::tip Note
 
@@ -321,13 +337,11 @@ A VCS provider can be linked to multiple workspaces.
   :::
 
 - Manually Configuring Webhooks in GitLab
-
   - Go to the settings of your repository and select `Webhooks`. In `Webhooks`, you can enter the URL and token from the webhooks dialog. Then select `Push events`, `Tag push events`, and `Merge request events`.
 
     ![Screenshot of GitLab page - manually configuring webhooks](/img/vcs_providers/webhooks-gitlab.png "Manually Configuring Webhooks in GitLab")
 
 - Manually Configuring Webhooks in GitHub
-
   - Go to the settings of your repository, select `Webhooks`, and then click `Add webhook`.
 
     ![Screenshot of GitHub page - add webhook button](/img/vcs_providers/github-add-webhook.png "GitHub - Add Webhook Button")

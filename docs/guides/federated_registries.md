@@ -1,15 +1,34 @@
 ---
 title: Federated Registries
 description: "What are federated registries and how can they help us"
+keywords:
+  [
+    tharsis,
+    federated registries,
+    cross-instance,
+    module sharing,
+    provider sharing,
+    OIDC trust,
+  ]
 ---
 
 ## What are federated registries?
 
-Federated registries are a [group](../overviews/groups.md) resource that enable access to Terraform modules and providers from external Tharsis registries. They allow you to consume resources from other Tharsis instances without having to duplicate or manually copy modules and providers between registries.
+Federated registries are a [group](./groups.md) resource that enable access to Terraform modules and providers from external Tharsis registries. They allow you to consume resources from other Tharsis instances without having to duplicate or manually copy modules and providers between registries.
 
-:::tip Did you know...
-Federated registries allow you to seamlessly access Terraform modules and providers across multiple Tharsis instances, enabling better collaboration and resource sharing.
-:::
+```mermaid
+sequenceDiagram
+    participant WS as Workspace (Instance A)
+    participant A as Tharsis Instance A
+    participant B as Tharsis Instance B
+
+    WS->>A: Run references module from Instance B
+    A->>A: Generate OIDC token for federated access
+    A->>B: Request module (with OIDC token)
+    B->>B: Validate token against trust policy
+    B-->>A: Return module
+    A-->>WS: Module available for Terraform
+```
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -82,6 +101,7 @@ To allow federated access to your registry, you must configure trust policies th
 Set `THARSIS_FEDERATED_REGISTRY_TRUST_POLICIES` to:
 
 **Basic configuration:**
+
 ```json
 [
   {
@@ -92,6 +112,7 @@ Set `THARSIS_FEDERATED_REGISTRY_TRUST_POLICIES` to:
 ```
 
 **Advanced configuration with all fields:**
+
 ```json
 [
   {
@@ -106,11 +127,13 @@ Set `THARSIS_FEDERATED_REGISTRY_TRUST_POLICIES` to:
 These example configurations show:
 
 **Basic configuration:**
+
 - Allows the Tharsis instance at `https://client.example` to access public resources
 - Sets the audience to `tharsis` for token validation
 - No group patterns specified, so only public modules/providers are accessible
 
 **Advanced configuration:**
+
 - Includes a specific `subject` for additional token validation
 - Grants access to private resources in `mygroup/*` and `shared/*/modules` using wildcard patterns
 - Shows how multiple glob patterns can be specified

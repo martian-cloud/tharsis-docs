@@ -339,3 +339,5 @@ yarn-error.log*
 
 # Auto-generated documentation imported from Tharsis CLI project repo via the plugin:
 docs/cli/tharsis/commands.md
+docs/provider/data-sources/
+docs/provider/resources/

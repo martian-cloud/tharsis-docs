@@ -15,7 +15,7 @@ const sidebars = {
       label: "Setup",
       link: {
         type: "generated-index",
-        description: "Setup guides for Tharsis API, CLI and UI",
+        description: "Setup guides for Tharsis API, CLI and Docker.",
         keywords: [
           "setup",
           "install",
@@ -25,66 +25,7 @@ const sidebars = {
         ],
         slug: "setup",
       },
-      items: [
-        {
-          type: "category",
-          label: "Tharsis API",
-          link: {
-            type: "generated-index",
-            keywords: [
-              "tharsis api",
-              "api",
-              "setup",
-              "installation",
-              "install",
-            ],
-            slug: "setup/api",
-          },
-          items: ["setup/api/install"],
-        },
-        {
-          type: "category",
-          label: "Tharsis UI",
-          link: {
-            type: "generated-index",
-            keywords: ["tharsis ui", "ui", "setup", "installation", "install"],
-            slug: "setup/ui",
-          },
-          items: ["setup/ui/install"],
-        },
-        {
-          type: "category",
-          label: "Tharsis CLI",
-          link: {
-            type: "generated-index",
-            keywords: [
-              "tharsis cli",
-              "cli",
-              "setup",
-              "installation",
-              "install",
-            ],
-            slug: "setup/cli",
-          },
-          items: ["setup/cli/install"],
-        },
-        {
-          type: "category",
-          label: "Docker",
-          link: {
-            type: "generated-index",
-            keywords: [
-              "docker",
-              "docker-compose",
-              "tharsis in docker",
-              "docker image",
-              "image",
-            ],
-            slug: "setup/docker",
-          },
-          items: ["setup/docker/install"],
-        },
-      ],
+      items: ["setup/api", "setup/cli", "setup/docker"],
     },
     {
       type: "category",
@@ -97,51 +38,37 @@ const sidebars = {
         slug: "guides",
       },
       items: [
-        {
-          type: "category",
-          label: "Overviews",
-          link: {
-            type: "generated-index",
-            description:
-              "A general overview of different features within Tharsis.",
-            keywords: [
-              "overviews",
-              "group",
-              "workspace",
-              "general",
-              "module registry",
-              "provider registry",
-              "registry",
-            ],
-            slug: "guides/overviews",
-          },
-          items: [
-            "guides/overviews/groups",
-            "guides/overviews/workspaces",
-            "guides/overviews/service_accounts",
-            "guides/overviews/managed_identities",
-            "guides/overviews/memberships",
-            "guides/overviews/runs",
-            "guides/overviews/runner_agents",
-            "guides/overviews/vcs_providers",
-            "guides/overviews/federated_registries",
-            "guides/overviews/module_registry",
-            "guides/overviews/provider_registry",
-            "guides/overviews/provider_mirror",
-            "guides/overviews/resource_identifiers",
-            "guides/overviews/mcp",          ],
-        },
-        {
-          type: "category",
-          label: "Deployments",
-          link: {
-            type: "generated-index",
-            description: "Deploying from private registries.",
-            keywords: ["deployments", "private", "registry", "terraform"],
-            slug: "deployments",
-          },
-          items: ["guides/deployments/private_registry"],
-        },
+        "guides/groups",
+        "guides/workspaces",
+        "guides/variables",
+        "guides/service_accounts",
+        "guides/managed_identities",
+        "guides/memberships",
+        "guides/runs",
+        "guides/runner_agents",
+        "guides/vcs_providers",
+        "guides/federated_registries",
+        "guides/module_registry",
+        "guides/provider_registry",
+        "guides/provider_mirror",
+        "guides/resource_identifiers",
+        "guides/mcp",
+      ],
+    },
+    {
+      type: "category",
+      label: "Deployments",
+      link: {
+        type: "generated-index",
+        description: "Guides for deploying Terraform modules with Tharsis.",
+        keywords: ["deployments", "private", "registry", "terraform", "module"],
+        slug: "deployments",
+      },
+      items: [
+        "deployments/module_sources",
+        "deployments/cli",
+        "deployments/vcs",
+        "deployments/cicd",
       ],
     },
     {
@@ -176,7 +103,11 @@ const sidebars = {
             ],
             slug: "cli/tharsis",
           },
-          items: ["cli/tharsis/intro", "cli/tharsis/commands", "cli/tharsis/mcp"],
+          items: [
+            "cli/tharsis/intro",
+            "cli/tharsis/commands",
+            "cli/tharsis/mcp",
+          ],
         },
         {
           type: "category",
@@ -207,7 +138,19 @@ const sidebars = {
         keywords: ["terraform", "tharsis", "provider"],
         slug: "provider",
       },
-      items: ["provider/intro"],
+      items: [
+        "provider/intro",
+        {
+          type: "category",
+          label: "Data Sources",
+          items: [{ type: "autogenerated", dirName: "provider/data-sources" }],
+        },
+        {
+          type: "category",
+          label: "Resources",
+          items: [{ type: "autogenerated", dirName: "provider/resources" }],
+        },
+      ],
     },
   ],
 };

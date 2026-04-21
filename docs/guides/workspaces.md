@@ -1,6 +1,8 @@
 ---
 title: Workspaces
 description: "What workspaces help us accomplish"
+keywords:
+  [tharsis, workspaces, terraform state, runs, deployments, configuration]
 ---
 
 ## What are workspaces?
@@ -12,7 +14,7 @@ Tharsis UI's workspace details page provides access to the deployed resources, i
 > Learn [more](https://www.terraform.io/language/state/workspaces).
 
 :::tip did you know...
-[Tharsis Terraform Provider](../../provider/intro) provides access to a workspace's outputs allowing it to be used in a different deployment.
+[Tharsis Terraform Provider](../provider/intro) provides access to a workspace's outputs allowing it to be used in a different deployment.
 :::
 
 ### What are workspace labels?
@@ -41,7 +43,7 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ## Create a workspace
 
-Workspaces can be created directly via the Tharsis UI or the [Tharsis-CLI](../../cli/tharsis/intro.md).
+Workspaces can be created directly via the Tharsis UI or the [Tharsis-CLI](../cli/tharsis/intro.md).
 
 1. From the group details page, click <span style={{ color: '#4db6ac' }}>`NEW WORKSPACE`</span>:
    ![Screenshot of the Tharsis UI showing new workspace button](/img/workspaces/create-workspace.png "Creating workspace")
@@ -82,7 +84,6 @@ Labels are optional but can be added during workspace creation to help organize 
 2. Click the <span style={{ color: '#4db6ac' }}>`MANAGE LABELS`</span> button
 
 3. Enter your label in the label input fields:
-
    - **Key**: The label identifier (e.g., `environment`, `team`, `cost-center`)
    - **Value**: The label data (e.g., `production`, `platform`, `engineering`)
 
@@ -114,7 +115,6 @@ To modify labels on a workspace that already exists:
 2. In the **Labels** section, locate and click the <span style={{ color: '#4db6ac' }}>`MANAGE LABELS`</span> button
 
 3. Enter your new label in the form:
-
    - **Key**: The label identifier (e.g., `team`, `cost-center`, `version`)
    - **Value**: The label data (e.g., `platform`, `engineering`, `v2-1-0`)
 
@@ -172,8 +172,8 @@ Remember that you can add up to 10 labels per workspace. See [Workspace Label Co
 
 ### Alternative methods for managing labels
 
-- **CLI**: Use the `tharsis workspace create --label` command to add labels during creation. See [CLI workspace create documentation](../../cli/tharsis/commands#workspace-command)
-- **CLI**: Use the `tharsis workspace label` command for incremental label updates. See [CLI workspace label documentation](../../cli/tharsis/commands#workspace-label-subcommand)
+- **CLI**: Use the `tharsis workspace create -label` command to add labels during creation. See [CLI workspace create documentation](../cli/tharsis/commands#workspace-command)
+- **CLI**: Use the `tharsis workspace label` command for incremental label updates. See [CLI workspace label documentation](../cli/tharsis/commands#workspace-label-subcommand)
 
 ### Viewing existing labels
 
@@ -400,7 +400,7 @@ You can add labels when creating a workspace or manage them later through the wo
 - [What are workspace labels?](#what-are-workspace-labels) - Overview and use cases
 - [Managing workspace labels](#managing-workspace-labels) - UI-based label management
 - [Workspace Label Constraints](#workspace-label-constraints) - Formatting rules and limits
-- [CLI Label Management](../../cli/tharsis/commands#workspace-label-subcommand) - Command-line label operations
+- [CLI Label Management](../cli/tharsis/commands#workspace-label-subcommand) - Command-line label operations
 
 ### Why am I getting a label validation error?
 
@@ -425,7 +425,7 @@ Label validation errors occur when label keys or values don't meet the required 
 **Learn more:**
 
 - [Workspace Label Constraints](#workspace-label-constraints) - Complete formatting rules and common validation errors
-- [CLI workspace label command](../../cli/tharsis/commands#workspace-label-subcommand) - CLI label management
+- [CLI workspace label command](../cli/tharsis/commands#workspace-label-subcommand) - CLI label management
 
 ### How many labels can I add to a workspace?
 
@@ -457,4 +457,4 @@ Remember that workspace deletion is irreversible and removes all workspace resou
 **Related documentation:**
 
 - [Delete a workspace](#delete-a-workspace) - Workspace deletion process
-- [CLI workspace commands](../../cli/tharsis/commands#workspace-command) - Viewing and managing workspaces via CLI
+- [CLI workspace commands](../cli/tharsis/commands#workspace-command) - Viewing and managing workspaces via CLI

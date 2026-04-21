@@ -1,15 +1,44 @@
 ---
 title: Terraform Provider Mirror
 description: "Cache and serve Terraform providers locally"
+keywords:
+  [
+    tharsis,
+    provider mirror,
+    air-gapped,
+    caching,
+    terraform providers,
+    network mirror protocol,
+  ]
 ---
 
 Terraform providers are typically downloaded from their origin registries (such as the public Terraform Registry) each time `terraform init` runs. In enterprise environments, this can introduce challenges with network restrictions, bandwidth usage, or external service reliability.
 
 The Tharsis API implements the [Provider Network Mirror Protocol](https://developer.hashicorp.com/terraform/internals/provider-network-mirror-protocol), allowing it to serve as an alternative installation source for Terraform providers. When configured, Tharsis intercepts provider download requests and serves them from its local cache, regardless of their origin registry.
 
-:::tip Did you know...
-When automatic provider caching is enabled, providers are cached automatically during Terraform runs—no manual sync required.
-:::
+Tharsis supports two ways to populate the mirror cache:
+
+**Manual sync (CLI):**
+
+```mermaid
+flowchart TD
+    A[tharsis terraform-provider-mirror sync] --> B[Download from origin registry]
+    B --> C[Upload to Tharsis mirror cache]
+```
+
+**Automatic caching (Job Executor):**
+
+```mermaid
+flowchart TD
+    D[terraform init during run] --> E[Job executor proxy intercepts request]
+    E --> F{Provider in mirror cache?}
+    F -->|Yes| G[Serve from cache]
+    F -->|No| H[Download from origin registry]
+    H --> I[Cache in Tharsis mirror]
+    I --> G
+```
+
+Automatic caching is controlled by the **Provider Mirror** inheritable group setting. When enabled, the job executor starts a local proxy that transparently caches providers during `terraform init`.
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -71,7 +100,7 @@ Provider caching has been completed
 To pre-populate the mirror before running jobs, use the CLI sync command:
 
 ```shell
-tharsis terraform-provider-mirror sync --group-path example-group hashicorp/aws
+tharsis terraform-provider-mirror sync -group-path example-group hashicorp/aws
 ```
 
 :::tip
@@ -87,7 +116,7 @@ For private Terraform registries, authentication tokens are resolved differently
 ### Terraform Jobs (in Tharsis)
 
 1. **Group/workspace variable**: Environment variable named `TF_TOKEN_<hostname>` set on the group or workspace (sensitive variables are supported)
-2. **Federated registry**: If the hostname points to another Tharsis instance with a [federated registry](/docs/guides/overviews/federated_registries.md) configured, Tharsis automatically generates an OIDC token
+2. **Federated registry**: If the hostname points to another Tharsis instance with a [federated registry](/docs/guides/federated_registries.md) configured, Tharsis automatically generates an OIDC token
 
 ### CLI
 

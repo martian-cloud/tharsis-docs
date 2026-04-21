@@ -1,6 +1,8 @@
 ---
 title: MCP Server
 description: "Using the Tharsis CLI MCP server for AI assistant integration"
+keywords:
+  [tharsis, MCP server, AI tools, Claude, Cursor, Kiro, toolsets, read-only]
 ---
 
 The [Tharsis CLI](intro.md) includes a built-in [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server that enables AI assistants to interact with Tharsis resources programmatically.
@@ -43,7 +45,7 @@ The MCP server is configured through environment variables:
 | `THARSIS_MCP_NAMESPACE_MUTATION_ACL` | ACL patterns for allowed namespaces (groups and workspaces)           |
 
 :::info
-Command-line options (`--toolsets`, `--tools`, `--read-only`, `--namespace-mutation-acl`) take precedence over environment variables.
+Command-line options (`-toolsets`, `-tools`, `-read-only`, `-namespace-mutation-acl`) take precedence over environment variables.
 :::
 
 :::info Default Behavior
@@ -107,7 +109,7 @@ Tools for accessing Terraform job execution details.
 
 | Tool             | Type | Destructive | Description                                     |
 | ---------------- | ---- | ----------- | ----------------------------------------------- |
-| `get_latest_job` | read | no          | Get the latest job for a plan or apply           |
+| `get_latest_job` | read | no          | Get the latest job for a plan or apply          |
 | `get_job_logs`   | read | no          | Retrieve paginated logs from plan or apply jobs |
 
 ### configuration_version
@@ -355,7 +357,7 @@ The server uses stdio transport. Connect by spawning the `tharsis mcp` process a
 
 ## Resource Identifiers
 
-The MCP server accepts two types of resource identifiers. See [Resource Identifiers](../../guides/overviews/resource_identifiers.md) for full details.
+The MCP server accepts two types of resource identifiers. See [Resource Identifiers](../../guides/resource_identifiers.md) for full details.
 
 - **Global IDs** - Opaque identifiers returned in tool responses (e.g., `run.id`, `workspace.id`)
 - **TRNs** - Human-readable identifiers in the format `trn:TYPE:PATH` (e.g., `trn:workspace:my-group/my-workspace`)

@@ -1,16 +1,52 @@
 ---
 title: Managed Identities
 description: "Configuring and using managed identities to deploy resources"
+keywords:
+  [
+    tharsis,
+    managed identities,
+    OIDC federation,
+    AWS,
+    Azure,
+    Kubernetes,
+    cloud authentication,
+    no secrets,
+  ]
 ---
 
 ## What are managed identities?
 
 Managed identities are used to assume cloud provider credentials using OIDC federation. They provide credentials to the Terraform providers without having to store credentials.
 
-Tharsis supports Amazon Web Services (AWS), Microsoft Azure, and Kubernetes managed identities for assuming [IAM roles](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles.html), [Azure Service Principals](https://docs.microsoft.com/en-us/cli/azure/create-an-azure-service-principal-azure-cli#what-is-an-azure-service-principal), and Kubernetes roles respectively. These managed identities can be created in a group via the UI and assigned to a workspace for deploying resources.
+```mermaid
+sequenceDiagram
+    participant Executor as Job Executor
+    participant API as Tharsis API
+    participant Cloud as Cloud Provider (AWS/Azure/K8s)
 
-:::tip Did you know...
-The Tharsis CLI includes a `--managed-identity` flag to automatically assign the given managed identity to a workspace when it's created, meaning a workspace is ready to go with just one command!
+    Executor->>API: Request managed identity credentials
+    API->>API: Generate OIDC token (signed JWT)
+    API-->>Executor: OIDC token + role/identity config
+    Executor->>Executor: Write token to file, set env vars
+    Executor->>Cloud: Assume role via OIDC federation
+    Cloud->>Cloud: Validate JWT issuer & claims
+    Cloud-->>Executor: Temporary cloud credentials
+    Executor->>Cloud: Deploy resources with Terraform
+```
+
+Tharsis supports Amazon Web Services (AWS), Microsoft Azure, Kubernetes, and Tharsis federated managed identities. These managed identities can be created in a group via the UI and assigned to a workspace for deploying resources.
+
+```mermaid
+flowchart TD
+    A{Where are you deploying?}
+    A -->|AWS| B["☁️ AWS Federated<br/>Assumes IAM roles via OIDC<br/>No access keys needed"]
+    A -->|Azure| C["🔷 Azure Federated<br/>Uses Service Principals via OIDC<br/>No client secrets needed"]
+    A -->|Kubernetes| D["⎈ Kubernetes Federated<br/>Assumes K8s roles via OIDC<br/>No kubeconfig needed"]
+    A -->|Another Tharsis instance| E["🔗 Tharsis Federated<br/>Authenticates via service account<br/>Cross-instance access"]
+```
+
+:::tip
+The Tharsis CLI includes a `-managed-identity-id` flag to automatically assign a managed identity to a workspace when it's created, meaning a workspace is ready to go with just one command!
 :::
 
 :::tip Managed identities are inherited
@@ -41,19 +77,17 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
   ![Screenshot of the Tharsis UI showing managed identity page](/img/managed_identities/new-managed-identity.png "Managed identity page")
 
     </details>
-
   - Select `AWS` as type, provide a name, optionally a short memorable description, the IAM role for provider configuration, and click on <span style={{ color: '#4db6ac' }}>`CREATE MANAGED IDENTITY`</span>:
     ![Screenshot of the Tharsis UI showing new managed identity page](/img/managed_identities/tharsis-aws-identity.png "New managed identity page")
 
-    :::caution
-    Managed identity names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
+  :::caution
+  Managed identity names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
 
-    A managed identity's name **cannot** be changed once created. It will have to be deleted and recreated, which is **dangerous**.
-    :::
+  A managed identity's name **cannot** be changed once created. It will have to be deleted and recreated, which is **dangerous**.
+  :::
+  - Once an identity is created, copy the `IAM Trust Policy` Tharsis provides and add it to the IAM role in AWS.
 
-    - Once an identity is created, copy the `IAM Trust Policy` Tharsis provides and add it to the IAM role in AWS.
-
-    - The managed identity can now be [assigned](#assign-a-managed-identity) to any workspace within the group.
+  - The managed identity can now be [assigned](#assign-a-managed-identity) to any workspace within the group.
 
 ### Azure Managed Identity
 
@@ -68,16 +102,14 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
   ![Screenshot of the Tharsis UI showing managed identity page](/img/managed_identities/new-managed-identity.png "Managed identity page")
 
     </details>
-
   - Select `Azure` as type, provide a name, optionally a short memorable description, the Client ID, Tenant ID, and click on <span style={{ color: '#4db6ac' }}>`CREATE MANAGED IDENTITY`</span>:
     ![Screenshot of the Tharsis UI showing new managed identity page](/img/managed_identities/tharsis-azure-identity.png "New managed identity page")
 
-    :::caution
-    Managed identity names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
+  :::caution
+  Managed identity names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
 
-    A managed identity's name **cannot** be changed once created. It will have to be deleted and recreated, which is **dangerous**.
-    :::
-
+  A managed identity's name **cannot** be changed once created. It will have to be deleted and recreated, which is **dangerous**.
+  :::
   - Once created, the `Issuer`, `Audience`, and `Subject` will be displayed in Tharsis. In the Azure portal, select your app registration. Under `Certificates & Secrets` -> `Federated Credentials` select the `Add Credentials` button and provide the `Issuer`, `Audience`, and `Subject` fields.
 
   - The managed identity can now be [assigned](#assign-a-managed-identity) to any workspace within the group.
@@ -160,10 +192,10 @@ resource "kubernetes_cluster_role_binding_v1" "tharsis_managed_identity" {
 ```
 
 > **Variables to configure:**
+>
 > - `audience`: Your desired value (e.g., `kubernetes`)
 > - `managed_identity_id`: The Subject copied from Tharsis in Step 1
 > - `tharsis_oidc_issuer_url`: Your Tharsis instance URL
-
 
 ## Update a managed identity
 

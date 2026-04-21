@@ -1,6 +1,17 @@
 ---
 title: Runner Agents
 description: "All about runner agents"
+keywords:
+  [
+    tharsis,
+    runner agents,
+    job executor,
+    shared runner,
+    group runner,
+    Docker,
+    Kubernetes,
+    ECS,
+  ]
 ---
 
 ## What are runner agents?
@@ -11,13 +22,38 @@ Runner agents are responsible for launching Terraform jobs that deploy your infr
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
 :::
 
+## How runs are executed
+
+```mermaid
+sequenceDiagram
+    participant User
+    participant API as Tharsis API
+    participant Runner as Runner Agent
+    participant Executor as Job Executor
+    participant Cloud as Cloud Provider
+
+    User->>API: Create run (plan/apply)
+    API->>API: Queue job
+    Runner->>API: Claim job (via service account)
+    API-->>Runner: Job ID + token
+    Runner->>Executor: Launch job container
+    Executor->>API: Get run variables
+    Executor->>API: Initialize managed identities
+    API-->>Executor: Cloud credentials
+    Executor->>API: Download Terraform config
+    Executor->>Executor: terraform init & plan/apply
+    Executor->>Cloud: Deploy resources
+    Executor->>API: Upload plan cache / state version
+    Executor-->>Runner: Job complete
+```
+
 ## Shared runner agents
 
 Shared runner agents are created via the Tharsis API configuration and are available as part of the API's process. By default, if no runner agents are configured at the group level, the shared runner agents will be used instead.
 
 ## Group runner agents
 
-A runner agent launches Terraform jobs using the configured job executor and authenticates with the Tharsis API using a [service account](/docs/guides/overviews/service_accounts.md#what-are-service-accounts).
+A runner agent launches Terraform jobs using the configured job executor and authenticates with the Tharsis API using a [service account](/docs/guides/service_accounts.md#what-are-service-accounts).
 
 ![Flowchart of Runner agent and service account interaction](/img/runner_agents/flowchart.png "Runner Agent, Job Executor, Service Account and the Tharsis API.")
 
@@ -188,7 +224,7 @@ Service accounts are essential for a runner agent to authenticate with the Thars
 
 ### What is a service account and how do I create one?
 
-We're glad you asked! See [here](/docs/guides/overviews/service_accounts.md).
+We're glad you asked! See [here](/docs/guides/service_accounts.md).
 
 ### What job dispatcher types does the jobs executor plugin support?
 
