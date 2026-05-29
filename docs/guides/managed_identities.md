@@ -197,6 +197,36 @@ resource "kubernetes_cluster_role_binding_v1" "tharsis_managed_identity" {
 > - `managed_identity_id`: The Subject copied from Tharsis in Step 1
 > - `tharsis_oidc_issuer_url`: Your Tharsis instance URL
 
+### Tharsis Managed Identity
+
+A Tharsis managed identity is used to assume service account credentials using OIDC federation. It allows a workspace to access resources in a different group without having to store credentials.
+
+- Create the managed identity in the appropriate Tharsis group:
+
+    <details>
+    <summary>Extra step for a group's first managed identity</summary>
+
+  From the group details page, click `Managed Identities` on the left sidebar and then <span style={{ color: '#4db6ac' }}>`NEW MANAGED IDENTITY`</span>:
+  ![Screenshot of the Tharsis UI showing managed identity page](/img/managed_identities/new-managed-identity.png "Managed identity page")
+
+    </details>
+
+  - Select `Tharsis` as type, provide a name, optionally a short memorable description, and enter the **Service Account Path** (the full path of the service account, e.g., `target-group/cross-group-reader`). Click on <span style={{ color: '#4db6ac' }}>`CREATE MANAGED IDENTITY`</span>:
+    ![Screenshot of the Tharsis UI showing new managed identity page](/img/managed_identities/tharsis-tharsis-identity.png "New Tharsis managed identity page")
+
+    :::caution
+    Managed identity names may only contain **digits**, **lowercase** letters with a **hyphen** or an **underscore** in non-leading or trailing positions.
+
+    A managed identity's name **cannot** be changed once created. It will have to be deleted and recreated, which is **dangerous**.
+    :::
+
+  - Once created, the `Trusted Identity Provider` settings will be displayed in the managed identity details page. Add these to the [service account's](/docs/guides/service_accounts.md#create-a-service-account) OIDC trust policy. The `sub` claim ensures that only this specific managed identity can access the service account.
+    ![Screenshot of the Tharsis UI showing trusted identity provider settings](/img/managed_identities/tharsis-trust-provider.png "Trusted Identity Provider settings")
+
+  - [Add the service account as a member](/docs/guides/service_accounts.md#assigning-roles-to-a-service-account) of that group with the **Viewer** or **Deployer** role.
+
+  - The managed identity can now be [assigned](#assign-a-managed-identity) to any workspace within the group.
+
 ## Update a managed identity
 
 1. From the group details page, click `Managed Identities` on the sidebar and select the appropriate managed identity:
@@ -414,3 +444,7 @@ When multiple AWS managed identities are assigned to a workspace, the `profile` 
 ### Can I still assign other managed identities types if multiple AWS managed identities are assigned to a workspace?
 
 Yes, other managed identity types like Azure, Tharsis, etc., can still be assigned to a workspace but they're limited to one per workspace.
+
+### How do I read outputs from a workspace in a different root group?
+
+You need a Tharsis managed identity linked to a service account that has Viewer access in the target group. See [Tharsis Managed Identity](#tharsis-managed-identity) for the full setup.

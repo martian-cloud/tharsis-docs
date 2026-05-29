@@ -314,6 +314,18 @@ This error occurs when a label key exceeds 64 characters or a value exceeds 255 
 
 ---
 
+## Workspace outputs
+
+By default, a workspace can only read outputs from other workspaces within the same group hierarchy (i.e., they share the same root group).
+
+### Cross-group output access
+
+To read outputs from a workspace in a **different** root group, a [Tharsis managed identity](./managed_identities.md#tharsis-managed-identity) must be assigned to the workspace.
+
+See [Tharsis Managed Identity](./managed_identities.md#tharsis-managed-identity) for the full configuration steps.
+
+---
+
 ## Advanced Settings
 
 ### Migrate a workspace
@@ -380,6 +392,10 @@ Once a run completes its apply stage, the run populates the workspace details pa
 ### How do I assign a managed identity to a workspace?
 
 See [assign a managed identity](./managed_identities.md#assign-a-managed-identity) for the Tharsis UI.
+
+### How do I read outputs from a workspace in a different root group?
+
+You need a Tharsis managed identity linked to a service account that has Viewer access in the target group. See [Tharsis Managed Identity](./managed_identities.md#tharsis-managed-identity) for the full setup.
 
 ### What are workspace labels and how do I use them?
 
