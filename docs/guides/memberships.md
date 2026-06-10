@@ -11,7 +11,7 @@ Memberships are the link between group hierarchy, workspaces, users, teams, and 
 
 Groups and workspaces represent namespace types, which memberships are associated with. Within a group hierarchy, memberships are inherited by nested groups and workspaces.
 
-Each membership is associated with a role (viewer, deployer, owner) that determines the access level and therefore the capabilities of the membership. A viewer, for example, is a read-only role and therefore cannot modify any data within namespaces. A deployer or higher, however, can modify (create, update, delete) groups, workspaces, service accounts, etc.
+Each membership is associated with a role (viewer, publisher, deployer, owner) that determines the access level and therefore the capabilities of the membership. A viewer, for example, is a read-only role and therefore cannot modify any data within namespaces. A publisher can manage Terraform modules and providers in the registry but cannot execute runs or manage workspaces. A deployer or higher, however, can modify (create, update, delete) groups, workspaces, service accounts, etc.
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -51,10 +51,16 @@ A team can also be assigned a role, making the process of access control more st
 
 ## Roles and permissions
 
-- Tharsis offers three types of roles out-of-the-box:
+- Tharsis offers four types of roles out-of-the-box:
   - **Viewer**
     - Read-only permissions to group or workspace.
     - Can view all workspace data except sensitive data like the state file and variables.
+  - **Publisher**
+    - Can create, update, and delete Terraform modules and providers in the registry.
+    - Has read-only access to all other resources (same as Viewer).
+    - Cannot execute runs, manage workspaces, or modify variables.
+    - Intended for external teams or CI pipelines that need to publish registry artifacts without triggering infrastructure operations.
+    - Note: [Uploading provider versions](../guides/provider_registry#upload-a-terraform-provider) requires a GPG key to already exist in the group, which must be set up by an Owner or Deployer.
   - **Deployer**
     - Has all required permissions to configure and deploy modules.
     - Can modify (create/update/delete) groups, workspaces, service accounts, etc.
@@ -76,9 +82,14 @@ A team can also be assigned a role, making the process of access control more st
 
 The first membership found while traversing up the hierarchy will take precedence.
 
-### Why do I need an Owner role to edit a service account?
+### What role should I give to a member?
 
-If a service account is a member of any groups or workspaces, only callers with an **Owner** role in **all** of those groups and/or workspaces can edit the service account. This restriction prevents members with lower roles from escalating access by modifying a service account's trust policy (bound claims), which controls how the service account authenticates. If the service account is not yet a member of any groups or workspaces, any caller with sufficient permissions can edit it. See [Service Accounts](./service_accounts.md#update-a-service-account) for more details.
+We recommend following least privilege practices — a member should only have the minimum access needed to carry out their responsibilities.
+
+- **Owner** — Assign to principals who need complete control over a group, including managing memberships, managed identities, and policies. Assign sparingly.
+- **Deployer** — Assign to principals who need to configure and execute infrastructure deployments (plan, apply, teardown), manage workspaces, and create service accounts.
+- **Publisher** — Assign to principals who only need to manage Terraform modules and providers in the registry. Ideal for external teams or CI pipelines that publish artifacts without needing to trigger infrastructure operations.
+- **Viewer** — Assign to principals who only need read-only access to monitor or review resources without making changes.
 
 ### Where can I manage the members for a group or a workspace?
 
