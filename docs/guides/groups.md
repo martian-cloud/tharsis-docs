@@ -24,6 +24,8 @@ flowchart TD
 
 Resources set at a group level are inherited by all child groups and workspaces. Children can override inherited variable values. The following resources support inheritance: variables, managed identities, memberships, service accounts, runner agents, Terraform modules, and VCS providers.
 
+Namespace settings such as [workspace output visibility](./workspaces.md#workspace-output-visibility) are also inherited through the group hierarchy and can be overridden at a lower level.
+
 ```mermaid
 flowchart TD
     A["🏢 top-group<br/>region = us-east-1<br/>AWS managed identity<br/>Runner: group-runner"]

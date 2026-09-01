@@ -55,6 +55,10 @@ The most common use case is sharing outputs between workspaces. Tharsis provides
 - `tharsis_workspace_outputs` — returns outputs as strings
 - `tharsis_workspace_outputs_json` — returns outputs as JSON strings (for complex types)
 
+:::info Visibility restrictions apply
+The target workspace's [output visibility setting](../guides/workspaces.md#workspace-output-visibility) controls which workspaces can read its outputs. If access is denied, Terraform will return an authorization error during plan or apply.
+:::
+
 ### String outputs
 
 ```hcl showLineNumbers title="Read outputs from another workspace"
