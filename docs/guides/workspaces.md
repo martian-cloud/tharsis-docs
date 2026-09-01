@@ -14,7 +14,7 @@ Tharsis UI's workspace details page provides access to the deployed resources, i
 > Learn [more](https://www.terraform.io/language/state/workspaces).
 
 :::tip did you know...
-[Tharsis Terraform Provider](../provider/intro) provides access to a workspace's outputs allowing it to be used in a different deployment.
+Workspaces can share outputs with other workspaces using the [Tharsis Terraform Provider](../provider/intro). Control who can read outputs with [workspace output visibility](#workspace-output-visibility).
 :::
 
 ### What are workspace labels?
@@ -314,15 +314,87 @@ This error occurs when a label key exceeds 64 characters or a value exceeds 255 
 
 ---
 
-## Workspace outputs
+## Workspace output visibility
 
-By default, a workspace can only read outputs from other workspaces within the same group hierarchy (i.e., they share the same root group).
+Workspace output visibility controls which workspaces can read another workspace's outputs. It lets you restrict or widen access depending on your organization's needs — from blocking all access to sharing outputs with any workspace in Tharsis.
 
-### Cross-group output access
+:::tip Have a question?
+Check the [FAQ](#frequently-asked-questions-faq) for common questions about output visibility.
+:::
 
-To read outputs from a workspace in a **different** root group, a [Tharsis managed identity](./managed_identities.md#tharsis-managed-identity) must be assigned to the workspace.
+:::info Self-access is always allowed
+A workspace can always read its own outputs, regardless of the visibility setting.
+:::
 
-See [Tharsis Managed Identity](./managed_identities.md#tharsis-managed-identity) for the full configuration steps.
+### Visibility options
+
+| Option | Who can read outputs |
+| ------ | -------------------- |
+| Block access | No other workspace can read outputs. |
+| Workspaces in this group | Only workspaces in the same immediate parent group. |
+| Workspaces in this group or child groups | Workspaces in the same group as this workspace, or in any of that group's subgroups. |
+| Any workspace in root group | Any workspace that shares the same top-level (root) group. |
+| Any workspace in Tharsis | Any workspace in the entire Tharsis instance. |
+
+:::caution
+Workspace outputs can contain sensitive infrastructure values. Reserve **Any workspace in Tharsis** for shared-services workspaces whose outputs are meant to be available instance-wide.
+:::
+
+### Inheritance
+
+Output visibility is set at the group level and inherited by all child groups and workspaces in the hierarchy. A child group or workspace can override the inherited value with its own setting.
+
+```mermaid
+flowchart TD
+    A["🏢 root-group<br/>Output visibility: Any workspace in root group"]
+    A --> B["📁 team-alpha<br/>Inherits from root-group"]
+    A --> C["📁 team-beta<br/>Override: Workspaces in this group"]
+    B --> D["📦 workspace-a<br/>(inherits) Any workspace in root group"]
+    C --> E["📦 workspace-b<br/>(inherits) Workspaces in this group"]
+    C --> F["📦 workspace-c<br/>Override: Block access"]
+```
+
+The response from the API always tells you the current effective value and which group it was inherited from.
+
+### Configuring output visibility on a group
+
+1. Navigate to the group's **Settings** page.
+2. Find the **Output Visibility Settings** section (between Provider Mirror and Advanced Settings).
+3. If this is not a root group, uncheck **Inherit from parent group** to set a group-specific value.
+4. Select a visibility level from the dropdown.
+5. Click **Save**.
+
+:::note
+Root groups do not show the "Inherit from parent group" checkbox since there is no parent to inherit from.
+:::
+
+Child groups and workspaces that inherit from this group reflect the new value on their next read.
+
+### Configuring output visibility on a workspace
+
+1. Navigate to the workspace's **Settings** page.
+2. Find the **Output Visibility Settings** section (between Provider Mirror and State Settings).
+3. Uncheck **Inherit from parent group** to set a workspace-specific value.
+4. Select a visibility level from the dropdown.
+5. Click **Save**.
+
+### Viewing the inherited value
+
+When a workspace or child group inherits its visibility setting, a chip displays the current value and which group it comes from. This makes it easy to trace where the setting originates without navigating up the hierarchy.
+
+### Referencing outputs from another workspace
+
+Use the `tharsis_workspace_outputs` or `tharsis_workspace_outputs_json` data source to read outputs from another workspace. See [Retrieving workspace outputs](../provider/intro.md#retrieving-workspace-outputs) for the full syntax and attribute reference.
+
+When access is denied (the visibility setting does not allow the requesting workspace to read outputs), Terraform will return an authorization error during the plan or apply stage.
+
+### Example scenarios
+
+- **Block all access** — Set visibility to "Block access" on a workspace that produces sensitive outputs that should not be consumed by other workspaces.
+- **Restrict to same group only** — Set visibility to "Workspaces in this group" on a group that contains sensitive infrastructure workspaces. Only sibling workspaces in the same group can read their outputs.
+- **Share across a group and its children** — Set visibility to "Workspaces in this group or child groups" on a parent group. Workspaces in that group and all of its subgroups can share outputs freely.
+- **Share within the root group hierarchy** — Set visibility to "Any workspace in root group" on a group that provides shared networking or platform outputs. Any workspace under the same root group can read them, but workspaces in other root groups cannot.
+- **Make outputs available to all workspaces** — Set visibility to "Any workspace in Tharsis" on a shared-services group. Any workspace anywhere in Tharsis can read those outputs.
 
 ---
 
@@ -395,7 +467,26 @@ See [assign a managed identity](./managed_identities.md#assign-a-managed-identit
 
 ### How do I read outputs from a workspace in a different root group?
 
-You need a Tharsis managed identity linked to a service account that has Viewer access in the target group. See [Tharsis Managed Identity](./managed_identities.md#tharsis-managed-identity) for the full setup.
+Choose the least permissive approach that meets your need:
+
+- To give access only to specific workspaces, use a [Tharsis managed identity](./managed_identities.md#tharsis-managed-identity) linked to a service account with Viewer access in the target group. This scopes access to that service account. See [Tharsis Managed Identity](./managed_identities.md#tharsis-managed-identity) for the full setup.
+- For a workspace whose outputs are intentionally shared instance-wide, set the output visibility on the target workspace (or its parent group) to **Any workspace in Tharsis**. See [workspace output visibility](#workspace-output-visibility) for details.
+
+:::caution
+**Any workspace in Tharsis** is the broadest option. Use it only when the outputs are meant to be read across the whole instance.
+:::
+
+### Can a workspace always read its own outputs?
+
+Yes. Self-access is always allowed regardless of the visibility setting. A workspace's own runs can always read its outputs.
+
+### What happens if I change the visibility setting on a group?
+
+The new setting applies to all child groups and workspaces that inherit from it, taking effect on their next read. A more restrictive setting removes access for workspaces that no longer meet it. A more permissive setting grants access to the wider audience, including the outputs of every child group and workspace that inherits the setting.
+
+### What error do I see when output access is denied?
+
+Terraform will return an authorization error during the plan or apply stage. The error indicates that the requesting workspace does not have permission to read the target workspace's outputs.
 
 ### What are workspace labels and how do I use them?
 

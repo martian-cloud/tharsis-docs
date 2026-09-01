@@ -447,4 +447,11 @@ Yes, other managed identity types like Azure, Tharsis, etc., can still be assign
 
 ### How do I read outputs from a workspace in a different root group?
 
-You need a Tharsis managed identity linked to a service account that has Viewer access in the target group. See [Tharsis Managed Identity](#tharsis-managed-identity) for the full setup.
+Choose the least permissive approach that meets your need:
+
+- To give access only to specific workspaces, use a Tharsis managed identity linked to a service account with Viewer access in the target group. This scopes access to that service account. See [Tharsis Managed Identity](#tharsis-managed-identity) for the full setup.
+- For a workspace whose outputs are intentionally shared instance-wide, set the output visibility on the target workspace (or its parent group) to **Any workspace in Tharsis**. See [workspace output visibility](./workspaces.md#workspace-output-visibility) for details.
+
+:::caution
+Workspace outputs can contain sensitive infrastructure values. Reserve **Any workspace in Tharsis** for shared-services workspaces whose outputs are meant to be available instance-wide.
+:::
