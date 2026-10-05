@@ -44,6 +44,7 @@ const sidebars = {
         "guides/service_accounts",
         "guides/managed_identities",
         "guides/policies",
+        "guides/cleanup_policies",
         "guides/memberships",
         "guides/notification_preferences",
         "guides/runs",
