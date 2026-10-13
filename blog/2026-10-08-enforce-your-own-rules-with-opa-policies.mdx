@@ -1,0 +1,179 @@
+---
+title: "Enforce Your Own Rules with OPA Policies"
+tags: [tharsis, policies, opa, rego, approvals, governance]
+authors:
+  - name: Muttangi Vinesh
+hide_table_of_contents: false
+---
+
+> _What if you could write your own rule once and have Tharsis check it on every run?_
+
+An OPA policy runs a rule you write against a run, and the rule content decides whether the run passes. Here is what OPA policies can do, with one worked example you can copy end to end.
+
+<!--truncate-->
+
+## What OPA policies can do
+
+You write your own rules in [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/) and publish them as a package. Tharsis then checks them on its own on every matching run, so your group's standards hold without anyone reviewing each run by hand. A few things a rule can do:
+
+- Require approval before a run destroys a resource.
+- Require registry modules to be pinned to a released version.
+- Require secret-looking variables to be marked sensitive.
+- Cap how many resources a single plan may change.
+
+The rest of this post builds the first one end to end: hold any run whose plan would destroy a resource until an approver approves it.
+
+## Why require approval to destroy
+
+A single plan can schedule a resource for deletion without anyone meaning it to: a removed block, a changed module, a wrong target. With nothing to stop it, that plan applies on its own and the resource is gone.
+
+A safer default is to hold any run that would destroy a resource until an approver has approved it.
+
+## How OPA and Soft Mandatory work together
+
+Two Tharsis pieces make this possible:
+
+- An [OPA policy](/guides/policies) runs a rule you write against a run. The rule reads the run's plan and decides whether the run passes.
+- A **Soft Mandatory** policy holds a failing run for approval instead of just blocking it. It is the only enforcement level that supports approvals.
+
+So the recipe is: write a rule that fails whenever the plan would destroy a resource, run it at the stage where the plan is known, and set it to **Soft Mandatory** with approvers. A run that would destroy something waits for approval; a run that destroys nothing passes.
+
+## Step 1: Write the rule
+
+Tharsis evaluates your rule against the run's plan, in the standard `terraform show -json` shape. Each entry under `resource_changes` carries the actions the plan would take, so a rule can flag any change whose action is `delete`.
+
+Here is the rule, in [Rego](https://www.openpolicyagent.org/docs/latest/policy-language/):
+
+```rego title="policy.rego"
+package tharsis.policy
+
+import rego.v1
+
+# Fail the run for every resource the plan would destroy.
+deny contains msg if {
+	resource := input.tfplan.resource_changes[_]
+	resource.change.actions[_] == "delete"
+	msg := sprintf("Resource '%v' (%v) is scheduled for destruction.", [resource.address, resource.type])
+}
+```
+
+A rule named `deny` (or `violation`) flags each resource it finds, and any message it produces fails the run. No messages means the run passes, so a plan that destroys nothing clears this rule on its own.
+
+### The input your rule reads
+
+Your rule runs against an input document that carries the run, the stage, and the plan. Here is that document for a destroy run, with one resource scheduled for deletion. The rule above reads `tfplan.resource_changes` from it, and the destroy-run rule below reads `run.isDestroy`.
+
+```json title="Input document (post-plan destroy run)"
+{
+  "schemaVersion": 1,
+  "stage": "post_plan",
+  "run": {
+    "id": "run-3",
+    "createdBy": "user@example.com",
+    "isDestroy": true,
+    "refresh": true,
+    "refreshOnly": false,
+    "speculative": false,
+    "isAssessmentRun": false,
+    "terraformVersion": "1.9.8",
+    "targetAddresses": null,
+    "moduleSource": null,
+    "moduleVersion": null,
+    "moduleDigest": null,
+    "configurationVersionId": "cv-3",
+    "workspacePath": "my-group/prod",
+    "workspaceId": "ws-2",
+    "variables": []
+  },
+  "tfplan": {
+    "format_version": "1.2",
+    "terraform_version": "1.9.8",
+    "resource_changes": [
+      {
+        "address": "aws_db_instance.main",
+        "type": "aws_db_instance",
+        "name": "main",
+        "provider_name": "registry.terraform.io/hashicorp/aws",
+        "change": {
+          "actions": ["delete"],
+          "before": { "identifier": "prod-db" },
+          "after": null
+        }
+      }
+    ]
+  }
+}
+```
+
+:::tip See the real input before you write a rule
+Two places show you the exact document to work against:
+
+- In the package version editor, click `Show sample inputs` to open the `OPA Input Example` panel, with one example per stage.
+- On a finished run, open the Plan stage and select the `Plan JSON` tab to see that run's real plan, which you can copy to test your rule.
+:::
+
+:::tip Catch a whole destroy run too
+A destroy-type run deletes everything in the workspace. You can catch that on its own, without reading the plan, by checking the run's own flag:
+
+```rego
+deny contains msg if {
+	input.run.isDestroy
+	msg := "Destroy runs are not permitted without approval."
+}
+```
+:::
+
+## Step 2: Publish the rule as a package version
+
+A policy does not hold the rule's text directly; it points at a **package version** in the group's [package registry](/guides/package_registry). Publishing the rule there gives it one versioned place the policy can track and update over time.
+
+1. Open the target group, then click `Packages` on the left sidebar, under the `Registry` section.
+2. Click `New Package`, give it a name such as `destroy-guard`, pick the `OPA` type, choose a visibility, and click `Create Package`.
+3. Open the package, click `Create new version`, enter a version such as `1.0.0`, paste the rule into the editor, and click `Publish`.
+
+## Step 3: Create the policy
+
+Now point a policy at that package version.
+
+1. In the same group, click `Policies` on the left sidebar, under the `Security` section.
+2. Click `Add Policy` and choose the `OPA` type.
+3. Give it a name such as `Require approval to destroy`.
+4. For the package, select `destroy-guard` and set the version constraint to `1.0.0`.
+5. Set the stage to `Post Plan`, so the plan is known by the time the rule runs.
+
+A `Pre Plan` stage runs before any plan exists, so a rule that reads the plan would never fire there. `Post Plan` is where the plan first becomes available.
+
+## Step 4: Set enforcement to Soft Mandatory
+
+The enforcement level decides what a failure does. Set the `Apply Runs` level to `Soft Mandatory`. This level blocks the run until the required approvals are in, or until someone with permission overrides it.
+
+## Step 5: Add approvals
+
+On the same policy, set the approvals:
+
+- `Required Approvals`: how many approvals are needed, for example `1`.
+- `Allowed Approvers`: the users, teams, or service accounts allowed to approve.
+
+:::important
+You must set both a required count of at least one and at least one approver, or leave both empty. Approvals only apply to a Soft Mandatory policy.
+:::
+
+Save the policy.
+
+## What happens on a run
+
+With the policy in place:
+
+- A run whose plan would destroy a resource stops at the `Post Plan` stage and waits. The run's `OPA Policy Results` panel shows it as `Awaiting Override`, and the rule's message names the resource.
+- An approver finds the waiting run in the `Awaiting My Approval` inbox. The home page also shows an `Awaiting My Approval` panel with a count, linking to the same inbox.
+- Once the required number of approvals is in, the block clears and the run proceeds to apply.
+- A run whose plan destroys nothing passes the policy and continues untouched.
+
+## What you get
+
+A group-wide guarantee that no resource is destroyed without an approver approving it, with no change to the runs that destroy nothing. The rule lives in one versioned package you can update over time, and the policy reaches every workspace in the group and its subgroups.
+
+## Learn More
+
+- The [Policies guide](/guides/policies) for stages, enforcement levels, scope, and approvals.
+- The [Package Registry guide](/guides/package_registry) for publishing and versioning packages.
