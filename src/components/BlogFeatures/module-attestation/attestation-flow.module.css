@@ -1,0 +1,18 @@
+/* Module attestation flow animation (CSS module).
+ *
+ * All motion is SMIL inside the SVG (a looping clock drives each element's
+ * begin). This file only styles the container.
+ */
+
+.flow {
+  margin: 1.5rem 0;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+}
+
+.flow svg {
+  display: block;
+  width: 100%;
+}
