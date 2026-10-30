@@ -1,0 +1,100 @@
+---
+title: "Verify Modules with Module Attestation"
+tags: [tharsis, policies, module attestation, modules, in-toto, governance]
+authors:
+  - name: Muttangi Vinesh
+hide_table_of_contents: false
+---
+
+import { AttestationFlow } from "@site/src/components/BlogFeatures/module-attestation/attestation";
+import { AttestationGate } from "@site/src/components/BlogFeatures/module-attestation/attestationGate";
+
+> _How do you know the module a run deploys is the one you trust, and not a tampered copy?_
+
+Modules get shared and reused, and along the way one can be swapped or changed, a supply chain attack that is easy to miss. A Module Attestation policy guards against this: it checks that the module a run deploys is signed by a key you trust, so a swapped or changed copy does not go unnoticed. Here is what it checks, with the steps to set one up.
+
+<!--truncate-->
+
+<AttestationFlow />
+
+## What a Module Attestation policy checks
+
+Most policies look at what a run changes. A Module Attestation policy looks at where the module came from. It requires the module a run deploys to carry an attestation: a signed statement that this exact module content was signed by a trusted key.
+
+When a run deploys a module, Tharsis checks three things against the policy:
+
+- The signature, against the policy's public key.
+- The module's content, so the signed statement matches the module actually being deployed.
+- The predicate type, when the policy sets one.
+
+If the module carries no attestation, or the signature or content does not match, the policy fails and is handled at its enforcement level. The policy only checks modules from a Tharsis module registry; a run that deploys an uploaded configuration instead has no registry module to verify, so it fails the policy.
+
+## Why use Module Attestation
+
+Use this when you want only modules you have reviewed and signed to be deployable, with any tampered or unsigned module caught before it runs.
+
+## Set up the policy
+
+To see the policy pass, a module version in the registry needs a signed attestation, so the flow is: sign, create the attestation, then create the policy. For publishing modules and versions, see the [Module Registry guide](/guides/module_registry).
+
+### Step 1: Sign the module
+
+An attestation is a signed [in-toto](https://in-toto.io/) statement whose subject is the module version's digest. You produce one with [cosign](https://docs.sigstore.dev/cosign/), which signs the module with your signing key and outputs the attestation as a Base64-encoded string:
+
+```shell title="Sign the module with cosign"
+cosign attest-blob --tlog-upload=false --predicate [predicate.json] --key [key-file] --hash [module sha256sum] [path to the module] | base64 -w 0
+```
+
+Cosign can sign with a local key or a cloud KMS key, so you need not manage a private key by hand. Depending on the cosign version the options may differ slightly; see the [Module Registry guide](/guides/module_registry#creating-an-attestation-with-cosign) for the full detail.
+
+### Step 2: Create the attestation
+
+Create the attestation with the Tharsis CLI. The `-data` value is the Base64-encoded string from cosign:
+
+```bash title="Create the attestation"
+tharsis module create-attestation \
+  -description "signed release of the demo module" \
+  -data "$ATTESTATION" \
+  trn:terraform_module:my-group/demo-module/aws
+```
+
+The attestation attaches to the module version whose digest it signs. Keep the public key that matches your signing key; the policy uses it next.
+
+### Step 3: Create the policy
+
+Open the group, then click `Policies` on the left sidebar under the `Security` section, and add a policy of type `Module Attestation`. Fill in:
+
+- `Public Key`: paste the PEM-encoded public key from your cosign key pair, the one that matches your signing key.
+- `In-Toto Predicate type`: the predicate you signed with, or blank to accept any.
+- `Verify state lineage`: on only if you want the extra state check below.
+- `Stage`: `Pre Plan` or `Pre Apply`, the only two offered, since the module is verified before it is used.
+- Enforcement: `Advisory` records, `Soft Mandatory` holds for approval, `Hard Mandatory` blocks outright.
+
+For the full field reference, see the [Policies guide](/guides/policies).
+
+:::note
+Modules are not published through the package registry the way OPA rules are. A module lives in the [module registry](/guides/module_registry), and its attestations are created with the CLI.
+:::
+
+## What happens on a run
+
+<AttestationGate />
+
+When a run deploys a module from the registry, a `Module Attestation Policy Results` panel appears at the policy's stage.
+
+- A module that carries a valid attestation signed by the policy's key, with a matching predicate type, passes.
+- A module with no attestation fails, with the finding `no attestations found for this module version`.
+- When a module carries attestations but none satisfy the policy, the finding is `no attestation satisfies the module attestation policy (...)`, with the reason inside the parentheses, such as `signature is not valid for required public key`.
+- A run that deploys an uploaded configuration rather than a registry module fails, with the finding that the run's module must come from a Tharsis module registry.
+
+Under `Soft Mandatory`, a failing run waits as `Awaiting Override` until an approver approves it or someone with permission overrides it. Under `Hard Mandatory`, it fails outright with no way through.
+
+## Verify state lineage
+
+`Verify state lineage` adds a second requirement: the workspace's current state must have been written by a run that used the same module source. The check fails when the state came from a different module, or when it was written by a manual push rather than a run. It is handled at the policy's enforcement level. Use it when you want a workspace to stay with the module it was built from, not just any signed module.
+
+## Learn More
+
+- The [Policies guide](/guides/policies) for stages, enforcement levels, scope, and approvals.
+- The [Module Registry guide](/guides/module_registry) for publishing modules and versions.
+- The [module create-attestation subcommand](/cli/tharsis/commands#module-create-attestation-subcommand) for creating an attestation.
