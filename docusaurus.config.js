@@ -79,6 +79,30 @@ const config = {
 
     headTags: [
         {
+            tagName: 'meta',
+            attributes: {
+                'http-equiv': 'Content-Security-Policy',
+                content: [
+                    "default-src 'self'",
+                    // Docusaurus injects inline runtime/theme scripts and uses eval in dev; keep unsafe-* so the site functions.
+                    // YouTube iframe (quickstart embed) pulls in the youtube.com player script.
+                    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.youtube.com",
+                    "style-src 'self' 'unsafe-inline'",
+                    // YouTube video thumbnails are served from i.ytimg.com.
+                    "img-src 'self' data: https://i.ytimg.com",
+                    "font-src 'self' data:",
+                    // Allow the local search index and dev websocket (HMR) connections.
+                    "connect-src 'self'",
+                    // YouTube embed iframe (docs/quickstart.md).
+                    "frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com",
+                    "frame-ancestors 'self'",
+                    "object-src 'none'",
+                    "base-uri 'self'",
+                    "form-action 'self'",
+                ].join('; '),
+            },
+        },
+        {
             tagName: 'script',
             attributes: { type: 'application/ld+json' },
             innerHTML: JSON.stringify({
