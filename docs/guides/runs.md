@@ -59,6 +59,30 @@ Runs can be created directly via the UI or the [Tharsis-CLI](../cli/tharsis/intr
 
 ![Screenshot of the Tharsis UI page - Create Run final page](/img/runs/create-run-final.png "Create Run final page")
 
+### Run options
+
+The create run form shows two options for module and configuration version runs:
+
+- **Auto Apply**: the run applies automatically once the plan completes successfully, without waiting for manual approval. This option is not available for plan-only runs.
+- **Refresh Only**: the run only updates Terraform state to reflect real infrastructure. No resources are created, changed, or destroyed.
+
+### Unused run variables
+
+On the run's `VARIABLES` tab, a Terraform variable that is not used in the run shows a `Not used` marker. The list hides unused variables by default. Use the `Show All Variables` or `Hide Unused Variables` option to change what is shown. This marker is for information only; there is nothing to set.
+
+### Check results
+
+When a run's plan or apply finishes, the run details page shows the `Check Results` for that stage. A workspace's current check results also appear on the `Checks` tab of the workspace page. Each check has one of four statuses:
+
+- **Pass**: the check assertion condition evaluated to true.
+- **Fail**: the check assertion condition evaluated to false.
+- **Error**: Terraform could not evaluate the check condition.
+- **Unknown**: the check result could not be determined.
+
+### Outdated job executor
+
+A run stage or job that ran with an older job executor shows an advisory that the job used an older version which does not have all the latest capabilities. The advisory appears on the run's plan and apply stages and on the job details page.
+
 ## Cancel a run in progress
 
 1. From the run details page of an active run, click the <span style={{ color: '#f44336' }}>CANCEL</span> button in the upper right-hand corner. That will initiate the process to gracefully cancel the run.

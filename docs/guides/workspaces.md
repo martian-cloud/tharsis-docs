@@ -432,6 +432,10 @@ Proceed with **extreme** caution as force deletion **permanently** removes <u>**
 
 ## Frequently asked questions (FAQ)
 
+### How do I mark a workspace as a favorite?
+
+Use the favorite button on the workspace details page to add it to or remove it from your favorites. See [Marking a favorite](./groups.md#marking-a-favorite).
+
 ### Who can create / update / delete workspaces?
 
 - A deployer or higher (owner, administrator) can create a workspace.

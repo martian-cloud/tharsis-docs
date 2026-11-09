@@ -251,6 +251,17 @@ A Tharsis managed identity is used to assume service account credentials using O
 
    :::
 
+## Move a managed identity
+
+A managed identity can be moved to another group.
+
+1. From the group details page, click `Managed Identities` on the sidebar and select the managed identity.
+
+2. Click on <span style={{ color: '#4db6ac' }}>&#9660;</span> next to <span style={{ color: '#4db6ac' }}>`EDIT`</span>, then `Move Managed Identity`, choose the target group, and confirm.
+   ![Screenshot of the Tharsis UI showing move managed identity menu item](/img/managed_identities/move-managed-identity.png "Moving a managed identity")
+
+A managed identity cannot be moved when an alias of it is in the target group, or in a group above or below the target group, or when the identity is assigned to workspaces outside the target group.
+
 ## Assign a managed identity
 
 1. Navigate to the workspace where this managed identity will be used, and click on `Managed Identities` on the left sidebar and search for a managed identity in the search box.
