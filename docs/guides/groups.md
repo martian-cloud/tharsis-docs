@@ -72,6 +72,14 @@ Groups can be created directly via the UI or the [Tharsis-CLI](../cli/tharsis/in
 2. Provide a new group description (can be empty) and click <span style={{ color: '#4db6ac' }}>`SAVE CHANGES`</span>:
    ![Screenshot of the Tharsis UI showing group settings page](/img/groups/update-group-description.png "Settings page")
 
+## Viewing namespaces
+
+The group page lists the namespaces it contains. By default it shows a tree view, which lists one level at a time and expands in place. Use the view toggle to switch to a list view, which lists all nested namespaces beneath the group, not only the direct children.
+
+## Marking a favorite
+
+From a group or workspace details page, use the favorite button to add it to or remove it from your favorites. Marking a favorite is available on both group and workspace pages.
+
 ## Advanced Settings
 
 ### Migrate a group
