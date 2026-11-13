@@ -103,6 +103,10 @@ Marking a variable as **sensitive** encrypts its value at rest. Sensitive variab
 
 Use sensitive variables for tokens, passwords, and other secrets. For cloud provider credentials, [managed identities](managed_identities.md) are the preferred approach since they eliminate secrets entirely.
 
+:::note Viewer access to values
+The viewer role can see variables and their values, except values marked sensitive. Seeing a sensitive value needs a separate permission that the viewer role does not have.
+:::
+
 ## Inheritance
 
 Variables set at a group level are inherited by all child groups and workspaces. This allows you to define common configuration once and have it apply everywhere.
