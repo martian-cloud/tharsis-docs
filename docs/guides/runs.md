@@ -83,6 +83,14 @@ When a run's plan or apply finishes, the run details page shows the `Check Resul
 
 A run stage or job that ran with an older job executor shows an advisory that the job used an older version which does not have all the latest capabilities. The advisory appears on the run's plan and apply stages and on the job details page.
 
+### Plan diff
+
+When a plan finishes, the run details page opens the `Changes` tab, which shows the planned changes as a diff. Each resource in the diff is labeled with its action, such as create, update, or delete. Use the search box to find a change by resource or output name.
+
+### Run annotations
+
+A run can carry annotations, each with a key, a value, and an optional link. Annotations are set when the run is created and cannot be changed afterward. A run allows at most 10 annotations, and their total size is limited. The run details sidebar shows them under `Annotations` as chips, and they also appear in run lists; a chip whose link is a valid http or https URL is clickable.
+
 ## Cancel a run in progress
 
 1. From the run details page of an active run, click the <span style={{ color: '#f44336' }}>CANCEL</span> button in the upper right-hand corner. That will initiate the process to gracefully cancel the run.

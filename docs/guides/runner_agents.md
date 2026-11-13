@@ -65,6 +65,15 @@ Service accounts are vital for the communication between a runner agent and the 
 Be sure to [assign a service account](/docs/cli/tharsis/commands.md#runner-agent-assign-service-account-subcommand) to your runner agent to ensure proper operation or job(s) may stay queued forever!
 :::
 
+## Runner tags
+
+Runner tags control which runner agents pick up a namespace's jobs. Tags set on a group or workspace are added to every job created in that namespace, and a job runs only on a runner agent whose tags include all of the job's tags.
+
+Set runner tags from the runner settings of a group or workspace:
+
+- A group or workspace can set its own tags.
+- A subgroup or workspace can instead turn on `Inherit tags from parent group`, which uses the tags from the parent group. When inheriting, the inherited tags are shown. A top-level group has no parent to inherit from.
+
 ## How to run a group runner in a container using AWS IAM authentication
 
 ### In the Tharsis UI, create a service account:
@@ -142,6 +151,8 @@ The following environment variables are required for configuring a runner agent:
 |   `THARSIS_SERVICE_DISCOVERY_HOST`    | Host for service discovery. Generally, the same host as the Tharsis UI.                                                                                                                                                                         |
 | `THARSIS_CREDENTIAL_HELPER_CMD_PATH`  | Path to the [IAM OAuth credential helper](https://gitlab.com/infor-cloud/martian-cloud/iam-oidc-credential-helper). Runner agent will invoke this binary to retrieve an initial token from an OAuth provider to create a service account token. |
 | `THARSIS_CREDENTIAL_HELPER_CMD_ARGS`  | Arguments for the IAM credential helper binary. Currently, it requires: `--region` (default: `us-east-1`), `--endpoint` (service endpoint), and `--aud` (audience).                                                                             |
+|          `THARSIS_AUTH_METHOD`        | Authentication method for the runner agent. Choose `kubernetes_service_account_token` or `credential_helper`.                                                                                                                                   |
+| `THARSIS_KUBERNETES_SERVICE_ACCOUNT_TOKEN_PATH` | Path to the projected Kubernetes service account token file. Required when `THARSIS_AUTH_METHOD` is `kubernetes_service_account_token`. The kubelet rotates the file, so the runner reads the current token on each renewal. |
 |     `THARSIS_JOB_DISPATCHER_TYPE`     | Job dispatcher type. Choose from `ecs`, `kubernetes`, `docker` or `local` (for local instances).                                                                                                                                                |
 | `THARSIS_JOB_DISPATCHER_DATA_API_URL` | Tharsis API URL.                                                                                                                                                                                                                                |
 
