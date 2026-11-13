@@ -11,7 +11,7 @@ Memberships are the link between group hierarchy, workspaces, users, teams, and 
 
 Groups and workspaces represent namespace types, which memberships are associated with. Within a group hierarchy, memberships are inherited by nested groups and workspaces.
 
-Each membership is associated with a role (viewer, publisher, deployer, owner) that determines the access level and therefore the capabilities of the membership. A viewer, for example, is a read-only role and therefore cannot modify any data within namespaces. A publisher can manage Terraform modules and providers in the registry but cannot execute runs or manage workspaces. A deployer or higher, however, can modify (create, update, delete) groups, workspaces, service accounts, etc.
+Each membership is associated with a role (viewer, publisher, deployer, maintainer, owner) that determines the access level and therefore the capabilities of the membership. A viewer, for example, is a read-only role and therefore cannot modify any data within namespaces. A publisher can manage Terraform modules and providers in the registry but cannot execute runs or manage workspaces. A deployer or higher, however, can modify (create, update, delete) groups, workspaces, service accounts, etc.
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -51,10 +51,10 @@ A team can also be assigned a role, making the process of access control more st
 
 ## Roles and permissions
 
-- Tharsis offers four types of roles out-of-the-box:
+- Tharsis offers five types of roles out-of-the-box:
   - **Viewer**
     - Read-only permissions to group or workspace.
-    - Can view all workspace data except sensitive data like the state file and variables.
+    - Can view workspace data, including variables and their values, except values marked sensitive and other sensitive data such as the state file.
   - **Publisher**
     - Can create, update, and delete Terraform modules and providers in the registry.
     - Has read-only access to all other resources (same as Viewer).
@@ -66,6 +66,8 @@ A team can also be assigned a role, making the process of access control more st
     - Can modify (create/update/delete) groups, workspaces, service accounts, etc.
     - Can execute plan, apply, and teardown operations.
     - Primarily for day-to-day DevOps roles.
+  - **Maintainer**
+    - Has everything the Owner role has, except adding, changing, or removing namespace memberships (it can still view them).
   - **Owner**
     - Group admin permissions.
     - Can manage group memberships and managed identities.
@@ -87,6 +89,7 @@ The first membership found while traversing up the hierarchy will take precedenc
 We recommend following least privilege practices — a member should only have the minimum access needed to carry out their responsibilities.
 
 - **Owner** — Assign to principals who need complete control over a group, including managing memberships, managed identities, and policies. Assign sparingly.
+- **Maintainer** — Assign to principals who need everything an owner has except managing memberships, such as a lead who manages resources but should not change who has access.
 - **Deployer** — Assign to principals who need to configure and execute infrastructure deployments (plan, apply, teardown), manage workspaces, and create service accounts.
 - **Publisher** — Assign to principals who only need to manage Terraform modules and providers in the registry. Ideal for external teams or CI pipelines that publish artifacts without needing to trigger infrastructure operations.
 - **Viewer** — Assign to principals who only need read-only access to monitor or review resources without making changes.

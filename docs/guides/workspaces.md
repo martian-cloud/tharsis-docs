@@ -67,6 +67,14 @@ Workspaces can be created directly via the Tharsis UI or the [Tharsis-CLI](../cl
 
 ---
 
+## Workspace role binding
+
+A workspace can be bound to a role on its own <span style={{ color: '#4db6ac' }}>`Workspace Role Binding`</span> page. The binding gives the workspace's runs the permissions of that role in the workspace's direct parent namespace, and in every namespace beneath it through normal downward inheritance. This is how a run in the workspace can manage resources elsewhere in the group hierarchy through the Tharsis Terraform provider.
+
+By default an owner or a maintainer can set a binding, and the person setting it must already hold the role's permissions in the parent namespace. Selecting <span style={{ color: '#4db6ac' }}>`No role`</span> removes the binding.
+
+---
+
 ## Managing Workspace Labels
 
 Workspace labels can be managed through the Tharsis UI or CLI. You can add labels when creating a workspace or manage them on existing workspaces.
