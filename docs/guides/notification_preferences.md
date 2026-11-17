@@ -1,12 +1,12 @@
 ---
-title: Notification Preferences
-description: "What are notification preferences and how do you configure them in Tharsis?"
-keywords: [tharsis, notifications, preferences, email, alerts, custom events]
+title: Preferences
+description: "Manage your notification and security preferences in Tharsis"
+keywords: [tharsis, preferences, notifications, email, alerts, sessions, security]
 ---
 
-## What are notification preferences?
+## What are preferences?
 
-Notification preferences control which email notifications you receive from Tharsis. You can configure them at three levels: global, per-group, and per-workspace. Each level can inherit from the one above it or be set independently.
+The `Preferences` page has two sections: `Notifications`, which controls the email notifications you receive, and `Security`, which lists your active login sessions. Open it from your profile icon in the top-right corner.
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -14,7 +14,11 @@ Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an an
 
 ---
 
-## Preference scope options
+## Notifications
+
+Notification preferences control which email notifications you receive from Tharsis. You can configure them at three levels: global, per-group, and per-workspace. Each level can inherit from the one above it or be set independently.
+
+### Preference scope options
 
 Tharsis provides four scope options that determine which notifications you receive:
 
@@ -25,7 +29,7 @@ Tharsis provides four scope options that determine which notifications you recei
 
 The default preference for all new users is **PARTICIPATE**.
 
-## Custom event options
+### Custom event options
 
 When the scope is set to **CUSTOM**, you can select one or more of the following events:
 
@@ -39,7 +43,7 @@ At least one event must be selected when using the CUSTOM scope.
 If the scope is set to **CUSTOM** and no events are selected, the preference cannot be saved.
 :::
 
-## Preference levels
+### Preference levels
 
 Notification preferences follow an inheritance chain:
 
@@ -58,13 +62,13 @@ flowchart TD
 
 The most specific level always takes priority. If no override is set at the group or workspace level, the preference is inherited from the level above.
 
-## Viewing notification preferences
+### Viewing notification preferences
 
 To view your global notification preference, click on your profile icon in the top-right corner and select **Preferences**. The **Notifications** section displays your current global scope.
 
 For group and workspace preferences, navigate to the target group or workspace. The notification bell icon displays your current preference for that scope. If the preference is inherited, it will indicate where it is inherited from (e.g., "Inherited from global preference" or "Inherited from [group path]").
 
-## Configuring global preferences
+### Configuring global preferences
 
 The global preference is your default notification setting. It applies to all groups and workspaces unless overridden at a lower level.
 
@@ -75,7 +79,7 @@ The global preference is your default notification setting. It applies to all gr
 5. If you selected **CUSTOM**, check the events you want to be notified about.
 6. Click **Save**.
 
-## Configuring per-group preferences
+### Configuring per-group preferences
 
 You can set a notification preference for a specific group. This overrides your global preference for that group and all workspaces within it (unless a workspace has its own override).
 
@@ -89,7 +93,7 @@ You can set a notification preference for a specific group. This overrides your 
 
 To revert to the global preference, check **Inherit notification preference from parent** and click **Save**.
 
-## Configuring per-workspace preferences
+### Configuring per-workspace preferences
 
 You can set a notification preference for a specific workspace. This overrides the group and global preferences for that workspace only.
 
@@ -102,6 +106,12 @@ You can set a notification preference for a specific workspace. This overrides t
 7. Click **Save**.
 
 To revert to the group's preference, check **Inherit notification preference from parent** and click **Save**.
+
+## Security
+
+The `Security` section lists your active login sessions under a `Sessions` heading, so you can review where you are signed in and sign out a device or browser.
+
+Each session shows the device or browser it came from, when it was `Created`, and when it `Expires`, with an `Active` or `Expired` marker. For any session that is still active, select `Revoke` to sign it out: revoking your current session logs you out, and revoking another removes it. When you have no active sessions, the list shows "No active sessions found."
 
 ## Frequently asked questions (FAQ)
 

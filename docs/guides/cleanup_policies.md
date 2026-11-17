@@ -173,7 +173,7 @@ On a namespace that inherits a policy, the row shows <span style={{ color: '#4db
 
 Tharsis sweeps on a recurring schedule in the background, so deletion is not immediate after a policy is saved. Deletions land on the next sweep rather than the moment you save. Turning a policy off, or deleting it, stops its deletions.
 
-Creating, updating, or deleting a cleanup policy is recorded in the namespace activity history, so you can see who changed a policy over time.
+Creating, updating, or deleting a cleanup policy is recorded in the namespace [activity history](./groups.md#activity), so you can see who changed a policy over time.
 
 ## Permissions and access
 
