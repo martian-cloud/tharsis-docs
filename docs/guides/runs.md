@@ -91,6 +91,34 @@ When a plan finishes, the run details page opens the `Changes` tab, which shows 
 
 A run can carry annotations, each with a key, a value, and an optional link. Annotations are set when the run is created and cannot be changed afterward. A run allows at most 10 annotations, and their total size is limited. The run details sidebar shows them under `Annotations` as chips, and they also appear in run lists; a chip whose link is a valid http or https URL is clickable.
 
+### Job details
+
+A run's plan and apply are each carried out by a job. On a run's plan or apply stage, a card shows how many jobs the stage has; when there is at least one, the count is a link that opens a `Jobs` dialog, and selecting a job opens its details page.
+
+The job details page has a `Job Details` sidebar and the job's logs. The sidebar shows:
+
+- **Status**: one of `Pending`, `Queued`, `In Progress`, `Completed`, `Failed`, `Canceling`, or `Canceled`.
+- **Type**: `Plan`, `Apply`, or `Policy`.
+- **Tags**: the job's tags, shown only when the job has tags.
+- **Workspace**: the job's workspace.
+- **Run**: the job's run, shown only when the job has one.
+- **Runner**:
+  - the runner name with a `Shared` marker, for a shared runner
+  - its name as a link, for a group runner
+  - the runner path, when the runner record is not available
+  - `Not assigned`, when neither a runner nor a runner path is recorded
+- **Timeline**: the job's timeline.
+
+### Job resource usage
+
+The job details page shows a `Resource usage` card with metrics collected from the job's runtime container. Each metric appears only if it was collected, and a group is hidden if none of its metrics were collected. The metrics are grouped into:
+
+- **Compute**: `CPU time` and `Peak memory`.
+- **Network**: `Received` and `Sent`.
+- **Disk**: `Read` and `Write`.
+
+When a metric has a positive limit, the card shows the used value with a bar, the percentage of the limit used, and the limit itself. Otherwise, it shows only the used value. Only `Peak memory` and the `Network` and `Disk` metrics can have a limit, so `CPU time` always shows only the used value. When the job reported no resource usage, the card does not appear.
+
 ## Cancel a run in progress
 
 1. From the run details page of an active run, click the <span style={{ color: '#f44336' }}>CANCEL</span> button in the upper right-hand corner. That will initiate the process to gracefully cancel the run.
