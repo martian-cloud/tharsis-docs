@@ -35,7 +35,7 @@ flowchart TD
     C --> E["📦 app-workspace<br/>✅ region = us-east-1<br/>✅ AWS identity<br/>✅ group-runner"]
 ```
 
-Tharsis UI's groups page provides access to activity events, runs, variables, managed identities, runner agents, service accounts, Terraform modules, VCS providers, federated registries, provider mirror, GPG keys, members, and settings.
+Tharsis UI's groups page provides access to activity, runs, variables, managed identities, runner agents, service accounts, Terraform modules, VCS providers, federated registries, provider mirror, GPG keys, members, and settings.
 
 :::tip Have a question?
 Check the [FAQ](#frequently-asked-questions-faq) to see if there's already an answer.
@@ -79,6 +79,12 @@ The group page lists the namespaces it contains. By default it shows a tree view
 ## Marking a favorite
 
 From a group or workspace details page, use the favorite button to add it to or remove it from your favorites. Marking a favorite is available on both group and workspace pages.
+
+## Activity
+
+A group and a workspace each have an `Activity` view in the left sidebar that lists the actions taken in that namespace. The home page also shows recent activity from the groups and workspaces you can access.
+
+Each entry shows who performed the action, what they did, the resource it affected, and when. The actor is a user, shown by username, or a service account, shown by its resource path. Entries cover creating, updating, and deleting resources, membership changes, and run activity such as a run created or canceled.
 
 ## Advanced Settings
 

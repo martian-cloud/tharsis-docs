@@ -231,7 +231,7 @@ Each workspace has an `Assigned Policies` view that lists the policies that appl
 
 ## Activity
 
-Policy, package, and approval actions appear in the group's activity history, so you can see who created, changed, or acted on a policy or package over time.
+Policy, package, and approval actions appear in the group's [activity history](./groups.md#activity), so you can see who created, changed, or acted on a policy or package over time.
 
 
 ## Permissions and access
