@@ -4,6 +4,7 @@ const { themes } = require('prism-react-renderer');
 const lightCodeTheme = themes.github;
 const darkCodeTheme = themes.nightOwl;
 const defaultURI = "http://localhost:3000";
+const EVENT = "thanksgiving";
 
 const fs = require('fs');
 const path = require('path');
@@ -77,7 +78,18 @@ const config = {
 
     favicon: "img/tharsis-logo.svg",
 
+    customFields: {
+        // One of: default | halloween | independence | thanksgiving | christmas | newyear (see src/css/events.css)
+        event: EVENT,
+    },
+
     headTags: [
+        {
+            // Applies the event before first paint so there is no flash of the wrong theme.
+            tagName: 'script',
+            attributes: {},
+            innerHTML: `document.documentElement.setAttribute('data-event', ${JSON.stringify(EVENT)});`,
+        },
         {
             tagName: 'meta',
             attributes: {
@@ -186,7 +198,7 @@ const config = {
                     onInlineAuthors: 'ignore',
                 },
                 theme: {
-                    customCss: require.resolve("./src/css/custom.css"),
+                    customCss: [require.resolve("./src/css/events.css"), require.resolve("./src/css/custom.css")],
                 },
             }),
         ],

@@ -1,0 +1,11 @@
+/* Homepage wrapper: owns the page background so the event ambience can sit behind the sections. */
+.page {
+  position: relative;
+  isolation: isolate;
+  background: var(--bg);
+}
+
+.page > section {
+  position: relative;
+  z-index: 1;
+}

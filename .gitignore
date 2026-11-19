@@ -341,3 +341,5 @@ yarn-error.log*
 docs/cli/tharsis/commands.md
 docs/provider/data-sources/
 docs/provider/resources/
+
+.playwright-mcp

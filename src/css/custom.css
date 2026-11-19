@@ -1,3 +1,9 @@
+@import "@fontsource/plus-jakarta-sans/latin-400.css";
+@import "@fontsource/plus-jakarta-sans/latin-600.css";
+@import "@fontsource/plus-jakarta-sans/latin-700.css";
+@import "@fontsource/plus-jakarta-sans/latin-800.css";
+@import "@fontsource/jetbrains-mono/latin-400.css";
+
 /**
  * Any CSS included here will be global. The classic template
  * bundles Infima by default. Infima is a CSS framework designed to
@@ -22,7 +28,8 @@
     --ifm-card-border-radius: 12px;
 
     /* Better typography */
-    --ifm-font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    --ifm-font-family-base: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    --ifm-font-family-monospace: 'JetBrains Mono', SFMono-Regular, Menlo, Consolas, monospace;
     --ifm-line-height-base: 1.6;
 }
 
@@ -56,9 +63,47 @@
     color: inherit;
 }
 
-/* Improved navbar */
+/* Glassy navbar, site-wide */
 .navbar {
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: var(--surface-glass);
+    backdrop-filter: blur(16px) saturate(1.4);
+    -webkit-backdrop-filter: blur(16px) saturate(1.4);
+    border-bottom: 1px solid var(--border-glow);
+    box-shadow: var(--shadow-1);
+}
+
+/* backdrop-filter makes .navbar the containing block for the fixed mobile sidebar, squashing it to navbar height. */
+.navbar.navbar-sidebar--show {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+}
+
+.navbar__logo { position: relative; overflow: visible; }
+.navbar__logo::after {
+    content: "";
+    position: absolute;
+    top: -6px;
+    left: 5px;
+    width: 22px;
+    height: 22px;
+    background: var(--logo-topper) no-repeat center / contain;
+    pointer-events: none;
+}
+
+.navbar__title {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+}
+
+.navbar__link {
+    font-weight: 600;
+}
+
+.navbar__link:focus-visible,
+.navbar__brand:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 8px;
 }
 
 /* Better button styling globally */
@@ -127,45 +172,4 @@ html {
 .header-gitlab-link:hover:before {
     transform: scale(1.1);
     transition: transform 0.2s ease;
-}
-
-/* Center footer logo on mobile */
-@media (max-width: 768px) {
-
-    .footer,
-    .footer *,
-    footer,
-    footer * {
-        text-align: center !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        justify-content: center !important;
-        align-items: center !important;
-    }
-
-    .footer div,
-    .footer img,
-    footer div,
-    footer img {
-        display: block !important;
-        margin: 0 auto 2.5rem auto !important;
-        text-align: center !important;
-    }
-
-    .footer a,
-    footer a {
-        display: block !important;
-        margin: 0 auto !important;
-        text-align: center !important;
-    }
-
-    .footer>* {
-        margin-bottom: 2.5rem !important;
-    }
-
-    .footer section,
-    .footer .container>*,
-    .footer .row>* {
-        margin-bottom: 2.5rem !important;
-    }
 }
