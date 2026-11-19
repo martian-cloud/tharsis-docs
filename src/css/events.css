@@ -1,0 +1,168 @@
+/*
+ * Event themes (halloween, independence, thanksgiving, christmas, newyear, ...)
+ *
+ * The active event is set once in docusaurus.config.js (customFields.event)
+ * and applied to <html data-event="..."> before first paint.
+ * Event theming is orthogonal to Docusaurus light/dark mode ([data-theme]).
+ *
+ * To add an event:
+ *   1. Copy an event block below (light block + dark block) and rename it.
+ *   2. Override only the tokens you want to change; anything omitted falls back to default.
+ *      A color token set in the light block must also be set in the dark block, or dark mode
+ *      inherits the light value (both selectors outrank the default dark block).
+ *   3. Set EVENT in docusaurus.config.js to the new name (it feeds customFields.event).
+ *   4. Optionally add ambience in src/components/EventAmbience (keyed by the same name).
+ *
+ * Events keep the page layout and palette as is; they add small touches through tokens:
+ *   --logo-topper     image perched on the logo (e.g. Santa hat), "none" to disable;
+ *                     40x40 viewBox with the brim centred at (20, 30) so it lands on the logo's summit
+ *   --footer-critter  image in the footer corner (e.g. snowman), "none" to disable
+ *   --particle-1/2    colors of the falling ambience (snow, leaves, bats, confetti)
+ *   --blob-*          optional gentle tint of the backdrop glows
+ *
+ * Rules: components and CSS modules must only reference these tokens, never raw colors.
+ * Keep text/background pairs at WCAG AA (4.5:1 body, 3:1 large text) in light and dark.
+ */
+
+/* ---------- default ---------- */
+:root {
+  --accent: #1f7a70;
+  --accent-2: #b04512;
+  --on-accent: #ffffff;
+  --gradient-hero: linear-gradient(120deg, var(--accent), var(--accent-2));
+  --blob-1: rgba(77, 182, 172, 0.55);
+  --blob-2: rgba(255, 170, 120, 0.5);
+  --blob-3: rgba(255, 214, 150, 0.5);
+  --blob-4: rgba(160, 200, 255, 0.4);
+  --bg: #fbf7f2;
+  --surface: #ffffff;
+  --surface-glass: rgba(255, 255, 255, 0.62);
+  --border-glow: rgba(31, 122, 112, 0.22);
+  --text-1: #1c2422;
+  --text-2: #4a4f4c;
+  --text-3: #625b53;
+  --code-bg: #1d2523;
+  --code-text: #e9f1ef;
+  --cta-surface: #ffffff;
+  --cta-text: var(--accent);
+  --footer-bg: #1d2523;
+  --footer-text: #f1f6f4;
+  --footer-muted: #b4c2be;
+  --footer-line: rgba(255, 255, 255, 0.14);
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.07);
+  --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.08), 0 24px 60px rgba(0, 0, 0, 0.14);
+  --logo-topper: none;
+  --footer-critter: none;
+  --particle-1: transparent;
+  --particle-2: transparent;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+:root[data-theme="dark"] {
+  --accent: #5fd0c3;
+  --accent-2: #ffa26b;
+  --on-accent: #0b1412;
+  --blob-1: rgba(40, 150, 138, 0.5);
+  --blob-2: rgba(200, 100, 60, 0.35);
+  --blob-3: rgba(120, 90, 200, 0.3);
+  --blob-4: rgba(60, 140, 200, 0.3);
+  --bg: #0f1618;
+  --surface: #18221f;
+  --surface-glass: rgba(30, 44, 42, 0.6);
+  --border-glow: rgba(95, 208, 195, 0.25);
+  --text-1: #eef5f3;
+  --text-2: #bccac6;
+  --text-3: #9bb0ab;
+  --code-bg: #0a1012;
+  --cta-surface: #0b1412;
+  --footer-bg: #080d10;
+  --shadow-1: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-2: 0 2px 4px rgba(0, 0, 0, 0.08), 0 24px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ---------- christmas ---------- */
+:root[data-event="christmas"] {
+  --blob-1: rgba(110, 190, 200, 0.5);
+  --blob-4: rgba(170, 200, 245, 0.55);
+  --particle-1: #8fb8e6;
+  --particle-2: #b5d0f0;
+  --logo-topper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='rotate(-14 20 20)'%3E%3Cpath d='M6 29C8 11 22 4 33 13 29 15 27 21 29 29Z' fill='%23d62f2f'/%3E%3Crect x='3' y='27' width='30' height='7' rx='3.5' fill='%23ffffff' stroke='%23d5dde6'/%3E%3Ccircle cx='34' cy='13' r='4.5' fill='%23ffffff' stroke='%23d5dde6'/%3E%3C/g%3E%3C/svg%3E");
+  --footer-critter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'%3E%3Cellipse cx='40' cy='95' rx='36' ry='5' fill='%23e8f1fb'/%3E%3Ccircle cx='40' cy='74' r='20' fill='%23ffffff' stroke='%23c9d9ec' stroke-width='2'/%3E%3Ccircle cx='40' cy='47' r='14' fill='%23ffffff' stroke='%23c9d9ec' stroke-width='2'/%3E%3Ccircle cx='40' cy='28' r='10' fill='%23ffffff' stroke='%23c9d9ec' stroke-width='2'/%3E%3Crect x='25' y='17' width='30' height='3' fill='%232b2f3a'/%3E%3Crect x='30' y='6' width='20' height='12' fill='%232b2f3a'/%3E%3Ccircle cx='36' cy='26' r='1.6' fill='%232b2f3a'/%3E%3Ccircle cx='44' cy='26' r='1.6' fill='%232b2f3a'/%3E%3Cpath d='M40 30l12 2-12 2z' fill='%23f08a24'/%3E%3Crect x='28' y='36' width='24' height='5' rx='2.5' fill='%23d62f2f'/%3E%3Ccircle cx='40' cy='50' r='1.8' fill='%232b2f3a'/%3E%3Ccircle cx='40' cy='58' r='1.8' fill='%232b2f3a'/%3E%3Cpath d='M26 48L8 38M54 48L72 38' stroke='%236b4a2b' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+:root[data-event="christmas"][data-theme="dark"] {
+  --blob-1: rgba(50, 130, 170, 0.45);
+  --blob-4: rgba(80, 110, 190, 0.4);
+  --particle-1: #ffffff;
+  --particle-2: #cfe2f8;
+}
+
+/* ---------- halloween ---------- */
+:root[data-event="halloween"] {
+  --blob-1: rgba(139, 92, 246, 0.4);
+  --blob-2: rgba(249, 115, 22, 0.45);
+  --particle-1: #4c1d95;
+  --particle-2: #f97316;
+  --logo-topper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='translate%28-2.3 -0.8%29 rotate%28-12 20 20%29'%3E%3Cpath d='M9 30L21 3 31 30Z' fill='%235b2a9e'/%3E%3Crect x='11' y='22' width='19' height='4' fill='%23f97316'/%3E%3Cellipse cx='20' cy='31' rx='16' ry='4' fill='%233b1d72'/%3E%3C/g%3E%3C/svg%3E");
+  --footer-critter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 90'%3E%3Cpath d='M10 85V40C10 18 26 6 40 6S70 18 70 40V85L60 76 50 85 40 76 30 85 20 76Z' fill='%23ffffff' stroke='%23c9c9d9' stroke-width='2'/%3E%3Ccircle cx='30' cy='38' r='5' fill='%232a1a3c'/%3E%3Ccircle cx='50' cy='38' r='5' fill='%232a1a3c'/%3E%3Cellipse cx='40' cy='54' rx='5' ry='7' fill='%232a1a3c'/%3E%3C/svg%3E");
+}
+
+:root[data-event="halloween"][data-theme="dark"] {
+  --blob-1: rgba(110, 70, 200, 0.4);
+  --blob-2: rgba(200, 90, 20, 0.35);
+  --particle-1: #a78bfa;
+  --particle-2: #fb923c;
+}
+
+/* ---------- new year ---------- */
+:root[data-event="newyear"] {
+  --blob-2: rgba(240, 100, 140, 0.45);
+  --blob-3: rgba(250, 200, 80, 0.5);
+  --particle-1: #d63a73;
+  --particle-2: #e5a21b;
+  --logo-topper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='translate%283.4 -3.6%29 rotate%2814 20 20%29'%3E%3Cpath d='M20 6L8 34h24Z' fill='%23e0457b'/%3E%3Cpath d='M14 22h12M11 29h18' stroke='%23f5b82e' stroke-width='3'/%3E%3Ccircle cx='20' cy='6' r='3.5' fill='%23f5b82e'/%3E%3C/g%3E%3C/svg%3E");
+  --footer-critter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect x='10' y='34' width='60' height='40' rx='4' fill='%23e0457b'/%3E%3Crect x='6' y='24' width='68' height='14' rx='4' fill='%23c2326a'/%3E%3Crect x='35' y='24' width='10' height='50' fill='%23f5b82e'/%3E%3Cpath d='M40 24C30 8 18 14 28 24ZM40 24C50 8 62 14 52 24Z' fill='none' stroke='%23f5b82e' stroke-width='4'/%3E%3C/svg%3E");
+}
+
+:root[data-event="newyear"][data-theme="dark"] {
+  --blob-2: rgba(200, 70, 110, 0.4);
+  --blob-3: rgba(210, 160, 40, 0.35);
+  --particle-1: #ff7aa8;
+  --particle-2: #ffd45c;
+}
+
+/* ---------- thanksgiving ---------- */
+:root[data-event="thanksgiving"] {
+  --blob-2: rgba(240, 150, 60, 0.55);
+  --blob-3: rgba(230, 170, 60, 0.5);
+  --particle-1: #b8421a;
+  --particle-2: #8f5a08;
+  --logo-topper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='translate%28-2.4 1.3%29 rotate%28-12 20 20%29'%3E%3Cpath d='M12 28L14 6H27L29 28Z' fill='%235a3b1f'/%3E%3Crect x='12.5' y='21' width='16' height='5' fill='%231f1a14'/%3E%3Crect x='18' y='20.5' width='5' height='6' fill='none' stroke='%23f5b82e' stroke-width='2'/%3E%3Cellipse cx='20.5' cy='29' rx='16' ry='4' fill='%233d2813'/%3E%3C/g%3E%3C/svg%3E");
+  --footer-critter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Cg transform='rotate%28-60 45 58%29'%3E%3Cellipse cx='45' cy='26' rx='8' ry='22' fill='%23b8421a'/%3E%3C/g%3E%3Cg transform='rotate%28-30 45 58%29'%3E%3Cellipse cx='45' cy='26' rx='8' ry='22' fill='%23e5a21b'/%3E%3C/g%3E%3Cg transform='rotate%280 45 58%29'%3E%3Cellipse cx='45' cy='26' rx='8' ry='22' fill='%238f5a08'/%3E%3C/g%3E%3Cg transform='rotate%2830 45 58%29'%3E%3Cellipse cx='45' cy='26' rx='8' ry='22' fill='%23d9731c'/%3E%3C/g%3E%3Cg transform='rotate%2860 45 58%29'%3E%3Cellipse cx='45' cy='26' rx='8' ry='22' fill='%23c2562b'/%3E%3C/g%3E%3Ccircle cx='45' cy='60' r='18' fill='%238a5a2b'/%3E%3Ccircle cx='45' cy='42' r='9' fill='%238a5a2b'/%3E%3Cpath d='M45 42l8 3-8 3z' fill='%23f5a623'/%3E%3Cellipse cx='48' cy='52' rx='3' ry='5' fill='%23d62f2f'/%3E%3Ccircle cx='41' cy='40' r='1.6' fill='%231f1a14'/%3E%3Cpath d='M38 78v8M52 78v8' stroke='%23f5a623' stroke-width='3' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+:root[data-event="thanksgiving"][data-theme="dark"] {
+  --blob-2: rgba(200, 100, 40, 0.4);
+  --blob-3: rgba(200, 140, 40, 0.35);
+  --particle-1: #f0a35e;
+  --particle-2: #e8c15a;
+}
+
+/* ---------- independence day ---------- */
+:root[data-event="independence"] {
+  --blob-1: rgba(60, 100, 220, 0.4);
+  --blob-2: rgba(230, 60, 70, 0.4);
+  --particle-1: #c42b2b;
+  --particle-2: #2c4fa3;
+  --logo-topper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Cg transform='translate%28-1.6 0.6%29 rotate%28-10 20 20%29'%3E%3Cpath d='M11 29L12 5H28L29 29Z' fill='%232c4fa3'/%3E%3Crect x='11.2' y='22' width='17.6' height='5' fill='%23d62f2f'/%3E%3Cpath d='M20 15l2.2 4.6 5 .6-3.7 3.5 1 5L20 26.2 15.5 28.7l1-5-3.7-3.5 5-.6z' transform='translate%280 -9%29 scale%280.8%29' fill='%23ffffff'/%3E%3Cellipse cx='20' cy='29.5' rx='16' ry='4' fill='%231f3a7a'/%3E%3C/g%3E%3C/svg%3E");
+  --footer-critter: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 100'%3E%3Crect x='10' y='6' width='4' height='92' rx='2' fill='%239aa3b0'/%3E%3Ccircle cx='12' cy='6' r='4' fill='%23f5b82e'/%3E%3Crect x='14' y='10' width='56' height='48' fill='%23ffffff'/%3E%3Crect x='14' y='12' width='56' height='3' fill='%23d62f2f'/%3E%3Crect x='14' y='18' width='56' height='3' fill='%23ffffff'/%3E%3Crect x='14' y='24' width='56' height='3' fill='%23d62f2f'/%3E%3Crect x='14' y='30' width='56' height='3' fill='%23ffffff'/%3E%3Crect x='14' y='36' width='56' height='3' fill='%23d62f2f'/%3E%3Crect x='14' y='42' width='56' height='3' fill='%23ffffff'/%3E%3Crect x='14' y='48' width='56' height='3' fill='%23d62f2f'/%3E%3Crect x='14' y='54' width='56' height='3' fill='%23ffffff'/%3E%3Crect x='14' y='10' width='26' height='27' fill='%232c4fa3'/%3E%3Cg fill='%23ffffff'%3E%3Ccircle cx='20' cy='16' r='1.8'/%3E%3Ccircle cx='27' cy='16' r='1.8'/%3E%3Ccircle cx='34' cy='16' r='1.8'/%3E%3Ccircle cx='23.5' cy='23' r='1.8'/%3E%3Ccircle cx='30.5' cy='23' r='1.8'/%3E%3Ccircle cx='20' cy='30' r='1.8'/%3E%3Ccircle cx='27' cy='30' r='1.8'/%3E%3Ccircle cx='34' cy='30' r='1.8'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+:root[data-event="independence"][data-theme="dark"] {
+  --blob-1: rgba(60, 100, 210, 0.4);
+  --blob-2: rgba(210, 60, 70, 0.35);
+  --particle-1: #ff6b6b;
+  --particle-2: #8fb0ff;
+}

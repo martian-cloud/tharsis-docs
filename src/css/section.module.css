@@ -1,0 +1,21 @@
+/* Shared homepage section styles, pulled into section modules with `composes`. */
+.section { padding: 40px 24px 96px; }
+
+.title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  letter-spacing: -0.03em;
+  font-weight: 800;
+  color: var(--text-1);
+}
+
+/* Fades in once its section has data-in-view="true" (see useInView). */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+[data-in-view="true"] .reveal { opacity: 1; transform: none; }
+
+@media (max-width: 640px) { .section { padding: 24px 20px 72px; } }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }

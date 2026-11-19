@@ -51,7 +51,7 @@ export default function Footer() {
           {/* Links */}
           <div className={styles.footerLinks}>
             {links.map((linkColumn, i) => (
-              <div key={i} className={styles.footerColumn}>
+              <div key={i}>
                 <Heading as="h4" className={styles.footerTitle}>{linkColumn.title}</Heading>
                 <ul className={styles.footerList}>
                   {linkColumn.items.map((item, j) => (

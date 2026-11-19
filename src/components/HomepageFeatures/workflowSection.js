@@ -1,56 +1,30 @@
 import Heading from "@theme/Heading";
+import { useInView } from "../../hooks/useInView";
 import styles from "../../css/workflow-section.module.css";
-import { useScrollAnimation } from "../../hooks/useScrollAnimation";
+
+const STEPS = [
+  { number: "01", title: "Write", description: "Create Terraform configurations with your infrastructure as code." },
+  { number: "02", title: "Deploy", description: "Deploy using Tharsis CLI locally, from CI/CD pipelines, or trigger runs via VCS integration." },
+  { number: "03", title: "Share", description: "Publish modules to private registries for team collaboration." },
+];
 
 export default function WorkflowSection() {
-  const [ref, isVisible] = useScrollAnimation(0.1);
-  const steps = [
-    {
-      number: "01",
-      title: "Write",
-      description:
-        "Create Terraform configurations with your infrastructure as code",
-      icon: "📝",
-    },
-    {
-      number: "02",
-      title: "Deploy",
-      description:
-        "Deploy using Tharsis CLI locally, from CI/CD pipelines, or trigger runs via VCS integration",
-      icon: "🚀",
-    },
-    {
-      number: "03",
-      title: "Share",
-      description:
-        "Publish modules to private registries for team collaboration",
-      icon: "📦",
-    },
-  ];
-
+  const [ref, inView] = useInView();
   return (
-    <section
-      ref={ref}
-      className={`${styles.workflow} ${isVisible ? styles.animate : ""}`}
-    >
+    <section ref={ref} data-in-view={inView} className={styles.workflow}>
       <div className={styles.container}>
-        <Heading as="h2" className={styles.sectionTitle}>
-          Simple. Secure. Scalable.
-        </Heading>
-        <div className={styles.stepsContainer}>
-          {steps.map((step, idx) => (
-            <div key={idx} className={styles.step}>
-              <div className={styles.stepNumber}>{step.number}</div>
-              <div className={styles.stepIcon}>{step.icon}</div>
-              <Heading as="h3" className={styles.stepTitle}>
-                {step.title}
-              </Heading>
-              <p className={styles.stepDescription}>{step.description}</p>
-              {idx < steps.length - 1 && (
-                <div className={styles.connector}></div>
-              )}
-            </div>
-          ))}
+        <Heading as="h2" className={styles.title}>Simple. Secure. Scalable.</Heading>
+        <div className={styles.track}>
+          <span className={styles.line} aria-hidden="true" />
+          <ol className={styles.steps}>
+            {STEPS.map((s, i) => (
+              <li key={s.number} className={styles.step} style={{ "--i": i }}>
+                <span className={styles.badge} aria-hidden="true">{s.number}</span>
+                <Heading as="h3" className={styles.stepTitle}>{s.title}</Heading>
+                <p className={styles.stepText}>{s.description}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </div>
     </section>

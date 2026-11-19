@@ -1,0 +1,42 @@
+.cta { composes: section from "./section.module.css"; padding-top: 0; }
+
+.band {
+  composes: reveal from "./section.module.css";
+  position: relative;
+  overflow: hidden;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 72px 40px;
+  border-radius: 32px;
+  text-align: center;
+  background: var(--gradient-hero);
+  box-shadow: var(--shadow-2);
+}
+
+.glow {
+  position: absolute;
+  width: 380px;
+  height: 380px;
+  right: -80px;
+  top: -120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--blob-4), transparent 70%);
+  filter: blur(30px);
+}
+
+.title { composes: title from "./section.module.css"; position: relative; color: var(--on-accent); }
+.text { position: relative; margin: 14px auto 32px; max-width: 520px; font-size: 1.15rem; color: var(--on-accent); }
+.actions { position: relative; display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }
+
+.solid, .outline { padding: 15px 28px; border-radius: var(--radius-md); font-weight: 700; transition: transform 0.25s ease; }
+.solid:hover, .outline:hover { transform: translateY(-3px); text-decoration: none; }
+.solid { background: var(--cta-surface); color: var(--cta-text); }
+.solid:hover { color: var(--cta-text); }
+.outline { border: 2px solid var(--on-accent); color: var(--on-accent); }
+.outline:hover { color: var(--on-accent); }
+.solid:focus-visible, .outline:focus-visible { outline: 3px solid var(--on-accent); outline-offset: 3px; }
+
+@media (max-width: 640px) { .band { padding: 48px 24px; } }
+@media (prefers-reduced-motion: reduce) {
+  .solid:hover, .outline:hover { transform: none; }
+}
